@@ -435,12 +435,19 @@ function initAdminModeler(wrap, settings) {
   buttonObserver.observe(wrap, { childList: true, subtree: true });
   sanitizeButtons();
 
+  // 1. Capture-phase click interceptor: Ensure any button inside editor cannot submit WordPress #post form
   wrap.addEventListener('click', (e) => {
-    // 1. Ensure any clicked button inside the editor is strictly type="button"
     const button = e.target.closest('button');
-    if (button && button.type !== 'button') {
-      button.type = 'button';
-      button.setAttribute('type', 'button');
+    if (button) {
+      if (button.type !== 'button') {
+        button.type = 'button';
+        button.setAttribute('type', 'button');
+      }
+      // Defense-in-depth: No button inside the BPMN editor wrap is a WordPress post submit button.
+      // If a button inside wrap was clicked with default submit behavior, prevent default immediately!
+      if (button.getAttribute('type') !== 'button' || button.type === 'submit') {
+        e.preventDefault();
+      }
     }
 
     // 2. Prevent anchor tags without valid external link from navigating or reloading the page
@@ -451,7 +458,26 @@ function initAdminModeler(wrap, settings) {
         e.preventDefault();
       }
     }
-  }, false);
+  }, true);
+
+  // 3. Prevent Enter key in any input field (Properties Panel, Search, Modals) from submitting WordPress #post form
+  wrap.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      const tag = (e.target?.tagName || '').toLowerCase();
+      // Allow Enter in textareas and contenteditable elements (multiline notes, direct editing)
+      if (tag === 'textarea' || e.target?.isContentEditable) {
+        return;
+      }
+      // In single-line inputs (e.g. Properties Panel text fields, search, name/id fields), block form submission!
+      if (tag === 'input') {
+        e.preventDefault();
+        e.stopPropagation();
+        if (typeof e.target.blur === 'function') {
+          e.target.blur();
+        }
+      }
+    }
+  }, true);
 
   // Diagnostic logging on linter events for easy debugging in console
   modeler.on('linting.toggle', (event) => {
@@ -1170,11 +1196,32 @@ function initAdminModeler(wrap, settings) {
   const postForm = document.getElementById('post');
   if (postForm) {
     postForm.addEventListener('submit', function(e) {
-      disableUnloadProtection();
-
       if (postForm.dataset.haBpmnSaving === 'true') {
         return; // Allow form submit to proceed on programmatic trigger
       }
+
+      // Check whether this submit was initiated by an intentional WordPress save/publish action
+      const submitter = e.submitter;
+      const isExplicitSubmitter = submitter && (
+        submitter.id === 'publish' ||
+        submitter.id === 'save-post' ||
+        submitter.name === 'publish' ||
+        submitter.name === 'save' ||
+        submitter.classList.contains('ha-btn-save')
+      );
+      const isIntentionalSave = isSaving || isExplicitSubmitter;
+
+      // If the submit was NOT triggered intentionally by WordPress save/publish buttons or Ctrl+S,
+      // block it immediately! This prevents accidental Enter in inputs or canvas controls from submitting
+      // the post and redirecting the user back to the edit.php post overview!
+      if (!isIntentionalSave) {
+        console.warn('[HA-BPMN] Blocked accidental form submission inside editor canvas/controls.');
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        return;
+      }
+
+      disableUnloadProtection();
 
       // Stop default synchronous submission to ensure XML/SVG are saved first
       e.preventDefault();
@@ -1184,7 +1231,6 @@ function initAdminModeler(wrap, settings) {
 
       // Preserve clicked button (e.g. 'publish' or 'save') for WordPress post status transitions
       postForm.querySelectorAll('.ha-bpmn-temp-submitter').forEach(el => el.remove());
-      const submitter = e.submitter;
       if (submitter && submitter.name && !postForm.querySelector('input[type="hidden"][name="' + submitter.name + '"]')) {
         const hiddenBtn = document.createElement('input');
         hiddenBtn.type = 'hidden';

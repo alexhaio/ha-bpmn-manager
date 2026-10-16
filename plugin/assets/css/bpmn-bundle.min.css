@@ -530,15 +530,37 @@
 .bts-icon > svg {
   height: 1em;
 }
+/**
+ * Semantic tokens, copied from `@bpmn-io/theme` to style the components
+ * according to this theme.
+ *
+ * Names and values of the tokens should stay intact with the `@bpmn-io/theme`
+ * source of truth, to ensure matching styles and allow overrides with an
+ * alternative theme.
+ */
+.bio-theme-parent {
+  --bio-surface: hsl(0, 0%, 100%);
+  --bio-border: hsl(225, 10%, 75%);
+  --bio-radius-lg: 4px;
+}
+
 .djs-minimap {
+  --minimap-background-color: color-mix(in srgb, var(--bio-surface) 90%, transparent);
+  --minimap-border-color: var(--bio-border);
+  --minimap-border-radius: var(--bio-radius-lg);
+  --minimap-overlay-background-color: color-mix(in srgb, var(--bio-surface) 20%, transparent);
+
+  /* set apart from the selection accent, so the viewport does not read as a selection */
+  --minimap-viewport-border-color: orange;
+
   position: absolute;
   top: 20px;
   right: 20px;
   z-index: 175; /* keep minimap above canvas overlays (e.g. context pads) but below popup menus */
   overflow: hidden;
-  background-color: rgba(255, 255, 255, 0.9);
-  border: solid 1px #CCC;
-  border-radius: 2px;
+  background-color: var(--minimap-background-color);
+  border: solid 1px var(--minimap-border-color);
+  border-radius: var(--minimap-border-radius);
   box-sizing: border-box;
   user-select: none;
   -moz-user-select: none;
@@ -568,6 +590,22 @@
   text-align: center;
 }
 
+.djs-minimap .toggle {
+  display: block;
+  margin: 0;
+  border: none;
+  background: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.djs-minimap .toggle:focus-visible {
+
+  /* keep focus ring inside, the minimap clips overflow */
+  outline-offset: -2px;
+}
+
 .djs-minimap .toggle:before {
   content: attr(title);
 }
@@ -591,7 +629,7 @@
 
 .djs-minimap .viewport-dom {
   position: absolute;
-  border: solid 2px orange;
+  border: solid 2px var(--minimap-viewport-border-color);
   border-radius: 2px;
   box-sizing: border-box;
   cursor: move;
@@ -607,7 +645,7 @@
   right: 0;
   bottom: 0;
   left: 0;
-  background: rgba(255, 255, 255, 0.2);
+  background: var(--minimap-overlay-background-color);
   pointer-events: none;
 }
 
@@ -895,6 +933,7 @@
   --bio-warning-text: hsl(39, 100%, 33%);
   --bio-warning-surface: hsl(38, 100%, 96%);
   --bio-info: hsl(205, 100%, 40%);
+  --bio-info-marker: var(--bio-info);
   --bio-info-on-inverted: hsl(218, 100%, 74%);
   --bio-focus: hsl(205, 100%, 40%);
   --bio-focus-ring: hsla(205, 100%, 40%, 0.35);
@@ -910,6 +949,9 @@
   --text-base-color: var(--bio-text);
   --text-error-color: var(--bio-danger);
   --text-warning-color: var(--bio-warning-text);
+
+  --diagnostic-action-border-radius: 11px;
+  --diagnostic-icon-color: var(--bio-info-marker);
 
   --accent-color: var(--bio-primary);
   --accent-hover-color: var(--bio-primary-hover);
@@ -1641,11 +1683,19 @@ textarea.bio-properties-panel-input.auto-resize {
   --focus-ring-color: var(--focus-ring-error-color);
 }
 
+.bio-properties-panel-info,
 .bio-properties-panel-warning,
 .bio-properties-panel-error {
+  display: flow-root;
   margin: var(--description-offset) 0;
+  /* reserve the diagnostic action's border + padding, so height stays constant whether it is present or not */
+  min-height: calc(var(--line-height-condensed) + 4px);
   font-size: var(--text-size-small);
   line-height: var(--line-height-condensed);
+}
+
+.bio-properties-panel-info {
+  color: var(--description-color);
 }
 
 .bio-properties-panel-warning {
@@ -1654,6 +1704,43 @@ textarea.bio-properties-panel-input.auto-resize {
 
 .bio-properties-panel-error {
   color: var(--text-error-color);
+}
+
+.bio-properties-panel-diagnostic-icon {
+  float: left;
+  width: 16px;
+  height: 16px;
+  margin-top: 2px;
+  margin-right: 4px;
+  color: var(--diagnostic-icon-color);
+}
+
+.bio-properties-panel-tooltip-wrapper:has(.bio-properties-panel-diagnostic-action) {
+  display: inline-flex;
+  vertical-align: top;
+  margin-left: 4px;
+}
+
+.bio-properties-panel-diagnostic-action {
+  color: var(--accent-color);
+  background-color: transparent;
+  border: 1px solid var(--accent-color);
+  border-radius: var(--diagnostic-action-border-radius);
+  padding: 1px 8px;
+  font-family: inherit;
+  font-size: var(--text-size-small);
+  line-height: var(--line-height-condensed);
+  cursor: pointer;
+}
+
+.bio-properties-panel-diagnostic-action:hover {
+  color: var(--bio-text-on-primary);
+  background-color: var(--accent-color);
+}
+
+.bio-properties-panel-diagnostic-action:focus {
+  outline-offset: 2px;
+  outline-color: var(--focus-outline-color);
 }
 
 .bio-properties-panel-simple {
@@ -2289,6 +2376,11 @@ textarea.bio-properties-panel-input.auto-resize {
   text-decoration-color: currentColor;
 }
 
+/* the diagnostic action is a button, not text that hints at more info */
+.bio-properties-panel-tooltip-wrapper:has(.bio-properties-panel-diagnostic-action) {
+  text-decoration: none;
+}
+
 .bio-properties-panel-tooltip {
   --tooltip-background-color: var(--bio-surface-inverted);
   --tooltip-color: var(--bio-text-on-inverted);
@@ -2871,125 +2963,146 @@ textarea.bio-properties-panel-input.auto-resize {
 .bpmn-icon-default-flow:before { content: '\e8e1'; } /* '' */
 
 /**
+ * Semantic tokens, copied from `@bpmn-io/theme` to style the components
+ * according to this theme.
+ *
+ * Names and values of the tokens should stay intact with the `@bpmn-io/theme`
+ * source of truth, to ensure matching styles and allow overrides with an
+ * alternative theme.
+ */
+.bio-theme-parent {
+  --bio-surface: hsl(0, 0%, 100%);
+  --bio-surface-overlay: hsl(0, 0%, 100%);
+  --bio-surface-subtle: hsl(225, 10%, 97%);
+  --bio-surface-medium: hsl(225, 10%, 95%);
+  --bio-surface-inverted: hsl(0, 0%, 22%);
+  --bio-surface-inverted-subtle: hsl(225, 10%, 35%);
+  --bio-text: hsl(225, 10%, 15%);
+  --bio-text-subtle: hsl(225, 10%, 35%);
+  --bio-text-subtlest: hsl(225, 10%, 55%);
+  --bio-text-on-inverted: hsl(0, 0%, 100%);
+  --bio-border: hsl(225, 10%, 75%);
+  --bio-border-disabled: hsl(225, 10%, 90%);
+  --bio-primary: hsl(205, 100%, 40%);
+  --bio-primary-surface: hsl(205, 100%, 95%);
+  --bio-danger: hsl(360, 100%, 45%);
+  --bio-danger-surface-subtle: hsl(360, 100%, 97%);
+  --bio-selected-surface: var(--bio-surface-medium);
+  --bio-selected-text: var(--bio-text);
+  --bio-focus: hsl(205, 100%, 40%);
+  --bio-focus-surface: hsl(205, 100%, 95%);
+  --bio-canvas-accent: hsl(205, 100%, 40%);
+  --bio-canvas-accent-subtle: hsl(205, 100%, 75%);
+  --bio-shadow: hsla(0, 0%, 0%, 30%);
+  --bio-shadow-subtle: hsla(0, 0%, 0%, 10%);
+  --bio-radius-sm: 2px;
+  --bio-radius-md: 3px;
+  --bio-radius-lg: 4px;
+}
+
+/**
  * color definitions
+ *
+ * Colours resolve through the semantic tokens in `@bpmn-io/theme`; a handful of
+ * values with no matching token stay literal.
  */
 .djs-parent {
-  --color-grey-225-10-15: hsl(225, 10%, 15%);
-  --color-grey-225-10-35: hsl(225, 10%, 35%);
-  --color-grey-225-10-55: hsl(225, 10%, 55%);
-  --color-grey-225-10-75: hsl(225, 10%, 75%);
-  --color-grey-225-10-80: hsl(225, 10%, 80%);
-  --color-grey-225-10-85: hsl(225, 10%, 85%);
-  --color-grey-225-10-90: hsl(225, 10%, 90%);
-  --color-grey-225-10-95: hsl(225, 10%, 95%);
-  --color-grey-225-10-97: hsl(225, 10%, 97%);
 
-  --color-blue-205-100-40: hsl(205, 100%, 40%);
-  --color-blue-205-100-45: hsl(205, 100%, 45%);
-  --color-blue-205-100-45-opacity-30: hsla(205, 100%, 45%, 30%);
-  --color-blue-205-100-50: hsl(205, 100%, 50%);
-  --color-blue-205-100-50-opacity-15: hsla(205, 100%, 50%, 15%);
-  --color-blue-205-100-70: hsl(205, 100%, 75%);
-  --color-blue-205-100-95: hsl(205, 100%, 95%);
+  --button-border-radius: var(--bio-radius-md);
+  --input-border-radius: var(--bio-radius-sm);
+  --surface-border-radius: var(--bio-radius-lg);
 
-  --color-green-150-86-44: hsl(150, 86%, 44%);
+  --canvas-fill-color: var(--bio-surface);
 
-  --color-red-360-100-40: hsl(360, 100%, 40%);
-  --color-red-360-100-45: hsl(360, 100%, 45%);
-  --color-red-360-100-92: hsl(360, 100%, 92%);
-  --color-red-360-100-97: hsl(360, 100%, 97%);
+  --accent-color: var(--bio-canvas-accent);
 
-  --color-white: hsl(0, 0%, 100%);
-  --color-black: hsl(0, 0%, 0%);
-  --color-black-opacity-10: hsla(0, 0%, 0%, 10%);
-  --color-black-opacity-30: hsla(0, 0%, 0%, 30%);
-
-  --canvas-fill-color: var(--color-white);
-
-  --accent-color: var(--color-blue-205-100-40);
-
-  --bendpoint-fill-color: var(--color-blue-205-100-45);
+  --bendpoint-fill-color: var(--bio-canvas-accent);
   --bendpoint-stroke-color: var(--canvas-fill-color);
 
-  --context-pad-entry-background-color: var(--color-white);
-  --context-pad-entry-hover-background-color: var(--color-grey-225-10-95);
+  --context-pad-entry-background-color: var(--bio-surface);
+  --context-pad-entry-hover-background-color: var(--bio-surface-medium);
 
   --element-dragger-color: var(--accent-color);
-  --element-hover-outline-fill-color: var(--color-blue-205-100-45);
   --element-selected-outline-stroke-color: var(--accent-color);
-  --element-selected-outline-secondary-stroke-color: var(--color-blue-205-100-70);
+  --element-selected-outline-secondary-stroke-color: var(--bio-canvas-accent-subtle);
 
-  --lasso-fill-color: var(--color-blue-205-100-50-opacity-15);
+  --lasso-fill-color: color-mix(in srgb, var(--bio-canvas-accent) 15%, transparent);
   --lasso-stroke-color: var(--element-selected-outline-stroke-color);
 
-  --palette-entry-color: var(--color-grey-225-10-15);
-  --palette-entry-hover-color: var(--color-blue-205-100-45);
-  --palette-entry-selected-color: var(--accent-color);
-  --palette-separator-color: var(--color-grey-225-10-75);
-  --palette-toggle-hover-background-color: var(--color-grey-225-10-55);
-  --palette-background-color: var(--color-grey-225-10-97);
-  --palette-border-color: var(--color-grey-225-10-75);
+  --palette-entry-color: var(--bio-text);
+  --palette-entry-hover-color: var(--bio-primary);
+  --palette-entry-selected-color: var(--bio-primary);
+  --palette-separator-color: var(--bio-border);
+  --palette-toggle-hover-background-color: var(--bio-surface-medium);
+  --palette-background-color: var(--bio-surface-subtle);
+  --palette-border-color: var(--bio-border);
 
   --popup-font-family: "IBM Plex Sans", sans-serif;
   --popup-font-size: 14px;
   --popup-secondary-font-size: .9em;
-  --popup-header-entry-selected-color: var(--accent-color);
+  --popup-header-entry-selected-color: var(--bio-primary);
   --popup-header-font-weight: bolder;
-  --popup-header-group-divider-color: var(--color-grey-225-10-75);
-  --popup-background-color: var(--color-white);
+  --popup-header-group-divider-color: var(--bio-border);
+  --popup-background-color: var(--bio-surface-overlay);
   --popup-border-color: transparent;
-  --popup-shadow-color: var(--color-black-opacity-30);
-  --popup-disabled-color: var(--color-grey-225-10-35);
-  --popup-description-color: var(--color-grey-225-10-35);
-  --popup-no-results-color: var(--color-grey-225-10-55);
-  --popup-entry-title-color: var(--color-grey-225-10-55);
-  --popup-entry-hover-color:  var(--color-grey-225-10-95);
-  --popup-search-border-color: var(--color-grey-225-10-75);
-  --popup-search-focus-border-color: var(--accent-color);
-  --popup-search-focus-background-color: var(--color-blue-205-100-95);
-  --popup-tab-color: var(--color-grey-225-10-55);
-  --popup-tab-hover-color: var(--color-grey-225-10-15);
-  --popup-tab-active-color: var(--color-grey-225-10-15);
-  --popup-tab-active-border-color: var(--accent-color);
-  --popup-tab-strip-border-color: var(--color-grey-225-10-90);
-  --popup-tab-focus-border-color: var(--accent-color);
+  --popup-shadow-color: var(--bio-shadow);
+  /* translucent, so the thumb darkens whatever it scrolls over */
+  --popup-scrollbar-thumb-color: rgba(0, 0, 0, 0.2);
+  --popup-button-background-color: var(--bio-surface-overlay);
+  --popup-button-hover-background-color: var(--bio-surface-medium);
+  --popup-disabled-color: var(--bio-text-subtle);
+  --popup-description-color: var(--bio-text-subtle);
+  --popup-no-results-color: var(--bio-text-subtlest);
+  --popup-entry-title-color: var(--bio-text-subtlest);
 
-  --resizer-fill-color: var(--color-blue-205-100-45);
+  --popup-entry-selected-background-color: var(--bio-selected-surface);
+  --popup-entry-selected-color: var(--bio-selected-text);
+  --popup-search-border-color: var(--bio-border);
+  --popup-search-focus-border-color: var(--bio-focus);
+  --popup-search-focus-background-color: var(--bio-focus-surface);
+  --popup-tab-color: var(--bio-text-subtlest);
+  --popup-tab-hover-color: var(--bio-text);
+  --popup-tab-active-color: var(--bio-text);
+  --popup-tab-active-border-color: var(--bio-primary);
+  --popup-tab-strip-border-color: var(--bio-border-disabled);
+  --popup-tab-focus-border-color: var(--bio-focus);
+
+  --resizer-fill-color: var(--bio-canvas-accent);
   --resizer-stroke-color: var(--canvas-fill-color);
 
   --search-font-family: "IBM Plex Sans", sans-serif;
   --search-font-size: 14px;
-  --search-container-background-color: var(--color-white);
-  --search-shadow-color: var(--color-black-opacity-30);
-  --search-input-border-color: var(--color-grey-225-10-75);
-  --search-input-focus-border-color: var(--accent-color);
-  --search-input-focus-background-color: var(--color-blue-205-100-95);
-  --search-result-hover-background-color: var(--color-grey-225-10-95);
-  --search-result-secondary-color: var(--color-grey-225-10-55);
-  --search-preselected-background-color: var(--color-blue-205-100-50-opacity-15);
+  --search-container-background-color: var(--bio-surface-overlay);
+  --search-shadow-color: var(--bio-shadow);
+  --search-input-border-color: var(--bio-border);
+  --search-input-focus-border-color: var(--bio-focus);
+  --search-input-focus-background-color: var(--bio-primary-surface);
+  --search-result-hover-background-color: var(--bio-surface-medium);
+  --search-result-secondary-color: var(--bio-text-subtlest);
+  --search-preselected-background-color: color-mix(in srgb, var(--bio-canvas-accent) 15%, transparent);
 
   --shape-attach-allowed-stroke-color: var(--accent-color);
-  --shape-connect-allowed-fill-color: var(--color-grey-225-10-97);
-  --shape-drop-allowed-fill-color: var(--color-grey-225-10-97);
-  --shape-drop-not-allowed-fill-color: var(--color-red-360-100-97);
+  --shape-connect-allowed-fill-color: var(--bio-surface-subtle);
+  --shape-drop-allowed-fill-color: var(--bio-surface-subtle);
+  --shape-drop-not-allowed-fill-color: var(--bio-danger-surface-subtle);
   --shape-resize-preview-stroke-color: var(--accent-color);
 
-  --snap-line-stroke-color: var(--color-blue-205-100-45-opacity-30);
+  --snap-line-stroke-color: color-mix(in srgb, var(--bio-canvas-accent) 30%, transparent);
 
-  --space-tool-crosshair-stroke-color: var(--color-black);
+  --space-tool-crosshair-stroke-color: var(--bio-text);
 
-  --tooltip-error-background-color: var(--color-red-360-100-97);
-  --tooltip-error-border-color: var(--color-red-360-100-45);
-  --tooltip-error-color: var(--color-red-360-100-45);
+  --tooltip-error-background-color: var(--bio-danger-surface-subtle);
+  --tooltip-error-border-color: var(--bio-danger);
+  --tooltip-error-color: var(--bio-danger);
 
   --hover-tooltip-font-family: "IBM Plex Sans", sans-serif;
   --hover-tooltip-font-size: 12px;
   --hover-tooltip-secondary-font-size: 11px;
-  --hover-tooltip-background-color: var(--color-grey-225-10-15);
-  --hover-tooltip-color: var(--color-white);
-  --hover-tooltip-shadow-color: var(--color-black-opacity-10);
+  --hover-tooltip-background-color: var(--bio-surface-inverted);
+  --hover-tooltip-color: var(--bio-text-on-inverted);
+  --hover-tooltip-shadow-color: var(--bio-shadow-subtle);
 
-  --palette-tooltip-shortcut-background-color: var(--color-grey-225-10-35);
+  --palette-tooltip-shortcut-background-color: var(--bio-surface-inverted-subtle);
 }
 
 /**
@@ -3387,7 +3500,7 @@ textarea.bio-properties-panel-input.auto-resize {
   gap: 6px;
 
   padding: 6px 10px;
-  border-radius: 4px;
+  border-radius: var(--surface-border-radius);
 
   background-color: var(--hover-tooltip-background-color);
   color: var(--hover-tooltip-color);
@@ -3412,7 +3525,7 @@ textarea.bio-properties-panel-input.auto-resize {
 .djs-palette-tooltip-shortcut {
   padding: 1px 5px;
 
-  border-radius: 3px;
+  border-radius: var(--button-border-radius);
 
   background-color: var(--palette-tooltip-shortcut-background-color);
 
@@ -3483,7 +3596,7 @@ textarea.bio-properties-panel-input.auto-resize {
   box-sizing: border-box;
   font-size: var(--popup-font-size);
   padding: 3px 6px 3px 28px;
-  border-radius: 2px;
+  border-radius: var(--input-border-radius);
   border: solid 1px var(--popup-search-border-color);
   line-height: 21px;
 }
@@ -3697,7 +3810,7 @@ textarea.bio-properties-panel-input.auto-resize {
 }
 
 .djs-popup-breadcrumbs-item--back:hover {
-  background: #f2f3f5;
+  background: var(--popup-button-hover-background-color);
 }
 
 .djs-popup-breadcrumbs-item--current {
@@ -3800,7 +3913,8 @@ textarea.bio-properties-panel-input.auto-resize {
 }
 
 .djs-popup .entry.selected {
-  background-color: var(--popup-entry-hover-color);
+  color: var(--popup-entry-selected-color);
+  background-color: var(--popup-entry-selected-background-color);
 }
 
 .djs-popup .entry.disabled {
@@ -3846,7 +3960,7 @@ textarea.bio-properties-panel-input.auto-resize {
 
 .djs-popup *::-webkit-scrollbar-thumb {
   border-radius: 3px;
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: var(--popup-scrollbar-thumb-color);
 }
 
 .djs-popup *::-webkit-scrollbar-track {
@@ -3869,11 +3983,10 @@ textarea.bio-properties-panel-input.auto-resize {
 
 /**
  * The footer holds the keyboard/assistive-technology reachable documentation
- * link. Mouse users get the per-entry `.djs-popup-entry-docs` affordance on
- * hover instead, so the (redundant) footer link is hidden while the results
- * list is hovered and shown during keyboard navigation.
+ * link. Pointer interaction switches the popup to the per-entry
+ * `.djs-popup-entry-docs` affordance instead.
  */
-.djs-popup-results:hover ~ .djs-popup-footer {
+.djs-popup--pointer .djs-popup-footer {
   display: none;
 }
 
@@ -3885,19 +3998,19 @@ textarea.bio-properties-panel-input.auto-resize {
   visibility: hidden;
   padding: 2px 3px;
   color: var(--popup-description-color);
-  background: #fff;
+  background: var(--popup-button-background-color);
   border: 1px solid var(--popup-search-border-color);
   border-radius: 4px;
   cursor: pointer;
   transition: background-color .12s ease, border-color .12s ease, color .12s ease;
 }
 
-.djs-popup-body .entry:hover .djs-popup-entry-docs {
+.djs-popup--pointer .djs-popup-body .entry:hover .djs-popup-entry-docs {
   visibility: visible;
 }
 
 .djs-popup-body .entry .djs-popup-entry-docs:hover {
-  background: #f2f3f5;
+  background: var(--popup-button-hover-background-color);
 }
 
 .djs-popup-entry-docs svg {
@@ -3928,7 +4041,7 @@ textarea.bio-properties-panel-input.auto-resize {
 .djs-palette {
   background: var(--palette-background-color);
   border: solid 1px var(--palette-border-color);
-  border-radius: 2px;
+  border-radius: var(--surface-border-radius);
 }
 
 /**
@@ -4043,7 +4156,7 @@ textarea.bio-properties-panel-input.auto-resize {
 
   background: var(--tooltip-error-background-color);
   border: solid 1px var(--tooltip-error-border-color);
-  border-radius: 2px;
+  border-radius: var(--surface-border-radius);
   color: var(--tooltip-error-color);
   font-size: 12px;
   line-height: 16px;
@@ -4082,7 +4195,7 @@ textarea.bio-properties-panel-input.auto-resize {
 
   font-family: var(--search-font-family);
   font-size: var(--search-font-size);
-  border-radius: 2px;
+  border-radius: var(--surface-border-radius);
   box-shadow: 0px 2px 6px var(--search-shadow-color);
 }
 
@@ -4105,7 +4218,7 @@ textarea.bio-properties-panel-input.auto-resize {
   width: 100%;
   padding: 3px 6px 3px 28px;
   border: 1px solid var(--search-input-border-color);
-  border-radius: 2px;
+  border-radius: var(--input-border-radius);
   box-sizing: border-box;
   line-height: 21px;
 }
@@ -4174,48 +4287,40 @@ textarea.bio-properties-panel-input.auto-resize {
 .djs-element .djs-hit-all {
   cursor: move;
 }
+/**
+ * Semantic tokens, copied from `@bpmn-io/theme` to style the components
+ * according to this theme.
+ *
+ * Names and values of the tokens should stay intact with the `@bpmn-io/theme`
+ * source of truth, to ensure matching styles and allow overrides with an
+ * alternative theme.
+ */
+.bio-theme-parent {
+  --bio-surface-subtle: hsl(225, 10%, 97%);
+  --bio-text-on-primary: hsl(0, 0%, 100%);
+  --bio-border: hsl(225, 10%, 75%);
+  --bio-primary: hsl(205, 100%, 40%);
+  --bio-focus: hsl(205, 100%, 40%);
+  --bio-radius-md: 3px;
+  --bio-radius-lg: 4px;
+}
+
 .bjs-container {
   --bjs-font-family: Arial, sans-serif;
 
-  --color-grey-225-10-15: hsl(225, 10%, 15%);
-  --color-grey-225-10-35: hsl(225, 10%, 35%);
-  --color-grey-225-10-55: hsl(225, 10%, 55%);
-  --color-grey-225-10-75: hsl(225, 10%, 75%);
-  --color-grey-225-10-80: hsl(225, 10%, 80%);
-  --color-grey-225-10-85: hsl(225, 10%, 85%);
-  --color-grey-225-10-90: hsl(225, 10%, 90%);
-  --color-grey-225-10-95: hsl(225, 10%, 95%);
-  --color-grey-225-10-97: hsl(225, 10%, 97%);
-
-  --color-blue-205-100-40: hsl(205, 100%, 40%);
-  --color-blue-205-100-45: hsl(205, 100%, 45%);
-  --color-blue-205-100-45-opacity-30: hsla(205, 100%, 45%, 30%);
-  --color-blue-205-100-50: hsl(205, 100%, 50%);
-  --color-blue-205-100-95: hsl(205, 100%, 95%);
-
-  --color-green-150-86-44: hsl(150, 86%, 44%);
-
-  --color-red-360-100-40: hsl(360, 100%, 40%);
-  --color-red-360-100-45: hsl(360, 100%, 45%);
-  --color-red-360-100-92: hsl(360, 100%, 92%);
-  --color-red-360-100-97: hsl(360, 100%, 97%);
-
-  --color-white: hsl(0, 0%, 100%);
-  --color-black: hsl(0, 0%, 0%);
-  --color-black-opacity-05: hsla(0, 0%, 0%, 5%);
-  --color-black-opacity-10: hsla(0, 0%, 0%, 10%);
-
-  --accent-color: var(--color-blue-205-100-40);
+  --accent-color: var(--bio-primary);
 
   --breadcrumbs-font-family: var(--bjs-font-family);
   --breadcrumbs-item-color: var(--accent-color);
-  --breadcrumbs-arrow-color: var(--color-black);
-  --breadcrumbs-background-color: var(--color-grey-225-10-97);
-  --breadcrumbs-border-color: var(--color-grey-225-10-75);
-  --breadcrumbs-focus-outline-color: var(--accent-color);
-  --drilldown-fill-color: var(--color-white);
+  --breadcrumbs-background-color: var(--bio-surface-subtle);
+  --breadcrumbs-border-color: var(--bio-border);
+  --breadcrumbs-focus-outline-color: var(--bio-focus);
+  --drilldown-fill-color: var(--bio-text-on-primary);
   --drilldown-background-color: var(--accent-color);
-  --drilldown-focus-outline-color: var(--accent-color);
+  --drilldown-focus-outline-color: var(--bio-focus);
+
+  --button-border-radius: var(--bio-radius-md);
+  --surface-border-radius: var(--bio-radius-lg);
 }
 
 .bjs-breadcrumbs {
@@ -4232,7 +4337,7 @@ textarea.bio-properties-panel-input.auto-resize {
   line-height: normal;
   background-color: var(--breadcrumbs-background-color);
   border: solid 1px var(--breadcrumbs-border-color);
-  border-radius: 2px;
+  border-radius: var(--surface-border-radius);
   row-gap: 5px;
 }
 
@@ -4267,7 +4372,6 @@ textarea.bio-properties-panel-input.auto-resize {
 .bjs-breadcrumbs li:not(:first-child)::before {
   content: url("data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"17\" height=\"17\" viewBox=\"0 0 24 24\"><path d=\"M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z\" /><path d=\"M0 0h24v24H0z\" fill=\"none\" /></svg>");
   padding: 0 8px;
-  color: var(--breadcrumbs-arrow-color);
   height: 1em;
 }
 
@@ -4288,7 +4392,7 @@ textarea.bio-properties-panel-input.auto-resize {
 
   cursor: pointer;
   border: none;
-  border-radius: 2px;
+  border-radius: var(--button-border-radius);
 
   fill: var(--drilldown-fill-color);
   background-color: var(--drilldown-background-color);
