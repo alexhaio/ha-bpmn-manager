@@ -22,7 +22,7 @@ class Updater {
 	 *
 	 * @var string
 	 */
-	const GITHUB_REPO = 'mystryx1337/ha-bpmn-manager';
+	const GITHUB_REPO = 'alexhaio/ha-bpmn-manager';
 
 	/**
 	 * Instance of this class.
