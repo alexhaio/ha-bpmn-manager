@@ -103,7 +103,7 @@ class Renderer {
 			$parsed['active'],
 			$parsed['completed'],
 			'false' !== $parsed['search'],
-			$drawer
+			'false' !== $parsed['drawer']
 		);
 	}
 

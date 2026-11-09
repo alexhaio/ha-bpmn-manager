@@ -75,6 +75,7 @@ class Assets {
 				'minimap'    => ! empty( $plugin_settings['module_minimap'] ),
 				'linter'     => ! empty( $plugin_settings['module_linter'] ),
 				'properties' => ! empty( $plugin_settings['module_properties'] ),
+				'quest'      => ! empty( $plugin_settings['module_quest'] ),
 			],
 			'frontend'     => [
 				'defaultHeight' => (int) $plugin_settings['frontend_default_height'],

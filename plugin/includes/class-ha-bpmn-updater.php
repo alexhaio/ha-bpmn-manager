@@ -73,6 +73,15 @@ class Updater {
 
 			$update_checker->setBranch( 'main' );
 
+			// Enable release assets so WordPress downloads the compiled ZIP package (e.g. ha-bpmn-manager.zip).
+			$vcs_api = $update_checker->getVcsApi();
+			if ( is_object( $vcs_api ) && method_exists( $vcs_api, 'enableReleaseAssets' ) ) {
+				$vcs_api->enableReleaseAssets( '/^ha-bpmn-manager.*\.zip$/i' );
+			}
+
+			// Hook into pre_http_request to map repository root contents requests to plugin/ subfolder.
+			add_filter( 'pre_http_request', [ $this, 'filter_github_contents_request' ], 10, 3 );
+
 			$token = defined( 'HA_GITHUB_UPDATE_TOKEN' ) ? HA_GITHUB_UPDATE_TOKEN : '';
 			if ( empty( $token ) && defined( 'GITHUB_ACCESS_TOKEN' ) ) {
 				$token = GITHUB_ACCESS_TOKEN;
@@ -83,6 +92,46 @@ class Updater {
 				$update_checker->setAuthentication( $token );
 			}
 		}
+	}
+
+	/**
+	 * Rewrites GitHub Contents API requests when checking for plugin headers or readme.
+	 *
+	 * Because the plugin files in the Git repository are organized under the plugin/ directory,
+	 * requests from PUC looking for ha-bpmn-manager.php or readme.txt at the repository root
+	 * are routed to plugin/ha-bpmn-manager.php and plugin/readme.txt.
+	 *
+	 * @param false|array|\WP_Error $preempt     Whether to preempt an HTTP request's return value.
+	 * @param array                $parsed_args HTTP request arguments.
+	 * @param string               $url         The request URL.
+	 * @return false|array|\WP_Error
+	 */
+	public function filter_github_contents_request( $preempt, $parsed_args, $url ) {
+		if ( false !== $preempt || ! is_string( $url ) ) {
+			return $preempt;
+		}
+
+		$repo_target = 'api.github.com/repos/' . self::GITHUB_REPO . '/contents/';
+		if ( false === strpos( $url, $repo_target ) ) {
+			return false;
+		}
+
+		$patterns = [
+			'/contents/ha-bpmn-manager.php' => '/contents/plugin/ha-bpmn-manager.php',
+			'/contents/readme.txt'          => '/contents/plugin/readme.txt',
+		];
+
+		foreach ( $patterns as $search => $replace ) {
+			if ( false !== strpos( $url, $search ) ) {
+				$new_url = str_replace( $search, $replace, $url );
+				remove_filter( 'pre_http_request', [ $this, 'filter_github_contents_request' ], 10 );
+				$response = wp_remote_get( $new_url, $parsed_args );
+				add_filter( 'pre_http_request', [ $this, 'filter_github_contents_request' ], 10, 3 );
+				return $response;
+			}
+		}
+
+		return false;
 	}
 }
 

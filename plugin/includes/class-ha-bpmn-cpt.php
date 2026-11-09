@@ -76,6 +76,7 @@ class CPT {
 			'module_minimap'          => '1',
 			'module_linter'           => '1',
 			'module_properties'       => '1',
+			'module_quest'            => '1',
 			'default_template_lang'   => 'auto',
 			'frontend_default_height' => '600',
 			'frontend_allow_zoom'     => '1',
@@ -400,11 +401,13 @@ class CPT {
 						<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
 						<span><?php esc_html_e( 'Templates', 'ha-bpmn-manager' ); ?></span>
 					</button>
+					<?php if ( ! empty( $settings['modules']['quest'] ) ) : ?>
 					<button type="button" class="button ha-btn-quest" title="<?php esc_attr_e( 'Interactive Guide & BPMN-Quest', 'ha-bpmn-manager' ); ?>" aria-label="<?php esc_attr_e( 'BPMN-Quest', 'ha-bpmn-manager' ); ?>">
 						<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="12" x2="10" y2="12"/><line x1="8" y1="10" x2="8" y2="14"/><line x1="15" y1="13" x2="15.01" y2="13"/><line x1="18" y1="11" x2="18.01" y2="11"/><rect x="2" y="6" width="20" height="12" rx="2"/></svg>
 						<span><?php esc_html_e( 'BPMN-Quest', 'ha-bpmn-manager' ); ?></span>
 						<span class="ha-quest-tag"><?php esc_html_e( 'Tutorial', 'ha-bpmn-manager' ); ?></span>
 					</button>
+					<?php endif; ?>
 					<div class="ha-lang-controls" title="<?php esc_attr_e( 'Benutzersprache manuell wählen (Standard: WordPress-Sprache)', 'ha-bpmn-manager' ); ?>">
 						<select class="ha-select-user-lang">
 							<option value=""><?php esc_html_e( '🌐 Automatisch (WP)', 'ha-bpmn-manager' ); ?></option>
@@ -649,6 +652,7 @@ class CPT {
 			'module_minimap',
 			'module_linter',
 			'module_properties',
+			'module_quest',
 			'frontend_allow_zoom',
 			'frontend_allow_download',
 			'frontend_token_sim',
@@ -934,6 +938,23 @@ class CPT {
 
 							<div class="ha-setting-row">
 								<div class="ha-setting-info">
+									<label class="ha-setting-label" for="module_quest">
+										<?php esc_html_e( 'Interactive Guide & BPMN-Quest (Tutorial)', 'ha-bpmn-manager' ); ?>
+									</label>
+									<p class="ha-setting-desc">
+										<?php esc_html_e( 'Enables the interactive tutorial button, gamified learning companion HUD, step-by-step walkthroughs, and linter challenges in the BPMN editor.', 'ha-bpmn-manager' ); ?>
+									</p>
+								</div>
+								<div class="ha-setting-control">
+									<label class="ha-switch">
+										<input type="checkbox" id="module_quest" name="ha_bpmn_settings[module_quest]" value="1" <?php checked( '1', $settings['module_quest'] ); ?> />
+										<span class="ha-slider"></span>
+									</label>
+								</div>
+							</div>
+
+							<div class="ha-setting-row">
+								<div class="ha-setting-info">
 									<label class="ha-setting-label" for="default_template_lang">
 										<?php esc_html_e( 'Default Template Language', 'ha-bpmn-manager' ); ?>
 									</label>
@@ -1205,6 +1226,15 @@ class CPT {
 							<?php esc_html_e( 'Urkunden-Vorschau öffnen', 'ha-bpmn-manager' ); ?>
 						</button>
 					</div>
+
+					<?php if ( empty( $settings['module_quest'] ) ) : ?>
+					<div class="ha-card" style="background: #fffbeb; border: 1px solid #fef3c7; border-left: 4px solid #f59e0b; margin-bottom: 20px; padding: 14px 18px;">
+						<p style="margin: 0; color: #92400e; font-size: 13px; line-height: 1.5;">
+							<strong><?php esc_html_e( 'Notice:', 'ha-bpmn-manager' ); ?></strong>
+							<?php esc_html_e( 'The Interactive Guide & BPMN-Quest (Tutorial) is currently disabled under „Modeler & Studio Tools“. Your certificate styling and signature settings remain safely saved and will be used as soon as the quest module is re-enabled.', 'ha-bpmn-manager' ); ?>
+						</p>
+					</div>
+					<?php endif; ?>
 
 					<!-- Card 1: Aussteller & Institution -->
 					<div class="ha-card">

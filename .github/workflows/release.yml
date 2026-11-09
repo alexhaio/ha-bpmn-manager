@@ -1,0 +1,134 @@
+name: Package & Release Distribution ZIP
+
+on:
+  push:
+    branches: [ main ]
+    tags: [ 'v*' ]
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Dry run (simulate packaging without creating a GitHub release)'
+        required: false
+        default: false
+        type: boolean
+      force_release:
+        description: 'Force release even if release tag already exists'
+        required: false
+        default: false
+        type: boolean
+
+concurrency:
+  group: release-ha-bpmn-manager
+  cancel-in-progress: false
+
+jobs:
+  quality-gate:
+    name: Pre-Release Quality Gate
+    uses: ./.github/workflows/ci.yml
+
+  release:
+    name: Build & Package Release ZIP
+    needs: quality-gate
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Determine & Verify Target Version
+        id: version_check
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          VERSION=$(grep -i "Stable tag:" plugin/readme.txt | head -n 1 | sed -e 's/.*:[[:space:]]*//' | tr -d '\r\n ')
+          PHP_VERSION=$(grep -i "Version:" plugin/ha-bpmn-manager.php | head -n 1 | sed -e 's/.*:[[:space:]]*//' | tr -d '\r\n ')
+          CONST_VERSION=$(grep -i "define( 'HA_BPMN_VERSION'" plugin/ha-bpmn-manager.php | head -n 1 | sed -e "s/.*'HA_BPMN_VERSION',[[:space:]]*'//" -e "s/'[[:space:]]*);.*//" | tr -d '\r\n ')
+
+          if [ -z "$VERSION" ]; then
+            echo "::error::Could not determine Stable tag from plugin/readme.txt"
+            exit 1
+          fi
+
+          if [ "$VERSION" != "$PHP_VERSION" ] || [ "$VERSION" != "$CONST_VERSION" ]; then
+            echo "::error::Version mismatch: readme.txt ($VERSION) vs header ($PHP_VERSION) vs constant ($CONST_VERSION)"
+            exit 1
+          fi
+
+          TAG="v${VERSION}"
+          echo "Target Version: $VERSION"
+          echo "Target Tag: $TAG"
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "tag=$TAG" >> $GITHUB_OUTPUT
+
+          # Determine whether to create a GitHub Release
+          IS_TAG_PUSH=false
+          if [[ "${{ github.ref }}" == refs/tags/v* ]]; then
+            IS_TAG_PUSH=true
+          fi
+
+          TAG_EXISTS=false
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            TAG_EXISTS=true
+          fi
+
+          FORCE="${{ github.event.inputs.force_release == 'true' || github.event.inputs.force_release == true }}"
+          SHOULD_PUBLISH=false
+
+          if [ "$IS_TAG_PUSH" = true ] || [ "$TAG_EXISTS" = false ] || [ "$FORCE" = true ]; then
+            SHOULD_PUBLISH=true
+          fi
+
+          echo "is_tag_push=$IS_TAG_PUSH" >> $GITHUB_OUTPUT
+          echo "tag_exists=$TAG_EXISTS" >> $GITHUB_OUTPUT
+          echo "should_publish=$SHOULD_PUBLISH" >> $GITHUB_OUTPUT
+
+      - name: Setup Node.js 22 LTS
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+          cache-dependency-path: 'app/package-lock.json'
+
+      - name: Build Fresh Production Assets
+        run: |
+          npm --prefix app ci
+          npm --prefix app run build
+
+      - name: Package Clean Plugin Distribution ZIP
+        run: |
+          VERSION="${{ steps.version_check.outputs.version }}"
+          chmod +x bin/package.sh
+          ./bin/package.sh "${VERSION}"
+
+      - name: Upload Build Artifacts to GitHub Actions Workflow
+        uses: actions/upload-artifact@v4
+        with:
+          name: ha-bpmn-manager-v${{ steps.version_check.outputs.version }}
+          path: |
+            release/ha-bpmn-manager.zip
+            release/ha-bpmn-manager-v${{ steps.version_check.outputs.version }}.zip
+          if-no-files-found: error
+
+      - name: Publish or Update GitHub Release
+        if: ${{ steps.version_check.outputs.should_publish == 'true' && !(github.event.inputs.dry_run == 'true' || github.event.inputs.dry_run == true) }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VERSION: ${{ steps.version_check.outputs.version }}
+          TAG: ${{ steps.version_check.outputs.tag }}
+          TAG_EXISTS: ${{ steps.version_check.outputs.tag_exists }}
+        run: |
+          echo "Publishing Release for $TAG..."
+
+          if [ "$TAG_EXISTS" = true ]; then
+            echo "Release $TAG already exists on GitHub. Uploading updated assets..."
+            gh release upload "$TAG" release/ha-bpmn-manager.zip "release/ha-bpmn-manager-v${VERSION}.zip" --clobber
+          else
+            echo "Creating new GitHub Release $TAG..."
+            gh release create "$TAG" release/ha-bpmn-manager.zip "release/ha-bpmn-manager-v${VERSION}.zip" \
+              --title "HA-BPMN-Manager v${VERSION}" \
+              --generate-notes
+          fi
+          echo "Release and download package successfully published!"

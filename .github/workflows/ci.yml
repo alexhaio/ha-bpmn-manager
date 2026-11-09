@@ -1,0 +1,67 @@
+name: CI Tests & Quality Gate
+
+on:
+  push:
+    branches: [ main ]
+    tags: [ 'v*' ]
+  pull_request:
+    branches: [ main ]
+  workflow_call:
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  php-matrix:
+    name: PHP ${{ matrix.php }} Quality & Automated Tests
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        php: [ '7.4', '8.0', '8.1', '8.2', '8.3', '8.4' ]
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup PHP ${{ matrix.php }}
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: mbstring, json, xml, zip
+          coverage: none
+
+      - name: Lint all PHP files
+        run: |
+          find plugin -name "*.php" -not -path "plugin/vendor/*" -exec php -l {} +
+
+      - name: Run Standalone PHP Test Suite
+        run: |
+          php tests/run_tests.php
+
+  js-tests-and-build:
+    name: Node.js Unit Tests & Bundle Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 22 LTS
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+          cache-dependency-path: 'app/package-lock.json'
+
+      - name: Install npm dependencies
+        run: |
+          npm --prefix app ci
+
+      - name: Run JavaScript Unit Tests
+        run: |
+          npm --prefix app test
+
+      - name: Verify Webpack Production Bundle
+        run: |
+          npm --prefix app run build

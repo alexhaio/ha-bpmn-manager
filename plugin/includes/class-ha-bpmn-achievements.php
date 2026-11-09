@@ -18,6 +18,11 @@ class Achievements {
 	 * Initialisiert Hooks zur Anbindung an ha-achievement-api.
 	 */
 	public static function init() {
+		$settings = CPT::get_plugin_settings();
+		if ( empty( $settings['module_quest'] ) ) {
+			return;
+		}
+
 		// Filtert den Aufgabenkatalog und reichert alle BPMN-Aufgaben mit Quell- und Aktionsdaten an
 		add_filter( 'ha_achievement_registered_tasks', [ __CLASS__, 'filter_registered_tasks' ] );
 		add_filter( 'ha_achievement_registered_sources', [ __CLASS__, 'filter_registered_sources' ] );

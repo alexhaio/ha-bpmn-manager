@@ -70,7 +70,7 @@ import translationsPL from 'bpmn-js-i18n/translations/pl.js';
 import translationsRU from 'bpmn-js-i18n/translations/ru.js';
 import translationsJA from 'bpmn-js-i18n/translations/ja.js';
 import translationsZH from 'bpmn-js-i18n/translations/zn.js';
-import translationsAR from 'bpmn-js-i18n/translations/ar.js';
+const translationsAR = {};
 import translationsEN from 'bpmn-js-i18n/translations/en.js';
 
 const TRANSLATION_DICTS = {
@@ -716,7 +716,7 @@ function initAdminModeler(wrap, settings) {
         setTimeout(() => minimap.open(), 150);
       }
 
-      if (isQuestDiagram(loadedXml)) {
+      if (modulesConfig.quest !== false && isQuestDiagram(loadedXml)) {
         setTimeout(() => {
           const userLang = getActiveLanguage();
           initQuestHUD(wrap, modeler, { lang: userLang });
@@ -732,7 +732,7 @@ function initAdminModeler(wrap, settings) {
       modeler.importXML(fallbackXml).then(() => {
         modeler.get('canvas').zoom('fit-viewport', 'auto');
         updateUndoRedoState();
-        if (isQuestDiagram(fallbackXml)) {
+        if (modulesConfig.quest !== false && isQuestDiagram(fallbackXml)) {
           setTimeout(() => {
             const userLang = getActiveLanguage();
             initQuestHUD(wrap, modeler, { lang: userLang });
@@ -1089,7 +1089,7 @@ function initAdminModeler(wrap, settings) {
   }
 
   // Interactive Quest HUD & Learning Companion
-  if (questBtn) {
+  if (questBtn && modulesConfig.quest !== false) {
     questBtn.addEventListener('click', async (e) => {
       e.preventDefault();
 
@@ -1164,27 +1164,29 @@ function initAdminModeler(wrap, settings) {
       }
       const newLang = getActiveLanguage();
       setActiveModelerLang(newLang);
-      const hud = wrap.__questHUDInstance;
-      if (hud && typeof hud.setLanguage === 'function') {
-        hud.setLanguage(newLang);
-      }
+      if (modulesConfig.quest !== false) {
+        const hud = wrap.__questHUDInstance;
+        if (hud && typeof hud.setLanguage === 'function') {
+          hud.setLanguage(newLang);
+        }
 
-      // If the active diagram is the Quest adventure, live-translate the diagram XML
-      try {
-        const { xml: currentXml } = await modeler.saveXML({ format: false });
-        if (isQuestDiagram(currentXml)) {
-          const localizedQuestXml = getQuestXml(newLang);
-          if (localizedQuestXml) {
-            await modeler.importXML(localizedQuestXml);
-            modeler.get('canvas').zoom('fit-viewport', 'auto');
-            syncXmlToForm();
-            if (hud && typeof hud.goToChapter === 'function') {
-              hud.goToChapter(hud.currentChapterIndex);
+        // If the active diagram is the Quest adventure, live-translate the diagram XML
+        try {
+          const { xml: currentXml } = await modeler.saveXML({ format: false });
+          if (isQuestDiagram(currentXml)) {
+            const localizedQuestXml = getQuestXml(newLang);
+            if (localizedQuestXml) {
+              await modeler.importXML(localizedQuestXml);
+              modeler.get('canvas').zoom('fit-viewport', 'auto');
+              syncXmlToForm();
+              if (hud && typeof hud.goToChapter === 'function') {
+                hud.goToChapter(hud.currentChapterIndex);
+              }
             }
           }
+        } catch (err) {
+          console.warn('[HA-BPMN] Dynamic quest diagram translation warning:', err);
         }
-      } catch (err) {
-        console.warn('[HA-BPMN] Dynamic quest diagram translation warning:', err);
       }
     });
   }
@@ -1270,6 +1272,11 @@ function initAdminModeler(wrap, settings) {
   if (!modulesConfig.properties) {
     if (togglePropBtn) togglePropBtn.style.display = 'none';
     if (propWrapEl) propWrapEl.style.display = 'none';
+  }
+
+  // If quest / tutorial module is disabled, ensure button is hidden
+  if (modulesConfig.quest === false && questBtn) {
+    questBtn.style.display = 'none';
   }
 }
 
