@@ -76,6 +76,8 @@ class Assets {
 				'linter'     => ! empty( $plugin_settings['module_linter'] ),
 				'properties' => ! empty( $plugin_settings['module_properties'] ),
 				'quest'      => ! empty( $plugin_settings['module_quest'] ),
+				'templates'  => ! empty( $plugin_settings['module_templates'] ),
+				'handbook'   => ! empty( $plugin_settings['module_handbook'] ),
 			],
 			'frontend'     => [
 				'defaultHeight' => (int) $plugin_settings['frontend_default_height'],

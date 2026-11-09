@@ -5,7 +5,7 @@ Donate link: https://www.paypal.com/paypalme/edvhacker/6
 Requires at least: 5.8
 Tested up to: 6.7
 Requires PHP: 8.2
-Stable tag: 4.8.4
+Stable tag: 4.8.5
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -84,6 +84,11 @@ Yes. All XML imports (both via file upload and canvas drag-and-drop) are validat
 6. **Token Simulation:** Step-by-step execution simulation with speed selection and logging.
 
 == Changelog ==
+
+= 4.8.5 =
+* **QM Handbook Fix:** Resolved ReferenceError in qm-handbook.js caused by missing i18n parameter declaration, allowing the print and PDF process documentation handbook to open cleanly in all browser environments.
+* **Process Templates & QM Handbook Setting Switches:** Added independent switches in plugin settings ("Modeler & Studio Tools") to enable or disable the Process Templates library and QM Process Handbook buttons in the modeler toolbar.
+* **Robust UI Synchronization:** Gracefully hides toolbar buttons in both server-side PHP templates and client-side JavaScript fallback when modules are deactivated.
 
 = 4.8.4 =
 * **Tutorial & BPMN-Quest Setting Switch:** Added a dedicated admin setting switch in "Modeler & Studio Tools" to enable or disable the interactive tutorial button, gamified companion HUD, and linter challenges.

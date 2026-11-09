@@ -77,6 +77,8 @@ class CPT {
 			'module_linter'           => '1',
 			'module_properties'       => '1',
 			'module_quest'            => '1',
+			'module_templates'        => '1',
+			'module_handbook'         => '1',
 			'default_template_lang'   => 'auto',
 			'frontend_default_height' => '600',
 			'frontend_allow_zoom'     => '1',
@@ -397,10 +399,12 @@ class CPT {
 					</button>
 				</div>
 				<div class="btn-group tool-controls">
+					<?php if ( ! empty( $settings['modules']['templates'] ) ) : ?>
 					<button type="button" class="button ha-btn-templates" title="<?php esc_attr_e( 'Process Templates', 'ha-bpmn-manager' ); ?>" aria-label="<?php esc_attr_e( 'Templates', 'ha-bpmn-manager' ); ?>">
 						<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
 						<span><?php esc_html_e( 'Templates', 'ha-bpmn-manager' ); ?></span>
 					</button>
+					<?php endif; ?>
 					<?php if ( ! empty( $settings['modules']['quest'] ) ) : ?>
 					<button type="button" class="button ha-btn-quest" title="<?php esc_attr_e( 'Interactive Guide & BPMN-Quest', 'ha-bpmn-manager' ); ?>" aria-label="<?php esc_attr_e( 'BPMN-Quest', 'ha-bpmn-manager' ); ?>">
 						<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="12" x2="10" y2="12"/><line x1="8" y1="10" x2="8" y2="14"/><line x1="15" y1="13" x2="15.01" y2="13"/><line x1="18" y1="11" x2="18.01" y2="11"/><rect x="2" y="6" width="20" height="12" rx="2"/></svg>
@@ -462,10 +466,12 @@ class CPT {
 						<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
 						<span><?php esc_html_e( 'History', 'ha-bpmn-manager' ); ?></span>
 					</button>
+					<?php if ( ! empty( $settings['modules']['handbook'] ) ) : ?>
 					<button type="button" class="button ha-btn-qm-handbook" title="<?php esc_attr_e( 'Generate QM Process Handbook (Print/PDF)', 'ha-bpmn-manager' ); ?>">
 						<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
 						<span><?php esc_html_e( 'QM Handbook', 'ha-bpmn-manager' ); ?></span>
 					</button>
+					<?php endif; ?>
 				</div>
 				<div class="btn-group view-controls">
 					<button type="button" class="button ha-btn-fullscreen" title="<?php esc_attr_e( 'Fullscreen / Zen Mode', 'ha-bpmn-manager' ); ?>" aria-label="<?php esc_attr_e( 'Fullscreen', 'ha-bpmn-manager' ); ?>">
@@ -653,6 +659,8 @@ class CPT {
 			'module_linter',
 			'module_properties',
 			'module_quest',
+			'module_templates',
+			'module_handbook',
 			'frontend_allow_zoom',
 			'frontend_allow_download',
 			'frontend_token_sim',
@@ -948,6 +956,40 @@ class CPT {
 								<div class="ha-setting-control">
 									<label class="ha-switch">
 										<input type="checkbox" id="module_quest" name="ha_bpmn_settings[module_quest]" value="1" <?php checked( '1', $settings['module_quest'] ); ?> />
+										<span class="ha-slider"></span>
+									</label>
+								</div>
+							</div>
+
+							<div class="ha-setting-row">
+								<div class="ha-setting-info">
+									<label class="ha-setting-label" for="module_templates">
+										<?php esc_html_e( 'Process Templates Library', 'ha-bpmn-manager' ); ?>
+									</label>
+									<p class="ha-setting-desc">
+										<?php esc_html_e( 'Enables the pre-built business process templates modal and toolbar button (e.g. employee onboarding, invoice approval, change request) to quickly jump-start diagram modeling.', 'ha-bpmn-manager' ); ?>
+									</p>
+								</div>
+								<div class="ha-setting-control">
+									<label class="ha-switch">
+										<input type="checkbox" id="module_templates" name="ha_bpmn_settings[module_templates]" value="1" <?php checked( '1', $settings['module_templates'] ); ?> />
+										<span class="ha-slider"></span>
+									</label>
+								</div>
+							</div>
+
+							<div class="ha-setting-row">
+								<div class="ha-setting-info">
+									<label class="ha-setting-label" for="module_handbook">
+										<?php esc_html_e( 'QM Process Handbook (Print/PDF)', 'ha-bpmn-manager' ); ?>
+									</label>
+									<p class="ha-setting-desc">
+										<?php esc_html_e( 'Enables the QM Handbook generator button in the editor toolbar to export structured, audit-ready process documentation and step tables into a printable browser view.', 'ha-bpmn-manager' ); ?>
+									</p>
+								</div>
+								<div class="ha-setting-control">
+									<label class="ha-switch">
+										<input type="checkbox" id="module_handbook" name="ha_bpmn_settings[module_handbook]" value="1" <?php checked( '1', $settings['module_handbook'] ); ?> />
 										<span class="ha-slider"></span>
 									</label>
 								</div>

@@ -887,7 +887,7 @@ function initAdminModeler(wrap, settings) {
   }
 
   // Templates Modal
-  if (templatesBtn) {
+  if (templatesBtn && modulesConfig.templates !== false) {
     templatesBtn.addEventListener('click', (e) => {
       e.preventDefault();
       showTemplateModal(async (tplXml, tplTitle) => {
@@ -1081,7 +1081,7 @@ function initAdminModeler(wrap, settings) {
   }
 
   // QM Process Handbook
-  if (qmHandbookBtn) {
+  if (qmHandbookBtn && modulesConfig.handbook !== false) {
     qmHandbookBtn.addEventListener('click', (e) => {
       e.preventDefault();
       openQmHandbook(modeler, diagramTitle, i18n);
@@ -1277,6 +1277,16 @@ function initAdminModeler(wrap, settings) {
   // If quest / tutorial module is disabled, ensure button is hidden
   if (modulesConfig.quest === false && questBtn) {
     questBtn.style.display = 'none';
+  }
+
+  // If templates module is disabled, ensure button is hidden
+  if (modulesConfig.templates === false && templatesBtn) {
+    templatesBtn.style.display = 'none';
+  }
+
+  // If QM handbook module is disabled, ensure button is hidden
+  if (modulesConfig.handbook === false && qmHandbookBtn) {
+    qmHandbookBtn.style.display = 'none';
   }
 }
 

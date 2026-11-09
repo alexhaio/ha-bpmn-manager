@@ -32,11 +32,14 @@ const ELEMENT_TYPE_NAMES = {
  *
  * @param {Object} bpmnInstance Modeler or NavigatedViewer instance.
  * @param {string} title Diagram title.
+ * @param {Object} [i18n={}] Localized string overrides from bpmnSettings.
  */
-export async function openQmHandbook(bpmnInstance, title = 'Prozessdokumentation') {
+export async function openQmHandbook(bpmnInstance, title = 'Prozessdokumentation', i18n = {}) {
+  const i18nObj = (i18n && typeof i18n === 'object') ? i18n : {};
+
   let svgContent = '';
   try {
-    if (typeof bpmnInstance.saveSVG === 'function') {
+    if (bpmnInstance && typeof bpmnInstance.saveSVG === 'function') {
       const res = await bpmnInstance.saveSVG();
       svgContent = res.svg;
     }
@@ -45,56 +48,58 @@ export async function openQmHandbook(bpmnInstance, title = 'Prozessdokumentation
   }
 
   // Extract steps from element registry
-  const elementRegistry = bpmnInstance.get('elementRegistry');
+  const elementRegistry = (bpmnInstance && typeof bpmnInstance.get === 'function') ? bpmnInstance.get('elementRegistry') : null;
   const steps = [];
 
-  elementRegistry.forEach(el => {
-    if (!el.businessObject || el.type === 'bpmn:Process' || el.type === 'bpmn:SequenceFlow') {
-      return;
-    }
-
-    const bo = el.businessObject;
-    const typeLabel = ELEMENT_TYPE_NAMES[el.type] || el.type.replace('bpmn:', '');
-    const name = bo.name || '(Ohne Bezeichnung)';
-    
-    // Documentation
-    let doc = '';
-    if (Array.isArray(bo.documentation) && bo.documentation.length > 0) {
-      doc = bo.documentation[0]?.text || '';
-    }
-
-    // Determine parent lane
-    let laneName = '-';
-    let curr = el.parent;
-    while (curr) {
-      if (curr.businessObject && curr.businessObject.$type === 'bpmn:Lane') {
-        laneName = curr.businessObject.name || '-';
-        break;
+  if (elementRegistry && typeof elementRegistry.forEach === 'function') {
+    elementRegistry.forEach(el => {
+      if (!el.businessObject || el.type === 'bpmn:Process' || el.type === 'bpmn:SequenceFlow') {
+        return;
       }
-      if (curr.businessObject && curr.businessObject.$type === 'bpmn:Participant') {
-        laneName = curr.businessObject.name || '-';
+
+      const bo = el.businessObject;
+      const typeLabel = ELEMENT_TYPE_NAMES[el.type] || el.type.replace('bpmn:', '');
+      const name = bo.name || '(Ohne Bezeichnung)';
+      
+      // Documentation
+      let doc = '';
+      if (Array.isArray(bo.documentation) && bo.documentation.length > 0) {
+        doc = bo.documentation[0]?.text || '';
       }
-      curr = curr.parent;
-    }
 
-    // Following elements
-    const outgoing = (bo.outgoing || []).map(flow => {
-      const target = flow.targetRef;
-      const condition = flow.name ? ` [${flow.name}]` : '';
-      return (target && target.name) ? `${target.name}${condition}` : (target ? target.id : '');
-    }).filter(Boolean);
+      // Determine parent lane
+      let laneName = '-';
+      let curr = el.parent;
+      while (curr) {
+        if (curr.businessObject && curr.businessObject.$type === 'bpmn:Lane') {
+          laneName = curr.businessObject.name || '-';
+          break;
+        }
+        if (curr.businessObject && curr.businessObject.$type === 'bpmn:Participant') {
+          laneName = curr.businessObject.name || '-';
+        }
+        curr = curr.parent;
+      }
 
-    steps.push({
-      id: el.id,
-      name,
-      type: typeLabel,
-      lane: laneName,
-      doc,
-      outgoing: outgoing.join(', ') || '-'
+      // Following elements
+      const outgoing = (bo.outgoing || []).map(flow => {
+        const target = flow.targetRef;
+        const condition = flow.name ? ` [${flow.name}]` : '';
+        return (target && target.name) ? `${target.name}${condition}` : (target ? target.id : '');
+      }).filter(Boolean);
+
+      steps.push({
+        id: el.id,
+        name,
+        type: typeLabel,
+        lane: laneName,
+        doc,
+        outgoing: outgoing.join(', ') || '-'
+      });
     });
-  });
+  }
 
-  const isDe = (document.documentElement.lang || 'de').startsWith('de');
+  const isDe = (typeof document !== 'undefined' && document.documentElement && (document.documentElement.lang || 'de').startsWith('de'));
 
   const currentDate = new Date().toLocaleDateString(isDe ? 'de-DE' : 'en-US', {
     day: '2-digit',
@@ -102,7 +107,7 @@ export async function openQmHandbook(bpmnInstance, title = 'Prozessdokumentation
     year: 'numeric'
   });
 
-  const noDocText = i18n.noDoc || (isDe ? 'Keine gesonderte Handlungsanweisung' : 'No special operating procedure');
+  const noDocText = i18nObj.noDoc || (isDe ? 'Keine gesonderte Handlungsanweisung' : 'No special operating procedure');
 
   const rowsHtml = steps.map((s, idx) => `
     <tr>
@@ -115,26 +120,32 @@ export async function openQmHandbook(bpmnInstance, title = 'Prozessdokumentation
     </tr>
   `).join('');
 
-  const printWindow = window.open('', '_blank');
-  if (!printWindow) {
-    alert(i18n.allowPopups || (isDe ? 'Bitte erlauben Sie Popups, um das QM-Handbuch zu öffnen.' : 'Please allow popups to open the QM Handbook.'));
+  if (typeof window === 'undefined' || typeof window.open !== 'function') {
     return;
   }
 
-  const handbookTitle = i18n.qmHandbookTitle || (isDe ? 'Qualitätsmanagement-Handbuch' : 'Quality Management Handbook');
-  const handbookSubtitle = i18n.qmHandbookSubtitle || (isDe ? 'Standard-Prozessdokumentation nach BPMN 2.0 Spezifikation' : 'Standard process documentation compliant with BPMN 2.0 specification');
-  const printPdfLabel = i18n.printPdf || (isDe ? '🖨️ Drucken / Als PDF speichern' : '🖨️ Print / Save as PDF');
-  const dateLabel = i18n.dateLabel || (isDe ? 'Datum:' : 'Date:');
-  const statusLabel = i18n.statusLabel || (isDe ? 'Status:' : 'Status:');
-  const statusValue = i18n.statusValue || (isDe ? 'Freigegeben / Produktiv' : 'Approved / Production');
-  const overviewHeading = i18n.overviewHeading || (isDe ? '1. Prozess-Übersicht & Ablaufdiagramm' : '1. Process Overview & Flow Diagram');
-  const stepsHeading = i18n.stepsHeading || (isDe ? '2. Prozessschritte & Handlungsanweisungen' : '2. Process Steps & Operating Procedures');
-  const colStepLabel = i18n.colStep || (isDe ? 'Prozessschritt' : 'Process Step');
-  const colTypeLabel = i18n.colType || (isDe ? 'Typ' : 'Type');
-  const colRoleLabel = i18n.colRole || (isDe ? 'Verantwortlich' : 'Responsible');
-  const colDocLabel = i18n.colDoc || (isDe ? 'Handlungsanweisung & QM-Details' : 'Operating Procedure & QM Details');
-  const colNextLabel = i18n.colNext || (isDe ? 'Folgeschritte' : 'Next Steps');
-  const noSvgText = i18n.noSvg || (isDe ? 'Keine SVG-Grafik verfügbar.' : 'No SVG graphic available.');
+  const printWindow = window.open('', '_blank');
+  if (!printWindow) {
+    if (typeof alert === 'function') {
+      alert(i18nObj.allowPopups || (isDe ? 'Bitte erlauben Sie Popups, um das QM-Handbuch zu öffnen.' : 'Please allow popups to open the QM Handbook.'));
+    }
+    return;
+  }
+
+  const handbookTitle = i18nObj.qmHandbookTitle || (isDe ? 'Qualitätsmanagement-Handbuch' : 'Quality Management Handbook');
+  const handbookSubtitle = i18nObj.qmHandbookSubtitle || (isDe ? 'Standard-Prozessdokumentation nach BPMN 2.0 Spezifikation' : 'Standard process documentation compliant with BPMN 2.0 specification');
+  const printPdfLabel = i18nObj.printPdf || (isDe ? '🖨️ Drucken / Als PDF speichern' : '🖨️ Print / Save as PDF');
+  const dateLabel = i18nObj.dateLabel || (isDe ? 'Datum:' : 'Date:');
+  const statusLabel = i18nObj.statusLabel || (isDe ? 'Status:' : 'Status:');
+  const statusValue = i18nObj.statusValue || (isDe ? 'Freigegeben / Produktiv' : 'Approved / Production');
+  const overviewHeading = i18nObj.overviewHeading || (isDe ? '1. Prozess-Übersicht & Ablaufdiagramm' : '1. Process Overview & Flow Diagram');
+  const stepsHeading = i18nObj.stepsHeading || (isDe ? '2. Prozessschritte & Handlungsanweisungen' : '2. Process Steps & Operating Procedures');
+  const colStepLabel = i18nObj.colStep || (isDe ? 'Prozessschritt' : 'Process Step');
+  const colTypeLabel = i18nObj.colType || (isDe ? 'Typ' : 'Type');
+  const colRoleLabel = i18nObj.colRole || (isDe ? 'Verantwortlich' : 'Responsible');
+  const colDocLabel = i18nObj.colDoc || (isDe ? 'Handlungsanweisung & QM-Details' : 'Operating Procedure & QM Details');
+  const colNextLabel = i18nObj.colNext || (isDe ? 'Folgeschritte' : 'Next Steps');
+  const noSvgText = i18nObj.noSvg || (isDe ? 'Keine SVG-Grafik verfügbar.' : 'No SVG graphic available.');
 
   printWindow.document.write(`<!DOCTYPE html>
 <html lang="${isDe ? 'de' : 'en'}">

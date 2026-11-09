@@ -604,6 +604,8 @@ namespace HA_BPMN\Tests {
 				'module_linter',
 				'module_properties',
 				'module_quest',
+				'module_templates',
+				'module_handbook',
 				'default_template_lang',
 				'frontend_default_height',
 				'frontend_allow_zoom',
@@ -626,6 +628,8 @@ namespace HA_BPMN\Tests {
 			$this->assertSame( '1', $defaults['module_minimap'], "module_minimap defaults to '1'" );
 			$this->assertSame( '1', $defaults['module_linter'], "module_linter defaults to '1'" );
 			$this->assertSame( '1', $defaults['module_properties'], "module_properties defaults to '1'" );
+			$this->assertSame( '1', $defaults['module_templates'], "module_templates defaults to '1'" );
+			$this->assertSame( '1', $defaults['module_handbook'], "module_handbook defaults to '1'" );
 			$this->assertSame( '600', $defaults['frontend_default_height'], "frontend_default_height defaults to '600'" );
 		}
 
@@ -634,10 +638,12 @@ namespace HA_BPMN\Tests {
 
 			$cpt = \HA_BPMN\CPT::instance();
 
-			// 1. Full input with active quest
+			// 1. Full input with active quest, templates, and unchecked handbook
 			$input1 = [
 				'module_quest'            => '1',
 				'module_simulation'       => '1',
+				'module_templates'        => '1',
+				'module_handbook'         => '', // unchecked
 				'module_minimap'          => '', // unchecked
 				'frontend_default_height' => '750',
 				'cert_id_prefix'          => '<b>CUSTOM-</b>',
@@ -647,6 +653,8 @@ namespace HA_BPMN\Tests {
 			$sanitized1 = $cpt->sanitize_plugin_settings( $input1 );
 			$this->assertSame( '1', $sanitized1['module_quest'], "Sanitizes active module_quest to '1'" );
 			$this->assertSame( '1', $sanitized1['module_simulation'], "Sanitizes module_simulation to '1'" );
+			$this->assertSame( '1', $sanitized1['module_templates'], "Sanitizes active module_templates to '1'" );
+			$this->assertSame( '0', $sanitized1['module_handbook'], "Sanitizes unchecked module_handbook to '0'" );
 			$this->assertSame( '0', $sanitized1['module_minimap'], "Sanitizes unchecked module_minimap to '0'" );
 			$this->assertSame( '750', $sanitized1['frontend_default_height'], "Preserves valid height '750'" );
 			$this->assertSame( 'CUSTOM-', $sanitized1['cert_id_prefix'], "Strips HTML tags from cert_id_prefix" );
@@ -693,18 +701,34 @@ namespace HA_BPMN\Tests {
 		private function testAssetsSettingsProvider(): void {
 			echo "\n\033[33m[6/10] Assets Settings Provider Array Structure\033[0m\n";
 
-			// 1. With quest active
-			update_option( 'ha_bpmn_settings', [ 'module_quest' => '1', 'module_simulation' => '1' ] );
+			// 1. With quest, templates, and handbook active
+			update_option( 'ha_bpmn_settings', [
+				'module_quest'      => '1',
+				'module_simulation' => '1',
+				'module_templates'  => '1',
+				'module_handbook'   => '1',
+			] );
 			$assetsSettings = \HA_BPMN\Assets::instance()->get_settings( true );
 
 			$this->assert( isset( $assetsSettings['modules'] ), "Assets settings contains 'modules' array" );
 			$this->assert( isset( $assetsSettings['modules']['quest'] ), "Modules array contains 'quest' boolean key" );
+			$this->assert( isset( $assetsSettings['modules']['templates'] ), "Modules array contains 'templates' boolean key" );
+			$this->assert( isset( $assetsSettings['modules']['handbook'] ), "Modules array contains 'handbook' boolean key" );
 			$this->assertSame( true, $assetsSettings['modules']['quest'], "modules['quest'] is true when active" );
+			$this->assertSame( true, $assetsSettings['modules']['templates'], "modules['templates'] is true when active" );
+			$this->assertSame( true, $assetsSettings['modules']['handbook'], "modules['handbook'] is true when active" );
 
-			// 2. With quest disabled
-			update_option( 'ha_bpmn_settings', [ 'module_quest' => '0', 'module_simulation' => '1' ] );
+			// 2. With quest, templates, and handbook disabled
+			update_option( 'ha_bpmn_settings', [
+				'module_quest'      => '0',
+				'module_simulation' => '1',
+				'module_templates'  => '0',
+				'module_handbook'   => '0',
+			] );
 			$assetsSettingsOff = \HA_BPMN\Assets::instance()->get_settings( true );
 			$this->assertSame( false, $assetsSettingsOff['modules']['quest'], "modules['quest'] is false when inactive" );
+			$this->assertSame( false, $assetsSettingsOff['modules']['templates'], "modules['templates'] is false when inactive" );
+			$this->assertSame( false, $assetsSettingsOff['modules']['handbook'], "modules['handbook'] is false when inactive" );
 		}
 
 		private function testAchievementsIntegration(): void {
@@ -737,23 +761,36 @@ namespace HA_BPMN\Tests {
 				'post_content' => '<bpmn:definitions></bpmn:definitions>',
 			];
 
-			// 1. When quest module is ENABLED
-			update_option( 'ha_bpmn_settings', [ 'module_quest' => '1', 'module_simulation' => '1' ] );
+			// 1. When quest, templates, and handbook modules are ENABLED
+			update_option( 'ha_bpmn_settings', [
+				'module_quest'      => '1',
+				'module_simulation' => '1',
+				'module_templates'  => '1',
+				'module_handbook'   => '1',
+			] );
 			ob_start();
 			$cpt->render_metabox( $fakePost );
 			$htmlEnabled = ob_get_clean();
 
 			$this->assert( strpos( $htmlEnabled, 'ha-btn-quest' ) !== false, "Editor toolbar contains 'ha-btn-quest' when module_quest = 1" );
 			$this->assert( strpos( $htmlEnabled, 'ha-quest-tag' ) !== false, "Editor toolbar contains 'ha-quest-tag' when module_quest = 1" );
+			$this->assert( strpos( $htmlEnabled, 'ha-btn-templates' ) !== false, "Editor toolbar contains 'ha-btn-templates' when module_templates = 1" );
+			$this->assert( strpos( $htmlEnabled, 'ha-btn-qm-handbook' ) !== false, "Editor toolbar contains 'ha-btn-qm-handbook' when module_handbook = 1" );
 
-			// 2. When quest module is DISABLED
-			update_option( 'ha_bpmn_settings', [ 'module_quest' => '0', 'module_simulation' => '1' ] );
+			// 2. When quest, templates, and handbook modules are DISABLED
+			update_option( 'ha_bpmn_settings', [
+				'module_quest'      => '0',
+				'module_simulation' => '1',
+				'module_templates'  => '0',
+				'module_handbook'   => '0',
+			] );
 			ob_start();
 			$cpt->render_metabox( $fakePost );
 			$htmlDisabled = ob_get_clean();
 
 			$this->assert( strpos( $htmlDisabled, 'ha-btn-quest' ) === false, "Editor toolbar does NOT contain 'ha-btn-quest' when module_quest = 0" );
-			$this->assert( strpos( $htmlDisabled, 'ha-btn-templates' ) !== false, "General templates button remains rendered" );
+			$this->assert( strpos( $htmlDisabled, 'ha-btn-templates' ) === false, "Editor toolbar does NOT contain 'ha-btn-templates' when module_templates = 0" );
+			$this->assert( strpos( $htmlDisabled, 'ha-btn-qm-handbook' ) === false, "Editor toolbar does NOT contain 'ha-btn-qm-handbook' when module_handbook = 0" );
 		}
 
 		private function testRendererShortcode(): void {
