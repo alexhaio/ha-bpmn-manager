@@ -1148,7 +1148,15 @@ class CPT {
 									<tbody>
 										<tr>
 											<th><?php esc_html_e( 'Plugin Version', 'ha-bpmn-manager' ); ?></th>
-											<td><span class="ha-badge ha-badge-success">v<?php echo esc_html( HA_BPMN_VERSION ); ?></span></td>
+											<td>
+												<span class="ha-badge ha-badge-success">v<?php echo esc_html( HA_BPMN_VERSION ); ?></span>
+												<?php if ( current_user_can( 'update_plugins' ) ) : ?>
+												<a href="<?php echo esc_url( wp_nonce_url( add_query_arg( [ 'puc_check_for_updates' => 1, 'puc_slug' => 'ha-bpmn-manager' ], self_admin_url( 'plugins.php' ) ), 'puc_check_for_updates' ) ); ?>" class="button button-secondary button-small" style="margin-left: 10px; display: inline-flex; align-items: center; gap: 4px; vertical-align: middle;">
+													<span class="dashicons dashicons-update" style="font-size: 14px; width: 14px; height: 14px; line-height: 1;"></span>
+													<span><?php esc_html_e( 'Nach Updates suchen', 'ha-bpmn-manager' ); ?></span>
+												</a>
+												<?php endif; ?>
+											</td>
 										</tr>
 										<tr>
 											<th><?php esc_html_e( 'BPMN Modeler Engine', 'ha-bpmn-manager' ); ?></th>

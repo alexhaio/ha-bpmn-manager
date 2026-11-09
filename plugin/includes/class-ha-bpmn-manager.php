@@ -56,10 +56,15 @@ class Manager {
 	 * Load plugin textdomain for i18n.
 	 */
 	public function load_textdomain() {
+		$rel_path = dirname( plugin_basename( HA_BPMN_FILE ) ) . '/languages';
+		if ( defined( 'WP_PLUGIN_DIR' ) && ! is_dir( WP_PLUGIN_DIR . '/' . $rel_path ) && is_dir( HA_BPMN_PATH . 'languages' ) ) {
+			$rel_path = dirname( plugin_basename( HA_BPMN_PATH . 'ha-bpmn-manager.php' ) ) . '/languages';
+		}
+
 		load_plugin_textdomain(
 			'ha-bpmn-manager',
 			false,
-			dirname( plugin_basename( HA_BPMN_FILE ) ) . '/languages'
+			$rel_path
 		);
 	}
 }

@@ -5,7 +5,7 @@ Donate link: https://www.paypal.com/paypalme/edvhacker/6
 Requires at least: 5.8
 Tested up to: 6.7
 Requires PHP: 8.2
-Stable tag: 4.8.5
+Stable tag: 4.8.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -84,6 +84,12 @@ Yes. All XML imports (both via file upload and canvas drag-and-drop) are validat
 6. **Token Simulation:** Step-by-step execution simulation with speed selection and logging.
 
 == Changelog ==
+
+= 4.8.6 =
+* **Update Checker & UI Link Fix:** Restored the "Nach Updates suchen" (Check for updates) button and link across wp-admin/plugins.php and plugin settings.
+* **Dual-Path Registration:** Ensured Plugin Update Checker seamlessly detects both root entry point and legacy plugin subfolder installations.
+* **Direct Settings Action Link:** Added a direct "Einstellungen" action link below the plugin title on the WordPress Plugins management page.
+* **Reliable Asset Downloads:** Enforced octet-stream headers and external redirect auth-stripping for zero-friction GitHub release downloads.
 
 = 4.8.5 =
 * **QM Handbook Fix:** Resolved ReferenceError in qm-handbook.js caused by missing i18n parameter declaration, allowing the print and PDF process documentation handbook to open cleanly in all browser environments.

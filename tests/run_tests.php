@@ -25,12 +25,27 @@ namespace {
 	if ( ! defined( 'ABSPATH' ) ) {
 		define( 'ABSPATH', dirname( __DIR__ ) . '/plugin/' );
 	}
+	if ( ! defined( 'WP_PLUGIN_DIR' ) ) {
+		define( 'WP_PLUGIN_DIR', dirname( __DIR__ ) );
+	}
+	if ( ! defined( 'WPMU_PLUGIN_DIR' ) ) {
+		define( 'WPMU_PLUGIN_DIR', dirname( __DIR__ ) . '/mu-plugins' );
+	}
+	if ( ! defined( 'WP_CONTENT_DIR' ) ) {
+		define( 'WP_CONTENT_DIR', dirname( __DIR__ ) );
+	}
+	if ( ! defined( 'WP_DEBUG' ) ) {
+		define( 'WP_DEBUG', false );
+	}
+	if ( ! defined( 'HOUR_IN_SECONDS' ) ) {
+		define( 'HOUR_IN_SECONDS', 3600 );
+	}
 
 	$GLOBALS['wp_test_options']  = [];
 	$GLOBALS['wp_test_actions']  = [];
 	$GLOBALS['wp_test_filters']  = [];
 	$GLOBALS['wp_test_locale']   = 'de_DE';
-	$GLOBALS['wp_test_user_caps'] = [ 'manage_options' => true, 'activate_plugins' => true, 'edit_posts' => true ];
+	$GLOBALS['wp_test_user_caps'] = [ 'manage_options' => true, 'activate_plugins' => true, 'edit_posts' => true, 'update_plugins' => true ];
 
 	if ( ! function_exists( 'get_option' ) ) {
 		function get_option( $name, $default = false ) {
@@ -65,6 +80,54 @@ namespace {
 				return array_merge( $defaults, $r );
 			}
 			return $r;
+		}
+	}
+
+	if ( ! function_exists( 'wp_parse_url' ) ) {
+		function wp_parse_url( $url, $component = -1 ) {
+			return parse_url( (string) $url, $component );
+		}
+	}
+
+	if ( ! function_exists( 'get_theme_root' ) ) {
+		function get_theme_root(): string {
+			return dirname( __DIR__ ) . '/themes';
+		}
+	}
+
+	if ( ! function_exists( 'is_admin' ) ) {
+		function is_admin(): bool {
+			return true;
+		}
+	}
+
+	if ( ! function_exists( 'is_multisite' ) ) {
+		function is_multisite(): bool {
+			return false;
+		}
+	}
+
+	if ( ! function_exists( 'wp_next_scheduled' ) ) {
+		function wp_next_scheduled( $hook, $args = [] ) {
+			return false;
+		}
+	}
+
+	if ( ! function_exists( 'wp_schedule_event' ) ) {
+		function wp_schedule_event( $timestamp, $recurrence, $hook, $args = [] ): bool {
+			return true;
+		}
+	}
+
+	if ( ! function_exists( 'wp_unschedule_event' ) ) {
+		function wp_unschedule_event( $timestamp, $hook, $args = [] ): bool {
+			return true;
+		}
+	}
+
+	if ( ! function_exists( 'wp_clear_scheduled_hook' ) ) {
+		function wp_clear_scheduled_hook( $hook, $args = [] ): int {
+			return 1;
 		}
 	}
 
@@ -146,8 +209,21 @@ namespace {
 		}
 	}
 
+	if ( ! function_exists( 'did_action' ) ) {
+		function did_action( $tag ): int {
+			return isset( $GLOBALS['wp_test_actions_done'][ $tag ] ) ? (int) $GLOBALS['wp_test_actions_done'][ $tag ] : 0;
+		}
+	}
+
+	if ( ! function_exists( 'doing_action' ) ) {
+		function doing_action( $tag = null ): bool {
+			return false;
+		}
+	}
+
 	if ( ! function_exists( 'do_action' ) ) {
 		function do_action( $tag, ...$args ) {
+			$GLOBALS['wp_test_actions_done'][ $tag ] = ( $GLOBALS['wp_test_actions_done'][ $tag ] ?? 0 ) + 1;
 			if ( ! empty( $GLOBALS['wp_test_actions'][ $tag ] ) ) {
 				foreach ( $GLOBALS['wp_test_actions'][ $tag ] as $action ) {
 					$cb = $action['callback'];
@@ -281,6 +357,32 @@ namespace {
 	if ( ! function_exists( 'admin_url' ) ) {
 		function admin_url( $path = '' ): string {
 			return 'https://example.com/wp-admin/' . ltrim( $path, '/' );
+		}
+	}
+
+	if ( ! function_exists( 'self_admin_url' ) ) {
+		function self_admin_url( $path = '' ): string {
+			return admin_url( $path );
+		}
+	}
+
+	if ( ! function_exists( 'add_query_arg' ) ) {
+		function add_query_arg( $key, $value = false, $url = '' ): string {
+			if ( is_array( $key ) ) {
+				$query = http_build_query( $key );
+				$base = $value ?: '';
+			} else {
+				$query = urlencode( (string) $key ) . '=' . urlencode( (string) $value );
+				$base = $url;
+			}
+			$sep = ( false !== strpos( $base, '?' ) ) ? '&' : '?';
+			return $base . $sep . $query;
+		}
+	}
+
+	if ( ! function_exists( 'wp_nonce_url' ) ) {
+		function wp_nonce_url( $actionurl, $action = -1, $name = '_wpnonce' ): string {
+			return add_query_arg( [ $name => 'testnonce' ], $actionurl );
 		}
 	}
 
@@ -855,6 +957,32 @@ namespace HA_BPMN\Tests {
 			$this->assert( is_array( $resultReadme ), "GitHub readme contents request intercepted" );
 			$lastReqReadme = end( $GLOBALS['wp_test_remote_requests'] );
 			$this->assert( strpos( $lastReqReadme['url'], '/contents/plugin/readme.txt' ) !== false, "URL rewritten to plugin/readme.txt: {$lastReqReadme['url']}" );
+
+			// 5. Plugin row meta filter adds "Nach Updates suchen" (Check for updates) link
+			$meta1 = $updater->filter_plugin_row_meta( [], 'ha-bpmn-manager/ha-bpmn-manager.php' );
+			$this->assert( count( $meta1 ) === 1, "Row meta filter added 1 item for root plugin path" );
+			$this->assert( strpos( $meta1[0], 'puc_check_for_updates' ) !== false, "Row meta contains puc_check_for_updates link" );
+
+			$meta2 = $updater->filter_plugin_row_meta( [], 'ha-bpmn-manager/plugin/ha-bpmn-manager.php' );
+			$this->assert( count( $meta2 ) === 1, "Row meta filter added 1 item for subfolder plugin path" );
+			$this->assert( strpos( $meta2[0], 'puc_check_for_updates' ) !== false, "Subfolder row meta contains puc_check_for_updates link" );
+
+			// 6. Unrelated plugin row meta is NOT modified
+			$metaUnrelated = $updater->filter_plugin_row_meta( [ 'existing_link' ], 'other-plugin/other.php' );
+			$this->assertSame( [ 'existing_link' ], $metaUnrelated, "Unrelated plugin row meta is not modified" );
+
+			// 7. No duplicate check link if already present
+			$metaDupe = $updater->filter_plugin_row_meta( [ '<a href="?puc_check_for_updates=1">Check</a>' ], 'ha-bpmn-manager/ha-bpmn-manager.php' );
+			$this->assert( count( $metaDupe ) === 1, "Does not duplicate update check link if already present" );
+
+			// 8. Plugin action links filter prepends Settings link
+			$actions = $updater->filter_plugin_action_links( [ 'deactivate' => 'Deactivate' ] );
+			$this->assert( count( $actions ) === 2, "Action links filter prepended Settings link" );
+			$this->assert( strpos( reset( $actions ), 'page=bpmnm_settings' ) !== false, "First action link points to settings page" );
+
+			// 9. GitHub API release asset download requests set octet-stream header
+			$assetArgs = $updater->filter_github_asset_download_args( [], 'https://api.github.com/repos/alexhaio/ha-bpmn-manager/releases/assets/12345' );
+			$this->assert( isset( $assetArgs['headers']['Accept'] ) && 'application/octet-stream' === $assetArgs['headers']['Accept'], "Asset download requests specify application/octet-stream" );
 		}
 	}
 
