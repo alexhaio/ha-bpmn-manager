@@ -1,11 +1,11 @@
-# Translation of HA-BPMN-Manager in English
+# Translation of HA-BPMN-Manager
 # Copyright (C) 2020-present Alexander Hacker
 # This file is distributed under the same license as the HA-BPMN-Manager package.
 msgid ""
 msgstr ""
-"Project-Id-Version: HA-BPMN-Manager 2.5.1\n"
+"Project-Id-Version: HA-BPMN-Manager 4.8.6\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/ha-bpmn-manager\n"
-"POT-Creation-Date: 2026-09-12 03:00+0000\n"
+"POT-Creation-Date: 2026-11-09 17:44+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -13,714 +13,1492 @@ msgstr ""
 "Last-Translator: Alexander Hacker <alex@seo-hacker.de>\n"
 "Language-Team: Language Team <alex@seo-hacker.de>\n"
 "X-Generator: HA-BPMN-Manager i18n Toolkit\n"
+#: plugin/includes/class-ha-bpmn-achievements.php:105
+msgid "Continue in BPMN Studio ▶"
+msgstr ""
 
-#: includes/class-ha-bpmn-assets.php
-#: includes/class-ha-bpmn-cpt.php
-#: includes/class-ha-bpmn-cpt.php
-#: includes/class-ha-bpmn-renderer.php
+#: plugin/includes/class-ha-bpmn-achievements.php:132
+msgid "Open BPMN Studio 🚀"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-achievements.php:133
+msgid ""
+"Interactive modeling studio for ISO 19510 business processes with token "
+"simulation."
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-assets.php:118
+#: plugin/includes/class-ha-bpmn-cpt.php:397
+#: plugin/includes/class-ha-bpmn-renderer.php:232
 msgid "Zoom in"
 msgstr ""
 
-#: includes/class-ha-bpmn-assets.php
-#: includes/class-ha-bpmn-cpt.php
-#: includes/class-ha-bpmn-cpt.php
-#: includes/class-ha-bpmn-renderer.php
+#: plugin/includes/class-ha-bpmn-assets.php:119
+#: plugin/includes/class-ha-bpmn-cpt.php:391
+#: plugin/includes/class-ha-bpmn-renderer.php:234
 msgid "Zoom out"
 msgstr ""
 
-#: includes/class-ha-bpmn-assets.php
-#: includes/class-ha-bpmn-cpt.php
-#: includes/class-ha-bpmn-cpt.php
-#: includes/class-ha-bpmn-renderer.php
+#: plugin/includes/class-ha-bpmn-assets.php:120
+#: plugin/includes/class-ha-bpmn-cpt.php:394
+#: plugin/includes/class-ha-bpmn-renderer.php:233
 msgid "Fit to screen"
 msgstr ""
 
-#: includes/class-ha-bpmn-assets.php
-#: includes/class-ha-bpmn-cpt.php
-#: includes/class-ha-bpmn-renderer.php
+#: plugin/includes/class-ha-bpmn-assets.php:121
+#: plugin/includes/class-ha-bpmn-cpt.php:486
+#: plugin/includes/class-ha-bpmn-renderer.php:242
 msgid "Download SVG"
 msgstr ""
 
-#: includes/class-ha-bpmn-assets.php
-#: includes/class-ha-bpmn-renderer.php
+#: plugin/includes/class-ha-bpmn-assets.php:122
+#: plugin/includes/class-ha-bpmn-renderer.php:243
+msgid "Download PNG"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-assets.php:123
+#: plugin/includes/class-ha-bpmn-renderer.php:244
 msgid "Download BPMN"
 msgstr ""
 
-#: includes/class-ha-bpmn-assets.php
-#: includes/class-ha-bpmn-cpt.php
-#: includes/class-ha-bpmn-renderer.php
+#: plugin/includes/class-ha-bpmn-assets.php:124
+#: plugin/includes/class-ha-bpmn-cpt.php:477
+#: plugin/includes/class-ha-bpmn-renderer.php:247
 msgid "Fullscreen"
 msgstr ""
 
-#: includes/class-ha-bpmn-assets.php
-msgid "You have unsaved changes in your BPMN diagram. Do you really want to leave?"
+#: plugin/includes/class-ha-bpmn-assets.php:125
+msgid ""
+"You have unsaved changes in your BPMN diagram. Do you really want to leave?"
 msgstr ""
 
-#: includes/class-ha-bpmn-assets.php
+#: plugin/includes/class-ha-bpmn-assets.php:126
 msgid "Drop BPMN file here to import"
 msgstr ""
 
-#: includes/class-ha-bpmn-assets.php
-#: includes/class-ha-bpmn-cpt.php
+#: plugin/includes/class-ha-bpmn-assets.php:127
+#: plugin/includes/class-ha-bpmn-cpt.php:516
 msgid "Release to import .bpmn or .xml directly into diagram"
 msgstr ""
 
-#: includes/class-ha-bpmn-assets.php
-#: includes/class-ha-bpmn-cpt.php
-#: includes/class-ha-bpmn-cpt.php
+#: plugin/includes/class-ha-bpmn-assets.php:128
+#: plugin/includes/class-ha-bpmn-cpt.php:451
+#: plugin/includes/class-ha-bpmn-cpt.php:453
 msgid "Import"
 msgstr ""
 
-#: includes/class-ha-bpmn-assets.php
+#: plugin/includes/class-ha-bpmn-assets.php:129
 msgid "Failed to import BPMN diagram."
 msgstr ""
 
-#: includes/class-ha-bpmn-assets.php
+#: plugin/includes/class-ha-bpmn-assets.php:130
 msgid "Diagram imported successfully."
 msgstr ""
 
-#: includes/class-ha-bpmn-assets.php
+#: plugin/includes/class-ha-bpmn-assets.php:131
 msgid "The selected file is not a valid BPMN 2.0 XML document."
 msgstr ""
 
-#: includes/class-ha-bpmn-assets.php
+#: plugin/includes/class-ha-bpmn-assets.php:132
 msgid "Invalid file format. Please upload a .bpmn or .xml file."
 msgstr ""
 
-#: includes/class-ha-bpmn-assets.php
+#: plugin/includes/class-ha-bpmn-assets.php:133
 msgid "Error reading the file."
 msgstr ""
 
-#: includes/class-ha-bpmn-assets.php
-#: includes/class-ha-bpmn-cpt.php
-#: includes/class-ha-bpmn-cpt.php
+#: plugin/includes/class-ha-bpmn-assets.php:134
+#: plugin/includes/class-ha-bpmn-cpt.php:456
+#: plugin/includes/class-ha-bpmn-cpt.php:458
 msgid "Auto-Layout"
 msgstr ""
 
-#: includes/class-ha-bpmn-assets.php
+#: plugin/includes/class-ha-bpmn-assets.php:135
 msgid "Error during automatic layout calculation."
 msgstr ""
 
-#: includes/class-ha-bpmn-assets.php
-#: includes/class-ha-bpmn-cpt.php
-#: includes/class-ha-bpmn-cpt.php
+#: plugin/includes/class-ha-bpmn-assets.php:136
+#: plugin/includes/class-ha-bpmn-cpt.php:403
+#: plugin/includes/class-ha-bpmn-cpt.php:405
 msgid "Templates"
 msgstr ""
 
-#: includes/class-ha-bpmn-assets.php
+#: plugin/includes/class-ha-bpmn-assets.php:137
 msgid "Select Process Template"
 msgstr ""
 
-#: includes/class-ha-bpmn-assets.php
-msgid "Choose a ready-made template as a starting point for your BPMN 2.0 process:"
+#: plugin/includes/class-ha-bpmn-assets.php:138
+msgid ""
+"Choose a ready-made template as a starting point for your BPMN 2.0 process:"
 msgstr ""
 
-#: includes/class-ha-bpmn-assets.php
+#: plugin/includes/class-ha-bpmn-assets.php:139
 msgid "Use template"
 msgstr ""
 
-#: includes/class-ha-bpmn-assets.php
+#: plugin/includes/class-ha-bpmn-assets.php:140
 msgid "Unsaved changes will be lost. Do you really want to proceed?"
 msgstr ""
 
-#: includes/class-ha-bpmn-assets.php
+#: plugin/includes/class-ha-bpmn-assets.php:141
 msgid "Revision History"
 msgstr ""
 
-#: includes/class-ha-bpmn-assets.php
+#: plugin/includes/class-ha-bpmn-assets.php:142
 msgid "Loading revisions..."
 msgstr ""
 
-#: includes/class-ha-bpmn-assets.php
+#: plugin/includes/class-ha-bpmn-assets.php:143
 msgid "Restore"
 msgstr ""
 
-#: includes/class-ha-bpmn-assets.php
+#: plugin/includes/class-ha-bpmn-assets.php:144
 msgid "Compare"
 msgstr ""
 
-#: includes/class-ha-bpmn-assets.php
+#: plugin/includes/class-ha-bpmn-assets.php:145
 msgid "Added"
 msgstr ""
 
-#: includes/class-ha-bpmn-assets.php
+#: plugin/includes/class-ha-bpmn-assets.php:146
 msgid "Modified"
 msgstr ""
 
-#: includes/class-ha-bpmn-assets.php
+#: plugin/includes/class-ha-bpmn-assets.php:147
 msgid "Deleted"
 msgstr ""
 
-#: includes/class-ha-bpmn-assets.php
+#: plugin/includes/class-ha-bpmn-assets.php:148
 msgid "No structural changes detected between these versions."
 msgstr ""
 
-#: includes/class-ha-bpmn-assets.php
-msgid "Do you really want to restore this revision? Current unsaved changes will be overwritten."
+#: plugin/includes/class-ha-bpmn-assets.php:149
+msgid ""
+"Do you really want to restore this revision? Current unsaved changes will be "
+"overwritten."
 msgstr ""
 
-#: includes/class-ha-bpmn-assets.php
-#: includes/class-ha-bpmn-cpt.php
+#: plugin/includes/class-ha-bpmn-assets.php:150
+#: plugin/includes/class-ha-bpmn-cpt.php:472
 msgid "QM Handbook"
 msgstr ""
 
-#: includes/class-ha-bpmn-assets.php
+#: plugin/includes/class-ha-bpmn-assets.php:151
 msgid "Process Documentation & QM Handbook"
 msgstr ""
 
-#: includes/class-ha-bpmn-assets.php
+#: plugin/includes/class-ha-bpmn-assets.php:152
 msgid "Process Steps Overview"
 msgstr ""
 
-#: includes/class-ha-bpmn-assets.php
+#: plugin/includes/class-ha-bpmn-assets.php:153
 msgid "Step"
 msgstr ""
 
-#: includes/class-ha-bpmn-assets.php
+#: plugin/includes/class-ha-bpmn-assets.php:154
 msgid "Name / Action"
 msgstr ""
 
-#: includes/class-ha-bpmn-assets.php
+#: plugin/includes/class-ha-bpmn-assets.php:155
 msgid "Print Handbook"
 msgstr ""
 
-#: includes/class-ha-bpmn-assets.php
-#: includes/class-ha-bpmn-cpt.php
+#: plugin/includes/class-ha-bpmn-assets.php:156
+#: plugin/includes/class-ha-bpmn-cpt.php:460
 msgid "Search"
 msgstr ""
 
-#: includes/class-ha-bpmn-assets.php
+#: plugin/includes/class-ha-bpmn-assets.php:157
 msgid "Search diagram..."
 msgstr ""
 
-#: includes/class-ha-bpmn-assets.php
+#: plugin/includes/class-ha-bpmn-assets.php:158
 msgid "No matches found"
 msgstr ""
 
-#: includes/class-ha-bpmn-assets.php
+#: plugin/includes/class-ha-bpmn-assets.php:159
 msgid "Previous match"
 msgstr ""
 
-#: includes/class-ha-bpmn-assets.php
+#: plugin/includes/class-ha-bpmn-assets.php:160
 msgid "Next match"
 msgstr ""
 
-#: includes/class-ha-bpmn-assets.php
+#: plugin/includes/class-ha-bpmn-assets.php:161
 msgid "Close search"
 msgstr ""
 
-#: includes/class-ha-bpmn-assets.php
+#: plugin/includes/class-ha-bpmn-assets.php:162
 msgid "Process Step Details"
 msgstr ""
 
-#: includes/class-ha-bpmn-assets.php
+#: plugin/includes/class-ha-bpmn-assets.php:163
 msgid "Step Type"
 msgstr ""
 
-#: includes/class-ha-bpmn-assets.php
+#: plugin/includes/class-ha-bpmn-assets.php:164
 msgid "Assigned Role / Lane"
 msgstr ""
 
-#: includes/class-ha-bpmn-assets.php
+#: plugin/includes/class-ha-bpmn-assets.php:165
 msgid "QM Instructions & Documentation"
 msgstr ""
 
-#: includes/class-ha-bpmn-assets.php
+#: plugin/includes/class-ha-bpmn-assets.php:166
 msgid "No additional instructions provided for this step."
 msgstr ""
 
-#: includes/class-ha-bpmn-assets.php
+#: plugin/includes/class-ha-bpmn-assets.php:167
 msgid "Technical ID"
 msgstr ""
 
-#: includes/class-ha-bpmn-assets.php
+#: plugin/includes/class-ha-bpmn-assets.php:168
+#: plugin/includes/class-ha-bpmn-assets.php:428
 msgid "Close"
 msgstr ""
 
-#: includes/class-ha-bpmn-assets.php
-#: includes/class-ha-bpmn-cpt.php
+#: plugin/includes/class-ha-bpmn-assets.php:169
+#: plugin/includes/class-ha-bpmn-cpt.php:497
 msgid "Properties"
 msgstr ""
 
-#: includes/class-ha-bpmn-rest.php
-#: includes/class-ha-bpmn-rest.php
-#: includes/class-ha-bpmn-cpt.php
-msgid "Diagram not found."
+#: plugin/includes/class-ha-bpmn-assets.php:171
+msgid "Standard / Success (Green)"
 msgstr ""
 
-#: includes/class-ha-bpmn-rest.php
-msgid "This diagram is password protected."
+#: plugin/includes/class-ha-bpmn-assets.php:172
+msgid "Error / Escalation (Red)"
 msgstr ""
 
-#: includes/class-ha-bpmn-rest.php
-msgid "You are not allowed to view this diagram."
+#: plugin/includes/class-ha-bpmn-assets.php:173
+msgid "Review / Approval (Yellow)"
 msgstr ""
 
-#: includes/class-ha-bpmn-rest.php
-msgid "Diagram #%d"
+#: plugin/includes/class-ha-bpmn-assets.php:174
+msgid "System / Information (Blue)"
 msgstr ""
 
-#: includes/class-ha-bpmn-rest.php
-msgid "You do not have permission to view revisions of this diagram."
+#: plugin/includes/class-ha-bpmn-assets.php:175
+msgid "Reset Color"
 msgstr ""
 
-#: includes/class-ha-bpmn-rest.php
-msgid "Unknown"
+#: plugin/includes/class-ha-bpmn-assets.php:176
+msgid "Please select at least one element in the diagram to assign a color."
 msgstr ""
 
-#: includes/class-ha-bpmn-cpt.php
-#: includes/class-ha-bpmn-cpt.php
-msgid "BPMN Diagrams"
+#: plugin/includes/class-ha-bpmn-assets.php:178
+msgid "Saved Versions"
 msgstr ""
 
-#: includes/class-ha-bpmn-cpt.php
-#: includes/class-ha-bpmn-gutenberg.php
-msgid "BPMN Diagram"
+#: plugin/includes/class-ha-bpmn-assets.php:179
+msgid "Diff Analysis vs Current Version"
 msgstr ""
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "Add New Diagram"
+#: plugin/includes/class-ha-bpmn-assets.php:180
+msgid "Select a revision on the left to semantically analyze changes."
 msgstr ""
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "Add New BPMN Diagram"
+#: plugin/includes/class-ha-bpmn-assets.php:181
+msgid "No BPMN definition is stored in this revision."
 msgstr ""
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "Edit BPMN Diagram"
+#: plugin/includes/class-ha-bpmn-assets.php:182
+msgid "Element added:"
 msgstr ""
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "New BPMN Diagram"
+#: plugin/includes/class-ha-bpmn-assets.php:183
+msgid "Element content changed:"
 msgstr ""
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "View Diagram"
+#: plugin/includes/class-ha-bpmn-assets.php:184
+msgid "Position/layout changed:"
 msgstr ""
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "Search Diagrams"
+#: plugin/includes/class-ha-bpmn-assets.php:185
+msgid "Element deleted:"
 msgstr ""
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "No diagrams found"
+#: plugin/includes/class-ha-bpmn-assets.php:186
+msgid "This revision is identical to the current editor state."
 msgstr ""
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "No diagrams found in Trash"
+#: plugin/includes/class-ha-bpmn-assets.php:187
+msgid "Error restoring revision:"
 msgstr ""
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "All BPMN Diagrams"
+#: plugin/includes/class-ha-bpmn-assets.php:189
+msgid "Please allow popups to open the QM Handbook."
 msgstr ""
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "BPMN Modeler"
+#: plugin/includes/class-ha-bpmn-assets.php:190
+msgid "Quality Management Handbook"
 msgstr ""
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "Author"
+#: plugin/includes/class-ha-bpmn-assets.php:191
+msgid "Standard process documentation compliant with BPMN 2.0 specification"
 msgstr ""
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "Undo (Ctrl+Z)"
+#: plugin/includes/class-ha-bpmn-assets.php:192
+msgid "Date:"
 msgstr ""
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "Undo"
+#: plugin/includes/class-ha-bpmn-assets.php:193
+msgid "Status:"
 msgstr ""
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "Redo (Ctrl+Y)"
+#: plugin/includes/class-ha-bpmn-assets.php:194
+msgid "Approved / Production"
 msgstr ""
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "Redo"
+#: plugin/includes/class-ha-bpmn-assets.php:195
+msgid "1. Process Overview & Flow Diagram"
 msgstr ""
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "Process Templates"
+#: plugin/includes/class-ha-bpmn-assets.php:196
+msgid "2. Process Steps & Operating Procedures"
 msgstr ""
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "Interactive Guide & BPMN-Quest"
+#: plugin/includes/class-ha-bpmn-assets.php:197
+msgid "Process Step"
 msgstr ""
 
-#: includes/class-ha-bpmn-cpt.php
-#: includes/class-ha-bpmn-cpt.php
-msgid "BPMN-Quest"
+#: plugin/includes/class-ha-bpmn-assets.php:198
+msgid "Type"
 msgstr ""
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "Import BPMN XML (.bpmn, .xml)"
+#: plugin/includes/class-ha-bpmn-assets.php:199
+msgid "Responsible"
 msgstr ""
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "Auto-Layout Diagram"
+#: plugin/includes/class-ha-bpmn-assets.php:200
+msgid "Operating Procedure & Description"
 msgstr ""
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "Search Diagram (Ctrl+F)"
+#: plugin/includes/class-ha-bpmn-assets.php:201
+msgid "Next Step"
 msgstr ""
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "Revision History & Semantic Diff"
+#: plugin/includes/class-ha-bpmn-assets.php:202
+msgid "No special operating procedure"
 msgstr ""
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "History"
+#: plugin/includes/class-ha-bpmn-assets.php:203
+msgid "No SVG graphic available."
 msgstr ""
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "Generate QM Process Handbook (Print/PDF)"
+#: plugin/includes/class-ha-bpmn-assets.php:204
+msgid "Print / Save as PDF"
 msgstr ""
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "Fullscreen / Zen Mode"
+#: plugin/includes/class-ha-bpmn-assets.php:206
+msgid "Unnamed Activity"
 msgstr ""
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "Download BPMN XML"
+#: plugin/includes/class-ha-bpmn-assets.php:207
+msgid "Activity"
 msgstr ""
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "Toggle Properties Panel"
+#: plugin/includes/class-ha-bpmn-assets.php:208
+msgid "Task"
 msgstr ""
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "Drop BPMN file here"
+#: plugin/includes/class-ha-bpmn-assets.php:209
+msgid "User Task"
 msgstr ""
 
-#: includes/class-ha-bpmn-cpt.php
-#: includes/class-ha-bpmn-cpt.php
-msgid "Settings"
+#: plugin/includes/class-ha-bpmn-assets.php:210
+msgid "Service Task"
 msgstr ""
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "HA-BPMN-Manager"
+#: plugin/includes/class-ha-bpmn-assets.php:211
+msgid "Send Task"
 msgstr ""
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "Configure modeling tools, taxonomy integration, frontend embedding, and system options."
+#: plugin/includes/class-ha-bpmn-assets.php:212
+msgid "Receive Task"
 msgstr ""
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "All Diagrams"
+#: plugin/includes/class-ha-bpmn-assets.php:213
+msgid "Manual Task"
 msgstr ""
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "New Diagram"
+#: plugin/includes/class-ha-bpmn-assets.php:214
+msgid "Business Rule Task"
 msgstr ""
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "Taxonomies & Structure"
+#: plugin/includes/class-ha-bpmn-assets.php:215
+msgid "Script Task"
 msgstr ""
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "Modeler & Studio Tools"
+#: plugin/includes/class-ha-bpmn-assets.php:216
+msgid "Sub-Process"
 msgstr ""
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "Frontend & Embedding"
+#: plugin/includes/class-ha-bpmn-assets.php:217
+msgid "Call Activity"
 msgstr ""
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "System Status & Shortcode"
+#: plugin/includes/class-ha-bpmn-assets.php:427
+msgid "HA-BPMN-Manager: Deactivation & Data"
 msgstr ""
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "WordPress Taxonomies & Organization"
+#: plugin/includes/class-ha-bpmn-assets.php:429
+msgid ""
+"You are about to deactivate <strong>HA-BPMN-Manager</strong>. Please choose "
+"what should happen to your diagrams and data if the plugin is later "
+"uninstalled:"
 msgstr ""
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "Control whether standard WordPress categories and tags are enabled for organizing BPMN diagrams."
+#: plugin/includes/class-ha-bpmn-assets.php:430
+msgid "Keep data in database"
 msgstr ""
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "Standard WordPress Categories"
-msgstr ""
-
-#: includes/class-ha-bpmn-cpt.php
+#: plugin/includes/class-ha-bpmn-assets.php:431
+#: plugin/includes/class-ha-bpmn-cpt.php:819
 msgid "Recommended"
 msgstr ""
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "Enable standard WordPress categories (category) for BPMN diagrams. Adds the category metabox, filter dropdowns, and category columns in the diagram list table."
+#: plugin/includes/class-ha-bpmn-assets.php:432
+msgid ""
+"All BPMN diagrams, XML models, revisions, and settings remain safely stored "
+"in the database. Everything will be restored immediately if the plugin is "
+"reactivated."
 msgstr ""
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "Standard WordPress Tags (Schlagwörter)"
+#: plugin/includes/class-ha-bpmn-assets.php:433
+msgid "Remove all data upon uninstallation"
 msgstr ""
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "Enable standard WordPress tags (post_tag) for granular labeling, searchability, and keyword filtering of your BPMN processes."
+#: plugin/includes/class-ha-bpmn-assets.php:434
+msgid "GDPR / Danger"
 msgstr ""
 
-#: includes/class-ha-bpmn-cpt.php
+#: plugin/includes/class-ha-bpmn-assets.php:435
+msgid ""
+"Warning: If you delete the plugin via WordPress after deactivation, all "
+"diagrams and settings will be permanently destroyed."
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-assets.php:436
+msgid ""
+"💡 <strong>Note:</strong> You can also change this preference at any time in "
+"the <em>System Status</em> tab of the plugin settings."
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-assets.php:437
+msgid "Cancel"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-assets.php:438
+msgid "Save & Deactivate"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-assets.php:439
+msgid "Saving & deactivating…"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:144
+#: plugin/includes/class-ha-bpmn-cpt.php:155
+msgid "BPMN Diagrams"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:145
+#: plugin/includes/class-ha-bpmn-gutenberg.php:72
+msgid "BPMN Diagram"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:146
+msgid "Add New Diagram"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:147
+msgid "Add New BPMN Diagram"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:148
+msgid "Edit BPMN Diagram"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:149
+msgid "New BPMN Diagram"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:150
+msgid "View Diagram"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:151
+msgid "Search Diagrams"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:152
+msgid "No diagrams found"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:153
+msgid "No diagrams found in Trash"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:154
+msgid "All BPMN Diagrams"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:221
+msgid "BPMN Modeler"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:274
+msgid "Author"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:383
+msgid "Undo (Ctrl+Z)"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:383
+msgid "Undo"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:386
+msgid "Redo (Ctrl+Y)"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:386
+msgid "Redo"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:403
+msgid "Process Templates"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:409
+msgid "Interactive Guide & BPMN-Quest"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:409
+#: plugin/includes/class-ha-bpmn-cpt.php:411
+msgid "BPMN-Quest"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:412
+msgid "Tutorial"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:415
+msgid "Select user language manually (Default: WordPress language)"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:417
+msgid "🌐 Automatic (WordPress)"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:451
+msgid "Import BPMN XML (.bpmn, .xml)"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:456
+msgid "Auto-Layout Diagram"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:460
+msgid "Search Diagram (Ctrl+F)"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:465
+msgid "Revision History & Semantic Diff"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:467
+msgid "History"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:470
+msgid "Generate QM Process Handbook (Print/PDF)"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:477
+msgid "Fullscreen / Zen Mode"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:482
+msgid "Download BPMN XML"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:490
+msgid "Download PNG Image"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:495
+msgid "Toggle Properties Panel"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:515
+msgid "Drop BPMN file here"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:623
+#: plugin/includes/class-ha-bpmn-cpt.php:624
+#: plugin/includes/class-ha-bpmn-updater.php:250
+msgid "Settings"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:760
+msgid "HA-BPMN-Manager"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:764
+msgid ""
+"Configure modeling tools, taxonomy integration, frontend embedding, and "
+"system options."
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:770
+msgid "All Diagrams"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:773
+msgid "New Diagram"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:784
+msgid "Taxonomies & Structure"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:788
+msgid "Modeler & Studio Tools"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:792
+msgid "Frontend & Embedding"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:796
+msgid "Master Certificate & Quest Award"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:800
+msgid "System Status & Shortcode"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:811
+msgid "WordPress Taxonomies & Organization"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:812
+msgid ""
+"Control whether standard WordPress categories and tags are enabled for "
+"organizing BPMN diagrams."
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:818
+msgid "Standard WordPress Categories"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:822
+msgid ""
+"Enable standard WordPress categories (category) for BPMN diagrams. Adds the "
+"category metabox, filter dropdowns, and category columns in the diagram list "
+"table."
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:836
+msgid "Standard WordPress Tags"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:839
+msgid ""
+"Enable standard WordPress tags (post_tag) for granular labeling, "
+"searchability, and keyword filtering of your BPMN processes."
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:853
 msgid "Revision History & Version Comparison"
 msgstr ""
 
-#: includes/class-ha-bpmn-cpt.php
+#: plugin/includes/class-ha-bpmn-cpt.php:854
 msgid "Pro Feature"
 msgstr ""
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "Tracks diagram version history on every save. Enables the \"History\" studio button with visual semantic comparison (added, modified, deleted BPMN elements) and one-click rollback."
+#: plugin/includes/class-ha-bpmn-cpt.php:857
+msgid ""
+"Tracks diagram version history on every save. Enables the \"History\" studio "
+"button with visual semantic comparison (added, modified, deleted BPMN "
+"elements) and one-click rollback."
 msgstr ""
 
-#: includes/class-ha-bpmn-cpt.php
+#: plugin/includes/class-ha-bpmn-cpt.php:875
 msgid "BPMN Studio & Modeler Modules"
 msgstr ""
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "Turn editor features on or off depending on your team workflow and performance preferences."
+#: plugin/includes/class-ha-bpmn-cpt.php:876
+msgid ""
+"Turn editor features on or off depending on your team workflow and "
+"performance preferences."
 msgstr ""
 
-#: includes/class-ha-bpmn-cpt.php
+#: plugin/includes/class-ha-bpmn-cpt.php:882
 msgid "Interactive Token Simulation"
 msgstr ""
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "Provides dynamic token playback in the editor with play/pause, step controls, and speed regulator to test process flow logic interactively."
+#: plugin/includes/class-ha-bpmn-cpt.php:885
+msgid ""
+"Provides dynamic token playback in the editor with play/pause, step "
+"controls, and speed regulator to test process flow logic interactively."
 msgstr ""
 
-#: includes/class-ha-bpmn-cpt.php
+#: plugin/includes/class-ha-bpmn-cpt.php:899
 msgid "Minimap Navigation"
 msgstr ""
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "Shows a high-level mini-overview map in the top-right corner of the canvas with a collapsible toggle button for fast navigation across large workflows."
+#: plugin/includes/class-ha-bpmn-cpt.php:902
+msgid ""
+"Shows a high-level mini-overview map in the top-right corner of the canvas "
+"with a collapsible toggle button for fast navigation across large workflows."
 msgstr ""
 
-#: includes/class-ha-bpmn-cpt.php
+#: plugin/includes/class-ha-bpmn-cpt.php:916
 msgid "Real-time BPMN 2.0 Linter"
 msgstr ""
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "Validates diagrams in real time against BPMN 2.0 best practices (unconnected elements, missing end events, invalid flows) and displays unobtrusive guidance."
+#: plugin/includes/class-ha-bpmn-cpt.php:919
+msgid ""
+"Validates diagrams in real time against BPMN 2.0 best practices (unconnected "
+"elements, missing end events, invalid flows) and displays unobtrusive "
+"guidance."
 msgstr ""
 
-#: includes/class-ha-bpmn-cpt.php
+#: plugin/includes/class-ha-bpmn-cpt.php:933
 msgid "Camunda Properties Panel"
 msgstr ""
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "Enables the collapsible right sidebar in the editor to inspect and configure element IDs, names, documentation, and technical execution properties."
+#: plugin/includes/class-ha-bpmn-cpt.php:936
+msgid ""
+"Enables the collapsible right sidebar in the editor to inspect and configure "
+"element IDs, names, documentation, and technical execution properties."
 msgstr ""
 
-#: includes/class-ha-bpmn-cpt.php
+#: plugin/includes/class-ha-bpmn-cpt.php:950
+msgid "Interactive Guide & BPMN-Quest (Tutorial)"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:953
+msgid ""
+"Enables the interactive tutorial button, gamified learning companion HUD, "
+"step-by-step walkthroughs, and linter challenges in the BPMN editor."
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:967
+msgid "Process Templates Library"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:970
+msgid ""
+"Enables the pre-built business process templates modal and toolbar button (e."
+"g. employee onboarding, invoice approval, change request) to quickly jump-"
+"start diagram modeling."
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:984
+msgid "QM Process Handbook (Print/PDF)"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:987
+msgid ""
+"Enables the QM Handbook generator button in the editor toolbar to export "
+"structured, audit-ready process documentation and step tables into a "
+"printable browser view."
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:1001
 msgid "Default Template Language"
 msgstr ""
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "Choose the default language for process templates and the interactive guide. The user can also change this directly in the template modal."
+#: plugin/includes/class-ha-bpmn-cpt.php:1004
+msgid ""
+"Choose the default language for process templates and the interactive guide. "
+"The user can also change this directly in the template modal."
 msgstr ""
 
-#: includes/class-ha-bpmn-cpt.php
+#: plugin/includes/class-ha-bpmn-cpt.php:1009
 msgid "🌐 Automatic (WordPress Site Language)"
 msgstr ""
 
-#: includes/class-ha-bpmn-cpt.php
+#: plugin/includes/class-ha-bpmn-cpt.php:1052
 msgid "Frontend Display & Viewer Experience"
 msgstr ""
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "Configure how diagrams appear when rendered via shortcodes [bpmnm id=\"...\"] or embedded in posts and pages."
+#: plugin/includes/class-ha-bpmn-cpt.php:1053
+msgid ""
+"Configure how diagrams appear when rendered via shortcodes [bpmnm id=\"..."
+"\"] or embedded in posts and pages."
 msgstr ""
 
-#: includes/class-ha-bpmn-cpt.php
+#: plugin/includes/class-ha-bpmn-cpt.php:1059
 msgid "Default Viewer Height (px)"
 msgstr ""
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "The default canvas height in pixels when no height attribute is passed to the shortcode (e.g., 600). Can always be overridden with [bpmnm height=\"750px\"]."
+#: plugin/includes/class-ha-bpmn-cpt.php:1062
+msgid ""
+"The default canvas height in pixels when no height attribute is passed to "
+"the shortcode (e.g., 600). Can always be overridden with [bpmnm "
+"height=\"750px\"]."
 msgstr ""
 
-#: includes/class-ha-bpmn-cpt.php
+#: plugin/includes/class-ha-bpmn-cpt.php:1073
 msgid "Enable Zoom & Pan in Frontend"
 msgstr ""
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "Allows website visitors to zoom in/out with mouse scroll or touch gestures and freely pan the diagram viewport."
+#: plugin/includes/class-ha-bpmn-cpt.php:1076
+msgid ""
+"Allows website visitors to zoom in/out with mouse scroll or touch gestures "
+"and freely pan the diagram viewport."
 msgstr ""
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "Allow Visitors to Download BPMN & SVG"
+#: plugin/includes/class-ha-bpmn-cpt.php:1090
+msgid "Allow Visitors to Download BPMN, SVG & PNG"
 msgstr ""
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "Displays download buttons in the frontend viewer bar so users can export the raw BPMN 2.0 XML or SVG vector image."
+#: plugin/includes/class-ha-bpmn-cpt.php:1093
+msgid ""
+"Displays download buttons in the frontend viewer bar so users can export the "
+"raw BPMN 2.0 XML, SVG vector image, or high-resolution PNG."
 msgstr ""
 
-#: includes/class-ha-bpmn-cpt.php
+#: plugin/includes/class-ha-bpmn-cpt.php:1107
 msgid "Interactive Token Simulation in Frontend"
 msgstr ""
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "Allows visitors to run the interactive token simulation directly inside embedded diagrams on your site."
+#: plugin/includes/class-ha-bpmn-cpt.php:1110
+msgid ""
+"Allows visitors to run the interactive token simulation directly inside "
+"embedded diagrams on your site."
 msgstr ""
 
-#: includes/class-ha-bpmn-cpt.php
+#: plugin/includes/class-ha-bpmn-cpt.php:1124
+msgid "BPMN Quest / Learning Studio Target URL"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:1127
+msgid ""
+"Optional: Specify a custom frontend page URL containing the BPMN modeler "
+"where learners should be redirected to continue tasks (e.g. https://your-"
+"site.com/bpmn-studio/). If empty, the plugin automatically resolves the "
+"latest published BPMN diagram or WordPress editor."
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:1143
 msgid "System & Library Status"
 msgstr ""
 
-#: includes/class-ha-bpmn-cpt.php
+#: plugin/includes/class-ha-bpmn-cpt.php:1144
 msgid "Technical details and library versions powering your BPMN engine."
 msgstr ""
 
-#: includes/class-ha-bpmn-cpt.php
+#: plugin/includes/class-ha-bpmn-cpt.php:1150
 msgid "Plugin Version"
 msgstr ""
 
-#: includes/class-ha-bpmn-cpt.php
+#: plugin/includes/class-ha-bpmn-cpt.php:1156
+#: plugin/includes/class-ha-bpmn-updater.php:219
+msgid "Check for updates"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:1162
 msgid "BPMN Modeler Engine"
 msgstr ""
 
-#: includes/class-ha-bpmn-cpt.php
+#: plugin/includes/class-ha-bpmn-cpt.php:1166
 msgid "Token Simulation Module"
 msgstr ""
 
-#: includes/class-ha-bpmn-cpt.php
+#: plugin/includes/class-ha-bpmn-cpt.php:1170
 msgid "BPMN Lint Validator"
 msgstr ""
 
-#: includes/class-ha-bpmn-cpt.php
+#: plugin/includes/class-ha-bpmn-cpt.php:1174
 msgid "REST API Endpoint"
 msgstr ""
 
-#: includes/class-ha-bpmn-cpt.php
+#: plugin/includes/class-ha-bpmn-cpt.php:1175
 msgid "Active"
 msgstr ""
 
-#: includes/class-ha-bpmn-cpt.php
+#: plugin/includes/class-ha-bpmn-cpt.php:1178
 msgid "WordPress Core"
 msgstr ""
 
-#: includes/class-ha-bpmn-cpt.php
+#: plugin/includes/class-ha-bpmn-cpt.php:1182
 msgid "PHP Environment"
 msgstr ""
 
-#: includes/class-ha-bpmn-cpt.php
+#: plugin/includes/class-ha-bpmn-cpt.php:1192
 msgid "Shortcode Quick Reference"
 msgstr ""
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "Copy & paste shortcodes to integrate your diagrams anywhere in WordPress."
+#: plugin/includes/class-ha-bpmn-cpt.php:1193
+msgid ""
+"Copy & paste shortcodes to integrate your diagrams anywhere in WordPress."
 msgstr ""
 
-#: includes/class-ha-bpmn-cpt.php
+#: plugin/includes/class-ha-bpmn-cpt.php:1197
 msgid "Standard Interactive Diagram"
 msgstr ""
 
-#: includes/class-ha-bpmn-cpt.php
+#: plugin/includes/class-ha-bpmn-cpt.php:1203
 msgid "Custom Height & Fullscreen Disabled"
 msgstr ""
 
-#: includes/class-ha-bpmn-cpt.php
+#: plugin/includes/class-ha-bpmn-cpt.php:1209
 msgid "Lightweight Static SVG Mode (Instant Load)"
 msgstr ""
 
-#: includes/class-ha-bpmn-cpt.php
+#: plugin/includes/class-ha-bpmn-cpt.php:1215
 msgid "Active & Completed Step Highlighting"
 msgstr ""
 
-#: includes/class-ha-bpmn-cpt.php
+#: plugin/includes/class-ha-bpmn-cpt.php:1229
+msgid "Danger Zone: Deinstallation & Data Cleanup"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:1232
+msgid ""
+"Choose what happens to your BPMN diagrams and settings when the plugin is "
+"deleted via WordPress."
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:1239
+msgid ""
+"Permanently delete all BPMN diagrams and settings when uninstalling the "
+"plugin"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:1242
+msgid "🛡️ Safe by default (Recommended):"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:1243
+msgid ""
+"When this toggle is disabled, all diagrams, XML models, revisions, and "
+"settings are preserved in the WordPress database. You can safely deactivate, "
+"update, or reinstall the plugin without losing data."
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:1246
+msgid "⚠️ Only for permanent removal (GDPR):"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:1247
+msgid ""
+"Only enable this option if you are permanently uninstalling the plugin and "
+"wish to clean up the database completely."
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:1268
+msgid "Live Preview of Master Certificate"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:1271
+msgid ""
+"Open the certificate with your currently configured texts, colors, seals, "
+"and signatures in full resolution (including print, SVG, and 300 DPI PNG "
+"export)."
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:1276
+msgid "Open Certificate Preview"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:1283
+msgid "Notice:"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:1284
+msgid ""
+"The Interactive Guide & BPMN-Quest (Tutorial) is currently disabled under "
+"„Modeler & Studio Tools“. Your certificate styling and signature settings "
+"remain safely saved and will be used as soon as the quest module is re-"
+"enabled."
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:1292
+msgid "Issuer, Institution & Governance"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:1293
+msgid ""
+"Configure the organization or academy name and the official governance text "
+"on the certificate."
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:1299
+msgid "Organization Name / Header"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:1302
+msgid ""
+"Appears in capital letters at the very top of the certificate. Leave empty "
+"for default (\"GUILD OF PROCESS MASTERS • QM & ISO-19510 GOVERNANCE\")."
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:1306
+msgid "e.g. ACME PROCESS ACADEMY • CENTER OF EXCELLENCE"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:1313
+msgid "Governance Text / Examination Authority"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:1316
+msgid ""
+"Text below the primary signature (e.g. \"HA-BPMN Guild Governance\" or "
+"\"Enterprise Architecture Board\")."
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:1320
+msgid "HA-BPMN Guild Governance"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:1327
+msgid "Certificate ID Prefix"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:1330
+msgid ""
+"Prefix before the generated verification number (e.g. \"HA-BPMN-\" or \"CORP-"
+"CERT-\")."
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:1334
+msgid "HA-BPMN-"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:1343
+msgid "Certificate Title, Salutation & Dedication"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:1344
+msgid ""
+"Customize the certificate title, personal dedication, and achievement badges."
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:1350
+msgid "Title Mode"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:1353
+msgid ""
+"Choose whether the certificate title is assigned dynamically based on quest "
+"honor level or as a fixed corporate title."
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:1358
+msgid ""
+"🏆 Dynamic based on honor level (Titan Grandmaster, Master Architect, etc.)"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:1359
+msgid "🏢 Fixed custom title (e.g. Certificate for BPMN 2.0 Process Modeling)"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:1367
+msgid "Custom Main Title"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:1370
+msgid ""
+"Applies when title mode is \"Fixed custom title\" or overrides the default "
+"title."
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:1374
+msgid "e.g. CERTIFICATE OF PROCESS MODELING"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:1381
+msgid "Subtitle / Distinction"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:1384
+msgid "Optional subtitle below the main title. Leave blank for default."
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:1388
+msgid ""
+"e.g. Verification of practical modeling competence compliant with ISO 19510"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:1395
+msgid "Salutation / Introductory Line"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:1398
+msgid ""
+"Text line before the recipient name (default: \"This diploma is proudly "
+"conferred upon:\")."
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:1402
+msgid "This diploma is proudly conferred upon:"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:1409
+msgid "Custom Dedication (Laudatio)"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:1412
+msgid ""
+"Custom dedication text. Leave blank to use the automatic summary of "
+"completed tasks and linter challenges."
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:1416
+msgid ""
+"In recognition of outstanding modeling competence and successful completion "
+"of all BPMN practical modules."
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:1423
+msgid "Show Achievement Badges"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:1426
+msgid ""
+"Displays the 3 achievement badges (Chapters, XP score, Linter puzzles) on "
+"the certificate. Disable for a purely formal look."
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:1443
+msgid "Signatures & Signers (Single / Dual Signature)"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:1444
+msgid ""
+"Upload your own signature images (transparent PNGs or SVGs) or use built-in "
+"vector calligraphy."
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:1450
+msgid "Signature Mode"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:1453
+msgid ""
+"Choose between single signature (right) or dual signature (left trainer/"
+"examiner, right head/guildmaster)."
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:1458
+msgid "✍️ Single Signature (Right, Default)"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:1459
+msgid "✍️✍️ Dual Signature (Left Trainer/Examiner, Right Head)"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:1465
+msgid "1. Primary Signer (Right)"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:1470
+msgid "Signature 1 (Image File)"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:1473
+msgid ""
+"Recommended: Transparent PNG or SVG graphic of the handwritten signature. "
+"Leave blank for vector calligraphy."
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:1479
+#: plugin/includes/class-ha-bpmn-cpt.php:1531
+#: plugin/includes/class-ha-bpmn-cpt.php:1589
+#: plugin/includes/class-ha-bpmn-cpt.php:1610
+msgid "Select Image"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:1482
+#: plugin/includes/class-ha-bpmn-cpt.php:1534
+#: plugin/includes/class-ha-bpmn-cpt.php:1592
+#: plugin/includes/class-ha-bpmn-cpt.php:1613
+msgid "Remove"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:1491
+msgid "Name of 1st Signer"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:1494
+msgid "Optional name of the signing person (e.g. \"Dr. Alexander Brand\")."
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:1498
+msgid "e.g. Dr. Alexander Brand"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:1505
+msgid "Title / Role of 1st Signer"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:1508
+msgid "Title / designation (default: \"The Guild Master\")."
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:1512
+msgid "The Guild Master"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:1517
+msgid "2. Second Examiner / Co-Signer (Left)"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:1522
+msgid "Signature 2 (Image File)"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:1525
+msgid "Graphic of the second signature (e.g. trainer or examiner)."
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:1543
+msgid "Name of 2nd Signer"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:1546
+msgid "Name of the trainer or co-examiner (e.g. \"Prof. Dr. M. Weber\")."
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:1550
+msgid "e.g. Prof. Dr. M. Weber"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:1557
+msgid "Title / Role of 2nd Signer"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:1560
+msgid "Title / role of the co-examiner (e.g. \"BPMN Trainer & Examiner\")."
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:1564
+msgid "BPMN Trainer & Examiner"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:1573
+msgid "Official Seal, Stamp & Watermark"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:1574
+msgid ""
+"Upload an official company seal, academy crest, or subtle background "
+"watermark."
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:1580
+msgid "Official Seal / Stamp / Logo"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:1583
+msgid ""
+"Circular company or academy seal. Leave empty for the dynamic honor level "
+"medallion with BPMN embossing."
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:1601
+msgid "Background Watermark (Optional)"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:1604
+msgid ""
+"Placed centered in the background of the certificate with subtle "
+"transparency (approx. 5%) behind the text."
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:1624
+msgid "Color Theme & Design Accents"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:1625
+msgid ""
+"Adjust borders, gradients, and ornaments to match your brand color scheme."
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:1631
+msgid "Design Color Theme"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:1634
+msgid "Choose a predefined color theme or define a custom accent color."
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:1639
+msgid ""
+"👑 Dynamic Honor Levels (Titanium Violet, Ruby Red, Gold, Silver, Bronze)"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:1640
+msgid "🌟 Timeless Gold & Prussian Blue (Classic Navy & Gold)"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:1641
+msgid "🏛️ Corporate Deep Blue & Silver (Modern Enterprise)"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:1642
+msgid "🌿 Emerald Green & Brass (Excellence Emerald)"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:1643
+msgid "🎨 Custom Accent Color (HEX Color Picker)"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:1651
+msgid "Custom Accent Color"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:1654
+msgid ""
+"Choose your company color code (Hex value) for the certificate frame and "
+"accent lines."
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:1667
 msgid "Save All Changes"
 msgstr ""
 
-#: includes/class-ha-bpmn-cpt.php
+#: plugin/includes/class-ha-bpmn-cpt.php:1672
+msgid "Certificate Preview (Live)"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:1751
+msgid "Loading certificate module... Please wait a moment."
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:1812
 msgid "Invalid diagram ID."
 msgstr ""
 
-#: includes/class-ha-bpmn-cpt.php
+#: plugin/includes/class-ha-bpmn-cpt.php:1818
+#: plugin/includes/class-ha-bpmn-cpt.php:1862
 msgid "Permission denied."
 msgstr ""
 
-#: includes/class-ha-bpmn-cpt.php
+#: plugin/includes/class-ha-bpmn-cpt.php:1823
+#: plugin/includes/class-ha-bpmn-rest.php:105
+#: plugin/includes/class-ha-bpmn-rest.php:147
+msgid "Diagram not found."
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-cpt.php:1885
 msgid "Shortcode"
 msgstr ""
 
-#: includes/class-ha-bpmn-cpt.php
+#: plugin/includes/class-ha-bpmn-cpt.php:1887
 msgid "Categories"
 msgstr ""
 
-#: includes/class-ha-bpmn-cpt.php
+#: plugin/includes/class-ha-bpmn-cpt.php:1890
 msgid "Tags"
 msgstr ""
 
-#: includes/class-ha-bpmn-cpt.php
+#: plugin/includes/class-ha-bpmn-cpt.php:1963
 msgid "Export BPMN"
 msgstr ""
 
-#: includes/class-ha-bpmn-cpt.php
+#: plugin/includes/class-ha-bpmn-cpt.php:1966
 msgid "View in Frontend"
 msgstr ""
 
-#: includes/class-ha-bpmn-renderer.php
-msgid "Please select a BPMN diagram in the block sidebar."
+#: plugin/includes/class-ha-bpmn-gutenberg.php:73
+msgid ""
+"Embed an interactive or static BPMN 2.0 process diagram with simulation and "
+"step tracking."
 msgstr ""
 
-#: includes/class-ha-bpmn-renderer.php
-msgid "Search diagram"
-msgstr ""
-
-#: includes/class-ha-bpmn-gutenberg.php
-msgid "Embed an interactive or static BPMN 2.0 process diagram with simulation and step tracking."
-msgstr ""
-
-#: includes/class-ha-bpmn-gutenberg.php
+#: plugin/includes/class-ha-bpmn-gutenberg.php:74
 msgid "Select BPMN Diagram"
 msgstr ""
 
-#: includes/class-ha-bpmn-gutenberg.php
+#: plugin/includes/class-ha-bpmn-gutenberg.php:75
 msgid "-- Choose a diagram --"
 msgstr ""
 
-#: includes/class-ha-bpmn-gutenberg.php
+#: plugin/includes/class-ha-bpmn-gutenberg.php:76
 msgid "Display Settings"
 msgstr ""
 
-#: includes/class-ha-bpmn-gutenberg.php
+#: plugin/includes/class-ha-bpmn-gutenberg.php:77
 msgid "Height (e.g. 600px)"
 msgstr ""
 
-#: includes/class-ha-bpmn-gutenberg.php
+#: plugin/includes/class-ha-bpmn-gutenberg.php:78
 msgid "Display Mode"
 msgstr ""
 
-#: includes/class-ha-bpmn-gutenberg.php
+#: plugin/includes/class-ha-bpmn-gutenberg.php:79
 msgid "Interactive (Full Modeler with Zoom & Simulation)"
 msgstr ""
 
-#: includes/class-ha-bpmn-gutenberg.php
+#: plugin/includes/class-ha-bpmn-gutenberg.php:80
 msgid "Static SVG (Zero-JS, Ultra-fast)"
 msgstr ""
 
-#: includes/class-ha-bpmn-gutenberg.php
+#: plugin/includes/class-ha-bpmn-gutenberg.php:81
 msgid "Enable Fullscreen Button"
 msgstr ""
 
-#: includes/class-ha-bpmn-gutenberg.php
+#: plugin/includes/class-ha-bpmn-gutenberg.php:82
 msgid "Enable Live Search"
 msgstr ""
 
-#: includes/class-ha-bpmn-gutenberg.php
+#: plugin/includes/class-ha-bpmn-gutenberg.php:83
 msgid "Enable Task Details Drawer"
 msgstr ""
 
-#: includes/class-ha-bpmn-gutenberg.php
+#: plugin/includes/class-ha-bpmn-gutenberg.php:84
 msgid "Process Step Tracking"
 msgstr ""
 
-#: includes/class-ha-bpmn-gutenberg.php
+#: plugin/includes/class-ha-bpmn-gutenberg.php:85
 msgid "Active Step IDs (comma-separated)"
 msgstr ""
 
-#: includes/class-ha-bpmn-gutenberg.php
+#: plugin/includes/class-ha-bpmn-gutenberg.php:86
 msgid "Completed Step IDs (comma-separated)"
 msgstr ""
 
-#: includes/class-ha-bpmn-gutenberg.php
+#: plugin/includes/class-ha-bpmn-gutenberg.php:87
 msgid "No BPMN diagrams found. Please create one first."
 msgstr ""
 
+#: plugin/includes/class-ha-bpmn-renderer.php:119
+msgid "Please select a BPMN diagram in the block sidebar."
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-renderer.php:239
+msgid "Search diagram"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-rest.php:114
+msgid "This diagram is password protected."
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-rest.php:131
+msgid "You are not allowed to view this diagram."
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-rest.php:208
+#, php-format
+msgid "Diagram #%d"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-rest.php:232
+msgid "You do not have permission to view revisions of this diagram."
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-rest.php:264
+msgid "Unknown"
+msgstr ""
+
+#: plugin/includes/class-ha-bpmn-updater.php:221
+msgid "Nach Updates suchen"
+msgstr ""

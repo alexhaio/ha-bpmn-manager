@@ -102,7 +102,7 @@ class Achievements {
 				$task['source_icon']  = '📐';
 				$task['source_color'] = '#1d4ed8';
 				$task['source_bg']    = '#eff6ff';
-				$task['action_label'] = __( 'Im BPMN-Studio fortsetzen ▶', 'ha-bpmn-manager' );
+				$task['action_label'] = __( 'Continue in BPMN Studio ▶', 'ha-bpmn-manager' );
 				$task['action_url']   = self::get_editor_url( $task_key, $chap_key );
 			}
 		}
@@ -129,8 +129,8 @@ class Achievements {
 			'color'        => '#1d4ed8',
 			'bg'           => '#eff6ff',
 			'editor_url'   => self::get_editor_url(),
-			'action_label' => __( 'BPMN-Studio öffnen 🚀', 'ha-bpmn-manager' ),
-			'description'  => __( 'Interaktives Modellierungsstudio für ISO 19510 Geschäftsprozesse mit Tokensimulation.', 'ha-bpmn-manager' ),
+			'action_label' => __( 'Open BPMN Studio 🚀', 'ha-bpmn-manager' ),
+			'description'  => __( 'Interactive modeling studio for ISO 19510 business processes with token simulation.', 'ha-bpmn-manager' ),
 		];
 
 		return $sources;

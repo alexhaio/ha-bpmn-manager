@@ -5,7 +5,7 @@ Donate link: https://www.paypal.com/paypalme/edvhacker/6
 Requires at least: 5.8
 Tested up to: 6.7
 Requires PHP: 8.2
-Stable tag: 4.8.6
+Stable tag: 4.8.7
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -84,6 +84,11 @@ Yes. All XML imports (both via file upload and canvas drag-and-drop) are validat
 6. **Token Simulation:** Step-by-step execution simulation with speed selection and logging.
 
 == Changelog ==
+
+= 4.8.7 =
+* **Full Translation Parity:** Audited and synchronized all 35 language packs. Modern WordPress 6.5+ performant translations (.l10n.php) and traditional gettext files (.po and .mo) are now 100% identical with 332 complete message keys each.
+* **English Source String Normalization:** Standardized all source gettext strings in backend templates, certificate settings, and deactivation modals to canonical English for seamless internationalization.
+* **Complete German & Multilingual Coverage:** Added missing German translations for all recent features including settings tabs, certificate customization, tutorial/templates/handbook module switches, and update check controls.
 
 = 4.8.6 =
 * **Update Checker & UI Link Fix:** Restored the "Nach Updates suchen" (Check for updates) button and link across wp-admin/plugins.php and plugin settings.

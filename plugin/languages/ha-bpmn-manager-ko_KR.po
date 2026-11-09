@@ -1,726 +1,1012 @@
-# Translation of HA-BPMN-Manager into Korean
+# Translation of HA-BPMN-Manager into ko_KR
 # Copyright (C) 2020-present Alexander Hacker
 msgid ""
 msgstr ""
-"Project-Id-Version: HA-BPMN-Manager 2.5.1\n"
+"Project-Id-Version: HA-BPMN-Manager 4.8.7\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/ha-bpmn-manager\n"
-"POT-Creation-Date: 2026-09-12 03:00+0000\n"
-"PO-Revision-Date: 2026-09-12 03:00+0000\n"
+"POT-Creation-Date: 2026-11-09 17:44+0000\n"
+"PO-Revision-Date: 2026-11-09 17:44+0000\n"
 "Last-Translator: Alexander Hacker <alex@seo-hacker.de>\n"
-"Language-Team: Korean\n"
+"Language-Team: ko_KR\n"
 "Language: ko_KR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: HA-BPMN-Manager i18n Toolkit\n"
 
-#: includes/class-ha-bpmn-assets.php
-#: includes/class-ha-bpmn-cpt.php
-#: includes/class-ha-bpmn-cpt.php
-#: includes/class-ha-bpmn-renderer.php
+msgid "Continue in BPMN Studio ▶"
+msgstr "Continue in BPMN Studio ▶"
+
+msgid "Open BPMN Studio 🚀"
+msgstr "Open BPMN Studio 🚀"
+
+msgid "Interactive modeling studio for ISO 19510 business processes with token simulation."
+msgstr "Interactive modeling studio for ISO 19510 business processes with token simulation."
+
 msgid "Zoom in"
 msgstr "확대"
 
-#: includes/class-ha-bpmn-assets.php
-#: includes/class-ha-bpmn-cpt.php
-#: includes/class-ha-bpmn-cpt.php
-#: includes/class-ha-bpmn-renderer.php
 msgid "Zoom out"
 msgstr "축소"
 
-#: includes/class-ha-bpmn-assets.php
-#: includes/class-ha-bpmn-cpt.php
-#: includes/class-ha-bpmn-cpt.php
-#: includes/class-ha-bpmn-renderer.php
 msgid "Fit to screen"
 msgstr "화면에 맞추기"
 
-#: includes/class-ha-bpmn-assets.php
-#: includes/class-ha-bpmn-cpt.php
-#: includes/class-ha-bpmn-renderer.php
 msgid "Download SVG"
 msgstr "SVG 다운로드"
 
-#: includes/class-ha-bpmn-assets.php
-#: includes/class-ha-bpmn-renderer.php
+msgid "Download PNG"
+msgstr "Download PNG"
+
 msgid "Download BPMN"
 msgstr "BPMN 다운로드"
 
-#: includes/class-ha-bpmn-assets.php
-#: includes/class-ha-bpmn-cpt.php
-#: includes/class-ha-bpmn-renderer.php
 msgid "Fullscreen"
 msgstr "전체 화면"
 
-#: includes/class-ha-bpmn-assets.php
 msgid "You have unsaved changes in your BPMN diagram. Do you really want to leave?"
 msgstr "BPMN 다이어그램에 저장되지 않은 변경 사항이 있습니다. 정말 나가시겠습니까?"
 
-#: includes/class-ha-bpmn-assets.php
 msgid "Drop BPMN file here to import"
 msgstr "가져올 BPMN 파일을 여기에 끌어다 놓으세요"
 
-#: includes/class-ha-bpmn-assets.php
-#: includes/class-ha-bpmn-cpt.php
 msgid "Release to import .bpmn or .xml directly into diagram"
 msgstr "다이어그램으로 .bpmn 또는 .xml 파일을 직접 가져오려면 마우스를 놓으세요"
 
-#: includes/class-ha-bpmn-assets.php
-#: includes/class-ha-bpmn-cpt.php
-#: includes/class-ha-bpmn-cpt.php
 msgid "Import"
 msgstr "가져오기"
 
-#: includes/class-ha-bpmn-assets.php
 msgid "Failed to import BPMN diagram."
 msgstr "BPMN 다이어그램을 가져오지 못했습니다."
 
-#: includes/class-ha-bpmn-assets.php
 msgid "Diagram imported successfully."
 msgstr "다이어그램을 성공적으로 가져왔습니다."
 
-#: includes/class-ha-bpmn-assets.php
 msgid "The selected file is not a valid BPMN 2.0 XML document."
 msgstr "선택한 파일은 올바른 BPMN 2.0 XML 문서가 아닙니다."
 
-#: includes/class-ha-bpmn-assets.php
 msgid "Invalid file format. Please upload a .bpmn or .xml file."
 msgstr "잘못된 파일 형식입니다. .bpmn 또는 .xml 파일을 업로드해 주세요."
 
-#: includes/class-ha-bpmn-assets.php
 msgid "Error reading the file."
 msgstr "파일을 읽는 중 오류가 발생했습니다."
 
-#: includes/class-ha-bpmn-assets.php
-#: includes/class-ha-bpmn-cpt.php
-#: includes/class-ha-bpmn-cpt.php
 msgid "Auto-Layout"
 msgstr "자동 배치"
 
-#: includes/class-ha-bpmn-assets.php
 msgid "Error during automatic layout calculation."
 msgstr "자동 레이아웃 계산 중 오류가 발생했습니다."
 
-#: includes/class-ha-bpmn-assets.php
-#: includes/class-ha-bpmn-cpt.php
-#: includes/class-ha-bpmn-cpt.php
 msgid "Templates"
 msgstr "템플릿"
 
-#: includes/class-ha-bpmn-assets.php
 msgid "Select Process Template"
 msgstr "프로세스 템플릿 선택"
 
-#: includes/class-ha-bpmn-assets.php
 msgid "Choose a ready-made template as a starting point for your BPMN 2.0 process:"
 msgstr "새로운 BPMN 2.0 프로세스를 시작하기 위한 기성 템플릿을 선택하세요:"
 
-#: includes/class-ha-bpmn-assets.php
 msgid "Use template"
 msgstr "템플릿 사용"
 
-#: includes/class-ha-bpmn-assets.php
 msgid "Unsaved changes will be lost. Do you really want to proceed?"
 msgstr "저장되지 않은 변경 사항은 삭제됩니다. 계속 진행하시겠습니까?"
 
-#: includes/class-ha-bpmn-assets.php
 msgid "Revision History"
 msgstr "개정 이력"
 
-#: includes/class-ha-bpmn-assets.php
 msgid "Loading revisions..."
 msgstr "저장된 개정 기록 불러오는 중..."
 
-#: includes/class-ha-bpmn-assets.php
 msgid "Restore"
 msgstr "복원"
 
-#: includes/class-ha-bpmn-assets.php
 msgid "Compare"
 msgstr "비교"
 
-#: includes/class-ha-bpmn-assets.php
 msgid "Added"
 msgstr "추가됨"
 
-#: includes/class-ha-bpmn-assets.php
 msgid "Modified"
 msgstr "수정됨"
 
-#: includes/class-ha-bpmn-assets.php
 msgid "Deleted"
 msgstr "삭제됨"
 
-#: includes/class-ha-bpmn-assets.php
 msgid "No structural changes detected between these versions."
 msgstr "버전 간 구조적 변경이 감지되지 않았습니다."
 
-#: includes/class-ha-bpmn-assets.php
 msgid "Do you really want to restore this revision? Current unsaved changes will be overwritten."
 msgstr "이 버전을 복원하시겠습니까? 현재 저장되지 않은 변경 사항은 덮어씌워집니다."
 
-#: includes/class-ha-bpmn-assets.php
-#: includes/class-ha-bpmn-cpt.php
 msgid "QM Handbook"
 msgstr "QM 핸드북"
 
-#: includes/class-ha-bpmn-assets.php
 msgid "Process Documentation & QM Handbook"
 msgstr "프로세스 문서화 및 QM 핸드북"
 
-#: includes/class-ha-bpmn-assets.php
 msgid "Process Steps Overview"
 msgstr "프로세스 단계 개요"
 
-#: includes/class-ha-bpmn-assets.php
 msgid "Step"
 msgstr "단계"
 
-#: includes/class-ha-bpmn-assets.php
 msgid "Name / Action"
 msgstr "명칭 / 작업"
 
-#: includes/class-ha-bpmn-assets.php
 msgid "Print Handbook"
 msgstr "핸드북 인쇄"
 
-#: includes/class-ha-bpmn-assets.php
-#: includes/class-ha-bpmn-cpt.php
 msgid "Search"
 msgstr "검색"
 
-#: includes/class-ha-bpmn-assets.php
 msgid "Search diagram..."
 msgstr "다이어그램 검색..."
 
-#: includes/class-ha-bpmn-assets.php
 msgid "No matches found"
 msgstr "일치하는 결과가 없습니다"
 
-#: includes/class-ha-bpmn-assets.php
 msgid "Previous match"
 msgstr "이전 검색 결과"
 
-#: includes/class-ha-bpmn-assets.php
 msgid "Next match"
 msgstr "다음 검색 결과"
 
-#: includes/class-ha-bpmn-assets.php
 msgid "Close search"
 msgstr "검색 닫기"
 
-#: includes/class-ha-bpmn-assets.php
 msgid "Process Step Details"
 msgstr "프로세스 단계 세부 정보"
 
-#: includes/class-ha-bpmn-assets.php
 msgid "Step Type"
 msgstr "단계 유형"
 
-#: includes/class-ha-bpmn-assets.php
 msgid "Assigned Role / Lane"
 msgstr "담당 역할 / 레인"
 
-#: includes/class-ha-bpmn-assets.php
 msgid "QM Instructions & Documentation"
 msgstr "업무 지침 및 QM 문서"
 
-#: includes/class-ha-bpmn-assets.php
 msgid "No additional instructions provided for this step."
 msgstr "이 단계에 등록된 추가 지침이 없습니다."
 
-#: includes/class-ha-bpmn-assets.php
 msgid "Technical ID"
 msgstr "기술적 ID"
 
-#: includes/class-ha-bpmn-assets.php
 msgid "Close"
 msgstr "닫기"
 
-#: includes/class-ha-bpmn-assets.php
-#: includes/class-ha-bpmn-cpt.php
 msgid "Properties"
 msgstr "속성"
 
-#: includes/class-ha-bpmn-rest.php
-#: includes/class-ha-bpmn-rest.php
-#: includes/class-ha-bpmn-cpt.php
-msgid "Diagram not found."
-msgstr "다이어그램을 찾을 수 없습니다."
+msgid "Standard / Success (Green)"
+msgstr "Standard / Success (Green)"
 
-#: includes/class-ha-bpmn-rest.php
-msgid "This diagram is password protected."
-msgstr "이 다이어그램은 비밀번호로 보호되어 있습니다."
+msgid "Error / Escalation (Red)"
+msgstr "Error / Escalation (Red)"
 
-#: includes/class-ha-bpmn-rest.php
-msgid "You are not allowed to view this diagram."
-msgstr "이 다이어그램을 볼 권한이 없습니다."
+msgid "Review / Approval (Yellow)"
+msgstr "Review / Approval (Yellow)"
 
-#: includes/class-ha-bpmn-rest.php
-msgid "Diagram #%d"
-msgstr "다이어그램 #%d"
+msgid "System / Information (Blue)"
+msgstr "System / Information (Blue)"
 
-#: includes/class-ha-bpmn-rest.php
-msgid "You do not have permission to view revisions of this diagram."
-msgstr "이 다이어그램의 수정 이력을 볼 수 있는 권한이 없습니다."
+msgid "Reset Color"
+msgstr "Reset Color"
 
-#: includes/class-ha-bpmn-rest.php
-msgid "Unknown"
-msgstr "알 수 없음"
+msgid "Please select at least one element in the diagram to assign a color."
+msgstr "Please select at least one element in the diagram to assign a color."
 
-#: includes/class-ha-bpmn-cpt.php
-#: includes/class-ha-bpmn-cpt.php
-msgid "BPMN Diagrams"
-msgstr "BPMN 다이어그램"
+msgid "Saved Versions"
+msgstr "Saved Versions"
 
-#: includes/class-ha-bpmn-cpt.php
-#: includes/class-ha-bpmn-gutenberg.php
-msgid "BPMN Diagram"
-msgstr "BPMN 다이어그램"
+msgid "Diff Analysis vs Current Version"
+msgstr "Diff Analysis vs Current Version"
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "Add New Diagram"
-msgstr "새 다이어그램 추가"
+msgid "Select a revision on the left to semantically analyze changes."
+msgstr "Select a revision on the left to semantically analyze changes."
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "Add New BPMN Diagram"
-msgstr "새 BPMN 다이어그램 추가"
+msgid "No BPMN definition is stored in this revision."
+msgstr "No BPMN definition is stored in this revision."
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "Edit BPMN Diagram"
-msgstr "BPMN 다이어그램 편집"
+msgid "Element added:"
+msgstr "Element added:"
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "New BPMN Diagram"
-msgstr "새 BPMN 다이어그램"
+msgid "Element content changed:"
+msgstr "Element content changed:"
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "View Diagram"
-msgstr "다이어그램 보기"
+msgid "Position/layout changed:"
+msgstr "Position/layout changed:"
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "Search Diagrams"
-msgstr "다이어그램 검색"
+msgid "Element deleted:"
+msgstr "Element deleted:"
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "No diagrams found"
-msgstr "다이어그램이 없습니다"
+msgid "This revision is identical to the current editor state."
+msgstr "This revision is identical to the current editor state."
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "No diagrams found in Trash"
-msgstr "휴지통에 다이어그램이 없습니다"
+msgid "Error restoring revision:"
+msgstr "Error restoring revision:"
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "All BPMN Diagrams"
-msgstr "모든 BPMN 다이어그램"
+msgid "Please allow popups to open the QM Handbook."
+msgstr "Please allow popups to open the QM Handbook."
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "BPMN Modeler"
-msgstr "BPMN 편집기"
+msgid "Quality Management Handbook"
+msgstr "Quality Management Handbook"
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "Author"
-msgstr "작성자"
+msgid "Standard process documentation compliant with BPMN 2.0 specification"
+msgstr "Standard process documentation compliant with BPMN 2.0 specification"
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "Undo (Ctrl+Z)"
-msgstr "실행 취소 (Ctrl+Z)"
+msgid "Date:"
+msgstr "Date:"
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "Undo"
-msgstr "실행 취소"
+msgid "Status:"
+msgstr "Status:"
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "Redo (Ctrl+Y)"
-msgstr "다시 실행 (Ctrl+Y)"
+msgid "Approved / Production"
+msgstr "Approved / Production"
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "Redo"
-msgstr "다시 실행"
+msgid "1. Process Overview & Flow Diagram"
+msgstr "1. Process Overview & Flow Diagram"
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "Process Templates"
-msgstr "프로세스 템플릿"
+msgid "2. Process Steps & Operating Procedures"
+msgstr "2. Process Steps & Operating Procedures"
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "Interactive Guide & BPMN-Quest"
-msgstr "Interactive Guide & BPMN-Quest"
+msgid "Process Step"
+msgstr "Process Step"
 
-#: includes/class-ha-bpmn-cpt.php
-#: includes/class-ha-bpmn-cpt.php
-msgid "BPMN-Quest"
-msgstr "BPMN-Quest"
+msgid "Type"
+msgstr "Type"
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "Import BPMN XML (.bpmn, .xml)"
-msgstr "BPMN XML 가져오기 (.bpmn, .xml)"
+msgid "Responsible"
+msgstr "Responsible"
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "Auto-Layout Diagram"
-msgstr "다이어그램 자동 배치"
+msgid "Operating Procedure & Description"
+msgstr "Operating Procedure & Description"
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "Search Diagram (Ctrl+F)"
-msgstr "다이어그램 검색 (Ctrl+F)"
+msgid "Next Step"
+msgstr "Next Step"
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "Revision History & Semantic Diff"
-msgstr "버전 히스토리 및 비교"
+msgid "No special operating procedure"
+msgstr "No special operating procedure"
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "History"
-msgstr "히스토리"
+msgid "No SVG graphic available."
+msgstr "No SVG graphic available."
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "Generate QM Process Handbook (Print/PDF)"
-msgstr "QM 프로세스 핸드북 생성 (인쇄/PDF)"
+msgid "Print / Save as PDF"
+msgstr "Print / Save as PDF"
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "Fullscreen / Zen Mode"
-msgstr "전체화면 / 몰입 모드"
+msgid "Unnamed Activity"
+msgstr "Unnamed Activity"
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "Download BPMN XML"
-msgstr "BPMN XML 다운로드"
+msgid "Activity"
+msgstr "Activity"
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "Toggle Properties Panel"
-msgstr "속성 패널 열기/닫기"
+msgid "Task"
+msgstr "Task"
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "Drop BPMN file here"
-msgstr "BPMN 파일을 여기에 놓으세요"
+msgid "User Task"
+msgstr "User Task"
 
-#: includes/class-ha-bpmn-cpt.php
-#: includes/class-ha-bpmn-cpt.php
-msgid "Settings"
-msgstr "설정"
+msgid "Service Task"
+msgstr "Service Task"
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "HA-BPMN-Manager"
-msgstr "HA-BPMN-Manager"
+msgid "Send Task"
+msgstr "Send Task"
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "Configure modeling tools, taxonomy integration, frontend embedding, and system options."
-msgstr "Configure modeling tools, taxonomy integration, frontend embedding, and system options."
+msgid "Receive Task"
+msgstr "Receive Task"
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "All Diagrams"
-msgstr "모든 다이어그램"
+msgid "Manual Task"
+msgstr "Manual Task"
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "New Diagram"
-msgstr "새 다이어그램"
+msgid "Business Rule Task"
+msgstr "Business Rule Task"
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "Taxonomies & Structure"
-msgstr "분류 체계 및 구조"
+msgid "Script Task"
+msgstr "Script Task"
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "Modeler & Studio Tools"
-msgstr "모델러 및 스튜디오 도구"
+msgid "Sub-Process"
+msgstr "Sub-Process"
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "Frontend & Embedding"
-msgstr "프론트엔드 및 임베딩"
+msgid "Call Activity"
+msgstr "Call Activity"
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "System Status & Shortcode"
-msgstr "시스템 상태 및 숏코드"
+msgid "HA-BPMN-Manager: Deactivation & Data"
+msgstr "HA-BPMN-Manager: Deactivation & Data"
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "WordPress Taxonomies & Organization"
-msgstr "WordPress Taxonomies & Organization"
+msgid "You are about to deactivate <strong>HA-BPMN-Manager</strong>. Please choose what should happen to your diagrams and data if the plugin is later uninstalled:"
+msgstr "You are about to deactivate <strong>HA-BPMN-Manager</strong>. Please choose what should happen to your diagrams and data if the plugin is later uninstalled:"
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "Control whether standard WordPress categories and tags are enabled for organizing BPMN diagrams."
-msgstr "Control whether standard WordPress categories and tags are enabled for organizing BPMN diagrams."
+msgid "Keep data in database"
+msgstr "Keep data in database"
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "Standard WordPress Categories"
-msgstr "Standard WordPress Categories"
-
-#: includes/class-ha-bpmn-cpt.php
 msgid "Recommended"
 msgstr "Recommended"
 
-#: includes/class-ha-bpmn-cpt.php
+msgid "All BPMN diagrams, XML models, revisions, and settings remain safely stored in the database. Everything will be restored immediately if the plugin is reactivated."
+msgstr "All BPMN diagrams, XML models, revisions, and settings remain safely stored in the database. Everything will be restored immediately if the plugin is reactivated."
+
+msgid "Remove all data upon uninstallation"
+msgstr "Remove all data upon uninstallation"
+
+msgid "GDPR / Danger"
+msgstr "GDPR / Danger"
+
+msgid "Warning: If you delete the plugin via WordPress after deactivation, all diagrams and settings will be permanently destroyed."
+msgstr "Warning: If you delete the plugin via WordPress after deactivation, all diagrams and settings will be permanently destroyed."
+
+msgid "💡 <strong>Note:</strong> You can also change this preference at any time in the <em>System Status</em> tab of the plugin settings."
+msgstr "💡 <strong>Note:</strong> You can also change this preference at any time in the <em>System Status</em> tab of the plugin settings."
+
+msgid "Cancel"
+msgstr "Cancel"
+
+msgid "Save & Deactivate"
+msgstr "Save & Deactivate"
+
+msgid "Saving & deactivating…"
+msgstr "Saving & deactivating…"
+
+msgid "BPMN Diagrams"
+msgstr "BPMN 다이어그램"
+
+msgid "BPMN Diagram"
+msgstr "BPMN 다이어그램"
+
+msgid "Add New Diagram"
+msgstr "새 다이어그램 추가"
+
+msgid "Add New BPMN Diagram"
+msgstr "새 BPMN 다이어그램 추가"
+
+msgid "Edit BPMN Diagram"
+msgstr "BPMN 다이어그램 편집"
+
+msgid "New BPMN Diagram"
+msgstr "새 BPMN 다이어그램"
+
+msgid "View Diagram"
+msgstr "다이어그램 보기"
+
+msgid "Search Diagrams"
+msgstr "다이어그램 검색"
+
+msgid "No diagrams found"
+msgstr "다이어그램이 없습니다"
+
+msgid "No diagrams found in Trash"
+msgstr "휴지통에 다이어그램이 없습니다"
+
+msgid "All BPMN Diagrams"
+msgstr "모든 BPMN 다이어그램"
+
+msgid "BPMN Modeler"
+msgstr "BPMN 편집기"
+
+msgid "Author"
+msgstr "작성자"
+
+msgid "Undo (Ctrl+Z)"
+msgstr "실행 취소 (Ctrl+Z)"
+
+msgid "Undo"
+msgstr "실행 취소"
+
+msgid "Redo (Ctrl+Y)"
+msgstr "다시 실행 (Ctrl+Y)"
+
+msgid "Redo"
+msgstr "다시 실행"
+
+msgid "Process Templates"
+msgstr "프로세스 템플릿"
+
+msgid "Interactive Guide & BPMN-Quest"
+msgstr "Interactive Guide & BPMN-Quest"
+
+msgid "BPMN-Quest"
+msgstr "BPMN-Quest"
+
+msgid "Tutorial"
+msgstr "Tutorial"
+
+msgid "Select user language manually (Default: WordPress language)"
+msgstr "Select user language manually (Default: WordPress language)"
+
+msgid "🌐 Automatic (WordPress)"
+msgstr "🌐 Automatic (WordPress)"
+
+msgid "Import BPMN XML (.bpmn, .xml)"
+msgstr "BPMN XML 가져오기 (.bpmn, .xml)"
+
+msgid "Auto-Layout Diagram"
+msgstr "다이어그램 자동 배치"
+
+msgid "Search Diagram (Ctrl+F)"
+msgstr "다이어그램 검색 (Ctrl+F)"
+
+msgid "Revision History & Semantic Diff"
+msgstr "버전 히스토리 및 비교"
+
+msgid "History"
+msgstr "히스토리"
+
+msgid "Generate QM Process Handbook (Print/PDF)"
+msgstr "QM 프로세스 핸드북 생성 (인쇄/PDF)"
+
+msgid "Fullscreen / Zen Mode"
+msgstr "전체화면 / 몰입 모드"
+
+msgid "Download BPMN XML"
+msgstr "BPMN XML 다운로드"
+
+msgid "Download PNG Image"
+msgstr "Download PNG Image"
+
+msgid "Toggle Properties Panel"
+msgstr "속성 패널 열기/닫기"
+
+msgid "Drop BPMN file here"
+msgstr "BPMN 파일을 여기에 놓으세요"
+
+msgid "Settings"
+msgstr "설정"
+
+msgid "HA-BPMN-Manager"
+msgstr "HA-BPMN-Manager"
+
+msgid "Configure modeling tools, taxonomy integration, frontend embedding, and system options."
+msgstr "Configure modeling tools, taxonomy integration, frontend embedding, and system options."
+
+msgid "All Diagrams"
+msgstr "모든 다이어그램"
+
+msgid "New Diagram"
+msgstr "새 다이어그램"
+
+msgid "Taxonomies & Structure"
+msgstr "분류 체계 및 구조"
+
+msgid "Modeler & Studio Tools"
+msgstr "모델러 및 스튜디오 도구"
+
+msgid "Frontend & Embedding"
+msgstr "프론트엔드 및 임베딩"
+
+msgid "Master Certificate & Quest Award"
+msgstr "Master Certificate & Quest Award"
+
+msgid "System Status & Shortcode"
+msgstr "시스템 상태 및 숏코드"
+
+msgid "WordPress Taxonomies & Organization"
+msgstr "WordPress Taxonomies & Organization"
+
+msgid "Control whether standard WordPress categories and tags are enabled for organizing BPMN diagrams."
+msgstr "Control whether standard WordPress categories and tags are enabled for organizing BPMN diagrams."
+
+msgid "Standard WordPress Categories"
+msgstr "Standard WordPress Categories"
+
 msgid "Enable standard WordPress categories (category) for BPMN diagrams. Adds the category metabox, filter dropdowns, and category columns in the diagram list table."
 msgstr "Enable standard WordPress categories (category) for BPMN diagrams. Adds the category metabox, filter dropdowns, and category columns in the diagram list table."
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "Standard WordPress Tags (Schlagwörter)"
-msgstr "Standard WordPress Tags (Schlagwörter)"
+msgid "Standard WordPress Tags"
+msgstr "Standard WordPress Tags"
 
-#: includes/class-ha-bpmn-cpt.php
 msgid "Enable standard WordPress tags (post_tag) for granular labeling, searchability, and keyword filtering of your BPMN processes."
 msgstr "Enable standard WordPress tags (post_tag) for granular labeling, searchability, and keyword filtering of your BPMN processes."
 
-#: includes/class-ha-bpmn-cpt.php
 msgid "Revision History & Version Comparison"
 msgstr "Revision History & Version Comparison"
 
-#: includes/class-ha-bpmn-cpt.php
 msgid "Pro Feature"
 msgstr "Pro Feature"
 
-#: includes/class-ha-bpmn-cpt.php
 msgid "Tracks diagram version history on every save. Enables the \"History\" studio button with visual semantic comparison (added, modified, deleted BPMN elements) and one-click rollback."
 msgstr "Tracks diagram version history on every save. Enables the \"History\" studio button with visual semantic comparison (added, modified, deleted BPMN elements) and one-click rollback."
 
-#: includes/class-ha-bpmn-cpt.php
 msgid "BPMN Studio & Modeler Modules"
 msgstr "BPMN Studio & Modeler Modules"
 
-#: includes/class-ha-bpmn-cpt.php
 msgid "Turn editor features on or off depending on your team workflow and performance preferences."
 msgstr "Turn editor features on or off depending on your team workflow and performance preferences."
 
-#: includes/class-ha-bpmn-cpt.php
 msgid "Interactive Token Simulation"
 msgstr "Interactive Token Simulation"
 
-#: includes/class-ha-bpmn-cpt.php
 msgid "Provides dynamic token playback in the editor with play/pause, step controls, and speed regulator to test process flow logic interactively."
 msgstr "Provides dynamic token playback in the editor with play/pause, step controls, and speed regulator to test process flow logic interactively."
 
-#: includes/class-ha-bpmn-cpt.php
 msgid "Minimap Navigation"
 msgstr "Minimap Navigation"
 
-#: includes/class-ha-bpmn-cpt.php
 msgid "Shows a high-level mini-overview map in the top-right corner of the canvas with a collapsible toggle button for fast navigation across large workflows."
 msgstr "Shows a high-level mini-overview map in the top-right corner of the canvas with a collapsible toggle button for fast navigation across large workflows."
 
-#: includes/class-ha-bpmn-cpt.php
 msgid "Real-time BPMN 2.0 Linter"
 msgstr "Real-time BPMN 2.0 Linter"
 
-#: includes/class-ha-bpmn-cpt.php
 msgid "Validates diagrams in real time against BPMN 2.0 best practices (unconnected elements, missing end events, invalid flows) and displays unobtrusive guidance."
 msgstr "Validates diagrams in real time against BPMN 2.0 best practices (unconnected elements, missing end events, invalid flows) and displays unobtrusive guidance."
 
-#: includes/class-ha-bpmn-cpt.php
 msgid "Camunda Properties Panel"
 msgstr "Camunda Properties Panel"
 
-#: includes/class-ha-bpmn-cpt.php
 msgid "Enables the collapsible right sidebar in the editor to inspect and configure element IDs, names, documentation, and technical execution properties."
 msgstr "Enables the collapsible right sidebar in the editor to inspect and configure element IDs, names, documentation, and technical execution properties."
 
-#: includes/class-ha-bpmn-cpt.php
+msgid "Interactive Guide & BPMN-Quest (Tutorial)"
+msgstr "Interactive Guide & BPMN-Quest (Tutorial)"
+
+msgid "Enables the interactive tutorial button, gamified learning companion HUD, step-by-step walkthroughs, and linter challenges in the BPMN editor."
+msgstr "Enables the interactive tutorial button, gamified learning companion HUD, step-by-step walkthroughs, and linter challenges in the BPMN editor."
+
+msgid "Process Templates Library"
+msgstr "Process Templates Library"
+
+msgid "Enables the pre-built business process templates modal and toolbar button (e.g. employee onboarding, invoice approval, change request) to quickly jump-start diagram modeling."
+msgstr "Enables the pre-built business process templates modal and toolbar button (e.g. employee onboarding, invoice approval, change request) to quickly jump-start diagram modeling."
+
+msgid "QM Process Handbook (Print/PDF)"
+msgstr "QM Process Handbook (Print/PDF)"
+
+msgid "Enables the QM Handbook generator button in the editor toolbar to export structured, audit-ready process documentation and step tables into a printable browser view."
+msgstr "Enables the QM Handbook generator button in the editor toolbar to export structured, audit-ready process documentation and step tables into a printable browser view."
+
 msgid "Default Template Language"
 msgstr "Default Template Language"
 
-#: includes/class-ha-bpmn-cpt.php
 msgid "Choose the default language for process templates and the interactive guide. The user can also change this directly in the template modal."
 msgstr "Choose the default language for process templates and the interactive guide. The user can also change this directly in the template modal."
 
-#: includes/class-ha-bpmn-cpt.php
 msgid "🌐 Automatic (WordPress Site Language)"
 msgstr "🌐 Automatic (WordPress Site Language)"
 
-#: includes/class-ha-bpmn-cpt.php
 msgid "Frontend Display & Viewer Experience"
 msgstr "Frontend Display & Viewer Experience"
 
-#: includes/class-ha-bpmn-cpt.php
 msgid "Configure how diagrams appear when rendered via shortcodes [bpmnm id=\"...\"] or embedded in posts and pages."
 msgstr "Configure how diagrams appear when rendered via shortcodes [bpmnm id=\"...\"] or embedded in posts and pages."
 
-#: includes/class-ha-bpmn-cpt.php
 msgid "Default Viewer Height (px)"
 msgstr "Default Viewer Height (px)"
 
-#: includes/class-ha-bpmn-cpt.php
 msgid "The default canvas height in pixels when no height attribute is passed to the shortcode (e.g., 600). Can always be overridden with [bpmnm height=\"750px\"]."
 msgstr "The default canvas height in pixels when no height attribute is passed to the shortcode (e.g., 600). Can always be overridden with [bpmnm height=\"750px\"]."
 
-#: includes/class-ha-bpmn-cpt.php
 msgid "Enable Zoom & Pan in Frontend"
 msgstr "Enable Zoom & Pan in Frontend"
 
-#: includes/class-ha-bpmn-cpt.php
 msgid "Allows website visitors to zoom in/out with mouse scroll or touch gestures and freely pan the diagram viewport."
 msgstr "Allows website visitors to zoom in/out with mouse scroll or touch gestures and freely pan the diagram viewport."
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "Allow Visitors to Download BPMN & SVG"
-msgstr "Allow Visitors to Download BPMN & SVG"
+msgid "Allow Visitors to Download BPMN, SVG & PNG"
+msgstr "Allow Visitors to Download BPMN, SVG & PNG"
 
-#: includes/class-ha-bpmn-cpt.php
-msgid "Displays download buttons in the frontend viewer bar so users can export the raw BPMN 2.0 XML or SVG vector image."
-msgstr "Displays download buttons in the frontend viewer bar so users can export the raw BPMN 2.0 XML or SVG vector image."
+msgid "Displays download buttons in the frontend viewer bar so users can export the raw BPMN 2.0 XML, SVG vector image, or high-resolution PNG."
+msgstr "Displays download buttons in the frontend viewer bar so users can export the raw BPMN 2.0 XML, SVG vector image, or high-resolution PNG."
 
-#: includes/class-ha-bpmn-cpt.php
 msgid "Interactive Token Simulation in Frontend"
 msgstr "Interactive Token Simulation in Frontend"
 
-#: includes/class-ha-bpmn-cpt.php
 msgid "Allows visitors to run the interactive token simulation directly inside embedded diagrams on your site."
 msgstr "Allows visitors to run the interactive token simulation directly inside embedded diagrams on your site."
 
-#: includes/class-ha-bpmn-cpt.php
+msgid "BPMN Quest / Learning Studio Target URL"
+msgstr "BPMN Quest / Learning Studio Target URL"
+
+msgid "Optional: Specify a custom frontend page URL containing the BPMN modeler where learners should be redirected to continue tasks (e.g. https://your-site.com/bpmn-studio/). If empty, the plugin automatically resolves the latest published BPMN diagram or WordPress editor."
+msgstr "Optional: Specify a custom frontend page URL containing the BPMN modeler where learners should be redirected to continue tasks (e.g. https://your-site.com/bpmn-studio/). If empty, the plugin automatically resolves the latest published BPMN diagram or WordPress editor."
+
 msgid "System & Library Status"
 msgstr "System & Library Status"
 
-#: includes/class-ha-bpmn-cpt.php
 msgid "Technical details and library versions powering your BPMN engine."
 msgstr "Technical details and library versions powering your BPMN engine."
 
-#: includes/class-ha-bpmn-cpt.php
 msgid "Plugin Version"
 msgstr "Plugin Version"
 
-#: includes/class-ha-bpmn-cpt.php
+msgid "Check for updates"
+msgstr "Check for updates"
+
 msgid "BPMN Modeler Engine"
 msgstr "BPMN Modeler Engine"
 
-#: includes/class-ha-bpmn-cpt.php
 msgid "Token Simulation Module"
 msgstr "Token Simulation Module"
 
-#: includes/class-ha-bpmn-cpt.php
 msgid "BPMN Lint Validator"
 msgstr "BPMN Lint Validator"
 
-#: includes/class-ha-bpmn-cpt.php
 msgid "REST API Endpoint"
 msgstr "REST API Endpoint"
 
-#: includes/class-ha-bpmn-cpt.php
 msgid "Active"
 msgstr "Active"
 
-#: includes/class-ha-bpmn-cpt.php
 msgid "WordPress Core"
 msgstr "WordPress Core"
 
-#: includes/class-ha-bpmn-cpt.php
 msgid "PHP Environment"
 msgstr "PHP Environment"
 
-#: includes/class-ha-bpmn-cpt.php
 msgid "Shortcode Quick Reference"
 msgstr "Shortcode Quick Reference"
 
-#: includes/class-ha-bpmn-cpt.php
 msgid "Copy & paste shortcodes to integrate your diagrams anywhere in WordPress."
 msgstr "Copy & paste shortcodes to integrate your diagrams anywhere in WordPress."
 
-#: includes/class-ha-bpmn-cpt.php
 msgid "Standard Interactive Diagram"
 msgstr "Standard Interactive Diagram"
 
-#: includes/class-ha-bpmn-cpt.php
 msgid "Custom Height & Fullscreen Disabled"
 msgstr "Custom Height & Fullscreen Disabled"
 
-#: includes/class-ha-bpmn-cpt.php
 msgid "Lightweight Static SVG Mode (Instant Load)"
 msgstr "Lightweight Static SVG Mode (Instant Load)"
 
-#: includes/class-ha-bpmn-cpt.php
 msgid "Active & Completed Step Highlighting"
 msgstr "Active & Completed Step Highlighting"
 
-#: includes/class-ha-bpmn-cpt.php
+msgid "Danger Zone: Deinstallation & Data Cleanup"
+msgstr "Danger Zone: Deinstallation & Data Cleanup"
+
+msgid "Choose what happens to your BPMN diagrams and settings when the plugin is deleted via WordPress."
+msgstr "Choose what happens to your BPMN diagrams and settings when the plugin is deleted via WordPress."
+
+msgid "Permanently delete all BPMN diagrams and settings when uninstalling the plugin"
+msgstr "Permanently delete all BPMN diagrams and settings when uninstalling the plugin"
+
+msgid "🛡️ Safe by default (Recommended):"
+msgstr "🛡️ Safe by default (Recommended):"
+
+msgid "When this toggle is disabled, all diagrams, XML models, revisions, and settings are preserved in the WordPress database. You can safely deactivate, update, or reinstall the plugin without losing data."
+msgstr "When this toggle is disabled, all diagrams, XML models, revisions, and settings are preserved in the WordPress database. You can safely deactivate, update, or reinstall the plugin without losing data."
+
+msgid "⚠️ Only for permanent removal (GDPR):"
+msgstr "⚠️ Only for permanent removal (GDPR):"
+
+msgid "Only enable this option if you are permanently uninstalling the plugin and wish to clean up the database completely."
+msgstr "Only enable this option if you are permanently uninstalling the plugin and wish to clean up the database completely."
+
+msgid "Live Preview of Master Certificate"
+msgstr "Live Preview of Master Certificate"
+
+msgid "Open the certificate with your currently configured texts, colors, seals, and signatures in full resolution (including print, SVG, and 300 DPI PNG export)."
+msgstr "Open the certificate with your currently configured texts, colors, seals, and signatures in full resolution (including print, SVG, and 300 DPI PNG export)."
+
+msgid "Open Certificate Preview"
+msgstr "Open Certificate Preview"
+
+msgid "Notice:"
+msgstr "Notice:"
+
+msgid "The Interactive Guide & BPMN-Quest (Tutorial) is currently disabled under „Modeler & Studio Tools“. Your certificate styling and signature settings remain safely saved and will be used as soon as the quest module is re-enabled."
+msgstr "The Interactive Guide & BPMN-Quest (Tutorial) is currently disabled under „Modeler & Studio Tools“. Your certificate styling and signature settings remain safely saved and will be used as soon as the quest module is re-enabled."
+
+msgid "Issuer, Institution & Governance"
+msgstr "Issuer, Institution & Governance"
+
+msgid "Configure the organization or academy name and the official governance text on the certificate."
+msgstr "Configure the organization or academy name and the official governance text on the certificate."
+
+msgid "Organization Name / Header"
+msgstr "Organization Name / Header"
+
+msgid "Appears in capital letters at the very top of the certificate. Leave empty for default (\"GUILD OF PROCESS MASTERS • QM & ISO-19510 GOVERNANCE\")."
+msgstr "Appears in capital letters at the very top of the certificate. Leave empty for default (\"GUILD OF PROCESS MASTERS • QM & ISO-19510 GOVERNANCE\")."
+
+msgid "e.g. ACME PROCESS ACADEMY • CENTER OF EXCELLENCE"
+msgstr "e.g. ACME PROCESS ACADEMY • CENTER OF EXCELLENCE"
+
+msgid "Governance Text / Examination Authority"
+msgstr "Governance Text / Examination Authority"
+
+msgid "Text below the primary signature (e.g. \"HA-BPMN Guild Governance\" or \"Enterprise Architecture Board\")."
+msgstr "Text below the primary signature (e.g. \"HA-BPMN Guild Governance\" or \"Enterprise Architecture Board\")."
+
+msgid "HA-BPMN Guild Governance"
+msgstr "HA-BPMN Guild Governance"
+
+msgid "Certificate ID Prefix"
+msgstr "Certificate ID Prefix"
+
+msgid "Prefix before the generated verification number (e.g. \"HA-BPMN-\" or \"CORP-CERT-\")."
+msgstr "Prefix before the generated verification number (e.g. \"HA-BPMN-\" or \"CORP-CERT-\")."
+
+msgid "HA-BPMN-"
+msgstr "HA-BPMN-"
+
+msgid "Certificate Title, Salutation & Dedication"
+msgstr "Certificate Title, Salutation & Dedication"
+
+msgid "Customize the certificate title, personal dedication, and achievement badges."
+msgstr "Customize the certificate title, personal dedication, and achievement badges."
+
+msgid "Title Mode"
+msgstr "Title Mode"
+
+msgid "Choose whether the certificate title is assigned dynamically based on quest honor level or as a fixed corporate title."
+msgstr "Choose whether the certificate title is assigned dynamically based on quest honor level or as a fixed corporate title."
+
+msgid "🏆 Dynamic based on honor level (Titan Grandmaster, Master Architect, etc.)"
+msgstr "🏆 Dynamic based on honor level (Titan Grandmaster, Master Architect, etc.)"
+
+msgid "🏢 Fixed custom title (e.g. Certificate for BPMN 2.0 Process Modeling)"
+msgstr "🏢 Fixed custom title (e.g. Certificate for BPMN 2.0 Process Modeling)"
+
+msgid "Custom Main Title"
+msgstr "Custom Main Title"
+
+msgid "Applies when title mode is \"Fixed custom title\" or overrides the default title."
+msgstr "Applies when title mode is \"Fixed custom title\" or overrides the default title."
+
+msgid "e.g. CERTIFICATE OF PROCESS MODELING"
+msgstr "e.g. CERTIFICATE OF PROCESS MODELING"
+
+msgid "Subtitle / Distinction"
+msgstr "Subtitle / Distinction"
+
+msgid "Optional subtitle below the main title. Leave blank for default."
+msgstr "Optional subtitle below the main title. Leave blank for default."
+
+msgid "e.g. Verification of practical modeling competence compliant with ISO 19510"
+msgstr "e.g. Verification of practical modeling competence compliant with ISO 19510"
+
+msgid "Salutation / Introductory Line"
+msgstr "Salutation / Introductory Line"
+
+msgid "Text line before the recipient name (default: \"This diploma is proudly conferred upon:\")."
+msgstr "Text line before the recipient name (default: \"This diploma is proudly conferred upon:\")."
+
+msgid "This diploma is proudly conferred upon:"
+msgstr "This diploma is proudly conferred upon:"
+
+msgid "Custom Dedication (Laudatio)"
+msgstr "Custom Dedication (Laudatio)"
+
+msgid "Custom dedication text. Leave blank to use the automatic summary of completed tasks and linter challenges."
+msgstr "Custom dedication text. Leave blank to use the automatic summary of completed tasks and linter challenges."
+
+msgid "In recognition of outstanding modeling competence and successful completion of all BPMN practical modules."
+msgstr "In recognition of outstanding modeling competence and successful completion of all BPMN practical modules."
+
+msgid "Show Achievement Badges"
+msgstr "Show Achievement Badges"
+
+msgid "Displays the 3 achievement badges (Chapters, XP score, Linter puzzles) on the certificate. Disable for a purely formal look."
+msgstr "Displays the 3 achievement badges (Chapters, XP score, Linter puzzles) on the certificate. Disable for a purely formal look."
+
+msgid "Signatures & Signers (Single / Dual Signature)"
+msgstr "Signatures & Signers (Single / Dual Signature)"
+
+msgid "Upload your own signature images (transparent PNGs or SVGs) or use built-in vector calligraphy."
+msgstr "Upload your own signature images (transparent PNGs or SVGs) or use built-in vector calligraphy."
+
+msgid "Signature Mode"
+msgstr "Signature Mode"
+
+msgid "Choose between single signature (right) or dual signature (left trainer/examiner, right head/guildmaster)."
+msgstr "Choose between single signature (right) or dual signature (left trainer/examiner, right head/guildmaster)."
+
+msgid "✍️ Single Signature (Right, Default)"
+msgstr "✍️ Single Signature (Right, Default)"
+
+msgid "✍️✍️ Dual Signature (Left Trainer/Examiner, Right Head)"
+msgstr "✍️✍️ Dual Signature (Left Trainer/Examiner, Right Head)"
+
+msgid "1. Primary Signer (Right)"
+msgstr "1. Primary Signer (Right)"
+
+msgid "Signature 1 (Image File)"
+msgstr "Signature 1 (Image File)"
+
+msgid "Recommended: Transparent PNG or SVG graphic of the handwritten signature. Leave blank for vector calligraphy."
+msgstr "Recommended: Transparent PNG or SVG graphic of the handwritten signature. Leave blank for vector calligraphy."
+
+msgid "Select Image"
+msgstr "Select Image"
+
+msgid "Remove"
+msgstr "Remove"
+
+msgid "Name of 1st Signer"
+msgstr "Name of 1st Signer"
+
+msgid "Optional name of the signing person (e.g. \"Dr. Alexander Brand\")."
+msgstr "Optional name of the signing person (e.g. \"Dr. Alexander Brand\")."
+
+msgid "e.g. Dr. Alexander Brand"
+msgstr "e.g. Dr. Alexander Brand"
+
+msgid "Title / Role of 1st Signer"
+msgstr "Title / Role of 1st Signer"
+
+msgid "Title / designation (default: \"The Guild Master\")."
+msgstr "Title / designation (default: \"The Guild Master\")."
+
+msgid "The Guild Master"
+msgstr "The Guild Master"
+
+msgid "2. Second Examiner / Co-Signer (Left)"
+msgstr "2. Second Examiner / Co-Signer (Left)"
+
+msgid "Signature 2 (Image File)"
+msgstr "Signature 2 (Image File)"
+
+msgid "Graphic of the second signature (e.g. trainer or examiner)."
+msgstr "Graphic of the second signature (e.g. trainer or examiner)."
+
+msgid "Name of 2nd Signer"
+msgstr "Name of 2nd Signer"
+
+msgid "Name of the trainer or co-examiner (e.g. \"Prof. Dr. M. Weber\")."
+msgstr "Name of the trainer or co-examiner (e.g. \"Prof. Dr. M. Weber\")."
+
+msgid "e.g. Prof. Dr. M. Weber"
+msgstr "e.g. Prof. Dr. M. Weber"
+
+msgid "Title / Role of 2nd Signer"
+msgstr "Title / Role of 2nd Signer"
+
+msgid "Title / role of the co-examiner (e.g. \"BPMN Trainer & Examiner\")."
+msgstr "Title / role of the co-examiner (e.g. \"BPMN Trainer & Examiner\")."
+
+msgid "BPMN Trainer & Examiner"
+msgstr "BPMN Trainer & Examiner"
+
+msgid "Official Seal, Stamp & Watermark"
+msgstr "Official Seal, Stamp & Watermark"
+
+msgid "Upload an official company seal, academy crest, or subtle background watermark."
+msgstr "Upload an official company seal, academy crest, or subtle background watermark."
+
+msgid "Official Seal / Stamp / Logo"
+msgstr "Official Seal / Stamp / Logo"
+
+msgid "Circular company or academy seal. Leave empty for the dynamic honor level medallion with BPMN embossing."
+msgstr "Circular company or academy seal. Leave empty for the dynamic honor level medallion with BPMN embossing."
+
+msgid "Background Watermark (Optional)"
+msgstr "Background Watermark (Optional)"
+
+msgid "Placed centered in the background of the certificate with subtle transparency (approx. 5%) behind the text."
+msgstr "Placed centered in the background of the certificate with subtle transparency (approx. 5%) behind the text."
+
+msgid "Color Theme & Design Accents"
+msgstr "Color Theme & Design Accents"
+
+msgid "Adjust borders, gradients, and ornaments to match your brand color scheme."
+msgstr "Adjust borders, gradients, and ornaments to match your brand color scheme."
+
+msgid "Design Color Theme"
+msgstr "Design Color Theme"
+
+msgid "Choose a predefined color theme or define a custom accent color."
+msgstr "Choose a predefined color theme or define a custom accent color."
+
+msgid "👑 Dynamic Honor Levels (Titanium Violet, Ruby Red, Gold, Silver, Bronze)"
+msgstr "👑 Dynamic Honor Levels (Titanium Violet, Ruby Red, Gold, Silver, Bronze)"
+
+msgid "🌟 Timeless Gold & Prussian Blue (Classic Navy & Gold)"
+msgstr "🌟 Timeless Gold & Prussian Blue (Classic Navy & Gold)"
+
+msgid "🏛️ Corporate Deep Blue & Silver (Modern Enterprise)"
+msgstr "🏛️ Corporate Deep Blue & Silver (Modern Enterprise)"
+
+msgid "🌿 Emerald Green & Brass (Excellence Emerald)"
+msgstr "🌿 Emerald Green & Brass (Excellence Emerald)"
+
+msgid "🎨 Custom Accent Color (HEX Color Picker)"
+msgstr "🎨 Custom Accent Color (HEX Color Picker)"
+
+msgid "Custom Accent Color"
+msgstr "Custom Accent Color"
+
+msgid "Choose your company color code (Hex value) for the certificate frame and accent lines."
+msgstr "Choose your company color code (Hex value) for the certificate frame and accent lines."
+
 msgid "Save All Changes"
 msgstr "모든 변경 사항 저장"
 
-#: includes/class-ha-bpmn-cpt.php
+msgid "Certificate Preview (Live)"
+msgstr "Certificate Preview (Live)"
+
+msgid "Loading certificate module... Please wait a moment."
+msgstr "Loading certificate module... Please wait a moment."
+
 msgid "Invalid diagram ID."
 msgstr "Invalid diagram ID."
 
-#: includes/class-ha-bpmn-cpt.php
 msgid "Permission denied."
 msgstr "Permission denied."
 
-#: includes/class-ha-bpmn-cpt.php
+msgid "Diagram not found."
+msgstr "다이어그램을 찾을 수 없습니다."
+
 msgid "Shortcode"
 msgstr "Shortcode"
 
-#: includes/class-ha-bpmn-cpt.php
 msgid "Categories"
 msgstr "카테고리"
 
-#: includes/class-ha-bpmn-cpt.php
 msgid "Tags"
 msgstr "태그"
 
-#: includes/class-ha-bpmn-cpt.php
 msgid "Export BPMN"
 msgstr "Export BPMN"
 
-#: includes/class-ha-bpmn-cpt.php
 msgid "View in Frontend"
 msgstr "View in Frontend"
 
-#: includes/class-ha-bpmn-renderer.php
-msgid "Please select a BPMN diagram in the block sidebar."
-msgstr "Please select a BPMN diagram in the block sidebar."
-
-#: includes/class-ha-bpmn-renderer.php
-msgid "Search diagram"
-msgstr "Search diagram"
-
-#: includes/class-ha-bpmn-gutenberg.php
 msgid "Embed an interactive or static BPMN 2.0 process diagram with simulation and step tracking."
 msgstr "Embed an interactive or static BPMN 2.0 process diagram with simulation and step tracking."
 
-#: includes/class-ha-bpmn-gutenberg.php
 msgid "Select BPMN Diagram"
 msgstr "Select BPMN Diagram"
 
-#: includes/class-ha-bpmn-gutenberg.php
 msgid "-- Choose a diagram --"
 msgstr "-- Choose a diagram --"
 
-#: includes/class-ha-bpmn-gutenberg.php
 msgid "Display Settings"
 msgstr "Display Settings"
 
-#: includes/class-ha-bpmn-gutenberg.php
 msgid "Height (e.g. 600px)"
 msgstr "Height (e.g. 600px)"
 
-#: includes/class-ha-bpmn-gutenberg.php
 msgid "Display Mode"
 msgstr "Display Mode"
 
-#: includes/class-ha-bpmn-gutenberg.php
 msgid "Interactive (Full Modeler with Zoom & Simulation)"
 msgstr "Interactive (Full Modeler with Zoom & Simulation)"
 
-#: includes/class-ha-bpmn-gutenberg.php
 msgid "Static SVG (Zero-JS, Ultra-fast)"
 msgstr "Static SVG (Zero-JS, Ultra-fast)"
 
-#: includes/class-ha-bpmn-gutenberg.php
 msgid "Enable Fullscreen Button"
 msgstr "Enable Fullscreen Button"
 
-#: includes/class-ha-bpmn-gutenberg.php
 msgid "Enable Live Search"
 msgstr "Enable Live Search"
 
-#: includes/class-ha-bpmn-gutenberg.php
 msgid "Enable Task Details Drawer"
 msgstr "Enable Task Details Drawer"
 
-#: includes/class-ha-bpmn-gutenberg.php
 msgid "Process Step Tracking"
 msgstr "Process Step Tracking"
 
-#: includes/class-ha-bpmn-gutenberg.php
 msgid "Active Step IDs (comma-separated)"
 msgstr "Active Step IDs (comma-separated)"
 
-#: includes/class-ha-bpmn-gutenberg.php
 msgid "Completed Step IDs (comma-separated)"
 msgstr "Completed Step IDs (comma-separated)"
 
-#: includes/class-ha-bpmn-gutenberg.php
 msgid "No BPMN diagrams found. Please create one first."
 msgstr "No BPMN diagrams found. Please create one first."
+
+msgid "Please select a BPMN diagram in the block sidebar."
+msgstr "Please select a BPMN diagram in the block sidebar."
+
+msgid "Search diagram"
+msgstr "Search diagram"
+
+msgid "This diagram is password protected."
+msgstr "이 다이어그램은 비밀번호로 보호되어 있습니다."
+
+msgid "You are not allowed to view this diagram."
+msgstr "이 다이어그램을 볼 권한이 없습니다."
+
+msgid "Diagram #%d"
+msgstr "다이어그램 #%d"
+
+msgid "You do not have permission to view revisions of this diagram."
+msgstr "이 다이어그램의 수정 이력을 볼 수 있는 권한이 없습니다."
+
+msgid "Unknown"
+msgstr "알 수 없음"
+
+msgid "Nach Updates suchen"
+msgstr "Nach Updates suchen"
 

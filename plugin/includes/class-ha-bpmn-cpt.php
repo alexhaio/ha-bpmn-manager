@@ -412,9 +412,9 @@ class CPT {
 						<span class="ha-quest-tag"><?php esc_html_e( 'Tutorial', 'ha-bpmn-manager' ); ?></span>
 					</button>
 					<?php endif; ?>
-					<div class="ha-lang-controls" title="<?php esc_attr_e( 'Benutzersprache manuell wählen (Standard: WordPress-Sprache)', 'ha-bpmn-manager' ); ?>">
+					<div class="ha-lang-controls" title="<?php esc_attr_e( 'Select user language manually (Default: WordPress language)', 'ha-bpmn-manager' ); ?>">
 						<select class="ha-select-user-lang">
-							<option value=""><?php esc_html_e( '🌐 Automatisch (WP)', 'ha-bpmn-manager' ); ?></option>
+							<option value=""><?php esc_html_e( '🌐 Automatic (WordPress)', 'ha-bpmn-manager' ); ?></option>
 							<option value="de">🇩🇪 DE</option>
 							<option value="en">🇬🇧 EN</option>
 							<option value="es">🇪🇸 ES</option>
@@ -793,7 +793,7 @@ class CPT {
 				</button>
 				<button type="button" class="ha-tab-btn <?php echo ( 'certificate' === $active_tab ) ? 'active' : ''; ?>" data-tab="tab-certificate">
 					<span class="dashicons dashicons-awards"></span>
-					<?php esc_html_e( 'Meister-Urkunde & Quest-Zertifikat', 'ha-bpmn-manager' ); ?>
+					<?php esc_html_e( 'Master Certificate & Quest Award', 'ha-bpmn-manager' ); ?>
 				</button>
 				<button type="button" class="ha-tab-btn <?php echo ( 'system' === $active_tab ) ? 'active' : ''; ?>" data-tab="tab-system">
 					<span class="dashicons dashicons-info-outline"></span>
@@ -833,7 +833,7 @@ class CPT {
 							<div class="ha-setting-row">
 								<div class="ha-setting-info">
 									<label class="ha-setting-label" for="enable_tags">
-										<?php esc_html_e( 'Standard WordPress Tags (Schlagwörter)', 'ha-bpmn-manager' ); ?>
+										<?php esc_html_e( 'Standard WordPress Tags', 'ha-bpmn-manager' ); ?>
 									</label>
 									<p class="ha-setting-desc">
 										<?php esc_html_e( 'Enable standard WordPress tags (post_tag) for granular labeling, searchability, and keyword filtering of your BPMN processes.', 'ha-bpmn-manager' ); ?>
@@ -1153,7 +1153,7 @@ class CPT {
 												<?php if ( current_user_can( 'update_plugins' ) ) : ?>
 												<a href="<?php echo esc_url( wp_nonce_url( add_query_arg( [ 'puc_check_for_updates' => 1, 'puc_slug' => 'ha-bpmn-manager' ], self_admin_url( 'plugins.php' ) ), 'puc_check_for_updates' ) ); ?>" class="button button-secondary button-small" style="margin-left: 10px; display: inline-flex; align-items: center; gap: 4px; vertical-align: middle;">
 													<span class="dashicons dashicons-update" style="font-size: 14px; width: 14px; height: 14px; line-height: 1;"></span>
-													<span><?php esc_html_e( 'Nach Updates suchen', 'ha-bpmn-manager' ); ?></span>
+													<span><?php esc_html_e( 'Check for updates', 'ha-bpmn-manager' ); ?></span>
 												</a>
 												<?php endif; ?>
 											</td>
@@ -1226,25 +1226,25 @@ class CPT {
 						<div class="ha-card-header" style="border-bottom: 1px solid #fee2e2; background: #fef2f2; padding: 14px 20px;">
 							<h2 style="color: #991b1b; display: flex; align-items: center; gap: 8px; margin: 0 0 4px; font-size: 15px;">
 								<span class="dashicons dashicons-warning" style="font-size: 20px; width: 20px; height: 20px; line-height: 1; color: #dc2626;"></span>
-								<?php esc_html_e( 'Gefahrenzone: Deinstallation & Datenbereinigung', 'ha-bpmn-manager' ); ?>
+								<?php esc_html_e( 'Danger Zone: Deinstallation & Data Cleanup', 'ha-bpmn-manager' ); ?>
 							</h2>
 							<p style="color: #7f1d1d; margin: 0; font-size: 13px;">
-								<?php esc_html_e( 'Bestimme, was mit deinen BPMN-Diagrammen und Einstellungen passiert, wenn das Plugin über WordPress gelöscht wird.', 'ha-bpmn-manager' ); ?>
+								<?php esc_html_e( 'Choose what happens to your BPMN diagrams and settings when the plugin is deleted via WordPress.', 'ha-bpmn-manager' ); ?>
 							</p>
 						</div>
 						<div class="ha-card-body" style="padding: 16px 20px;">
 							<div class="ha-setting-row" style="display: flex; justify-content: space-between; align-items: flex-start; gap: 20px;">
 								<div class="ha-setting-info" style="flex: 1;">
 									<label class="ha-setting-label" for="delete_data_on_uninstall" style="font-weight: 700; color: #991b1b; display: block; margin-bottom: 6px;">
-										<?php esc_html_e( 'Alle BPMN-Diagramme und Einstellungen beim Löschen des Plugins unwiderruflich entfernen', 'ha-bpmn-manager' ); ?>
+										<?php esc_html_e( 'Permanently delete all BPMN diagrams and settings when uninstalling the plugin', 'ha-bpmn-manager' ); ?>
 									</label>
 									<p class="ha-setting-desc" style="color: #475569; font-size: 13px; line-height: 1.5; margin: 0 0 8px;">
-										<strong><?php esc_html_e( '🛡️ Standardmäßig sicher (Empfohlen):', 'ha-bpmn-manager' ); ?></strong>
-										<?php esc_html_e( 'Ist dieser Schalter deaktiviert, bleiben alle Diagramme, XML-Modelle, Revisionen und Einstellungen in der WordPress-Datenbank erhalten. Du kannst das Plugin gefahrlos deaktivieren, aktualisieren oder neu installieren, ohne Daten zu verlieren.', 'ha-bpmn-manager' ); ?>
+										<strong><?php esc_html_e( '🛡️ Safe by default (Recommended):', 'ha-bpmn-manager' ); ?></strong>
+										<?php esc_html_e( 'When this toggle is disabled, all diagrams, XML models, revisions, and settings are preserved in the WordPress database. You can safely deactivate, update, or reinstall the plugin without losing data.', 'ha-bpmn-manager' ); ?>
 									</p>
 									<p style="color: #b91c1c; font-size: 12.5px; line-height: 1.4; margin: 0;">
-										<strong><?php esc_html_e( '⚠️ Nur bei endgültiger Entfernung (DSGVO):', 'ha-bpmn-manager' ); ?></strong>
-										<?php esc_html_e( 'Aktiviere diese Option nur, wenn du das Plugin dauerhaft deinstallierst und die Datenbank restlos bereinigen möchtest.', 'ha-bpmn-manager' ); ?>
+										<strong><?php esc_html_e( '⚠️ Only for permanent removal (GDPR):', 'ha-bpmn-manager' ); ?></strong>
+										<?php esc_html_e( 'Only enable this option if you are permanently uninstalling the plugin and wish to clean up the database completely.', 'ha-bpmn-manager' ); ?>
 									</p>
 								</div>
 								<div class="ha-setting-control" style="padding-top: 4px;">
@@ -1258,22 +1258,22 @@ class CPT {
 					</div>
 				</div>
 
-				<!-- Tab 5: Urkunde & Quest-Zertifikat -->
+				<!-- Tab 4: Master Certificate & Quest Award -->
 				<div class="ha-tab-content <?php echo ( 'certificate' === $active_tab ) ? 'active' : ''; ?>" id="tab-certificate">
 					<!-- Top Action Bar: Live Preview Button -->
 					<div class="ha-cert-live-preview-bar" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%); padding: 16px 20px; border-radius: 10px; border: 1px solid #cbd5e1; box-shadow: 0 2px 6px rgba(15, 23, 42, 0.05); flex-wrap: wrap; gap: 12px;">
 						<div>
 							<h3 style="margin: 0 0 4px 0; font-size: 16px; font-weight: 700; color: #0f172a; display: flex; align-items: center; gap: 8px;">
 								<span>📜</span>
-								<?php esc_html_e( 'Live-Vorschau der Meister-Urkunde', 'ha-bpmn-manager' ); ?>
+								<?php esc_html_e( 'Live Preview of Master Certificate', 'ha-bpmn-manager' ); ?>
 							</h3>
 							<p style="margin: 0; font-size: 13px; color: #64748b;">
-								<?php esc_html_e( 'Öffne die Urkunde mit deinen aktuell eingestellten Texten, Farben, Siegeln und Unterschriften in voller Auflösung (inkl. Druck, SVG- & 300 DPI PNG-Export).', 'ha-bpmn-manager' ); ?>
+								<?php esc_html_e( 'Open the certificate with your currently configured texts, colors, seals, and signatures in full resolution (including print, SVG, and 300 DPI PNG export).', 'ha-bpmn-manager' ); ?>
 							</p>
 						</div>
 						<button type="button" class="button button-primary button-large ha-btn-preview-cert" style="display: inline-flex; align-items: center; gap: 8px; font-weight: 700; background: #2563eb; border-color: #1d4ed8; padding: 4px 18px; height: 40px; font-size: 14px;">
 							<span class="dashicons dashicons-visibility" style="font-size: 20px; width: 20px; height: 20px; vertical-align: middle; line-height: 1;"></span>
-							<?php esc_html_e( 'Urkunden-Vorschau öffnen', 'ha-bpmn-manager' ); ?>
+							<?php esc_html_e( 'Open Certificate Preview', 'ha-bpmn-manager' ); ?>
 						</button>
 					</div>
 
@@ -1289,17 +1289,17 @@ class CPT {
 					<!-- Card 1: Aussteller & Institution -->
 					<div class="ha-card">
 						<div class="ha-card-header">
-							<h2><?php esc_html_e( 'Aussteller, Institution & Governance', 'ha-bpmn-manager' ); ?></h2>
-							<p><?php esc_html_e( 'Konfiguriere den Namen der Akademie/Organisation sowie den offiziellen Governance-Schriftzug auf der Meister-Urkunde.', 'ha-bpmn-manager' ); ?></p>
+							<h2><?php esc_html_e( 'Issuer, Institution & Governance', 'ha-bpmn-manager' ); ?></h2>
+							<p><?php esc_html_e( 'Configure the organization or academy name and the official governance text on the certificate.', 'ha-bpmn-manager' ); ?></p>
 						</div>
 						<div class="ha-card-body">
 							<div class="ha-setting-row">
 								<div class="ha-setting-info">
 									<label class="ha-setting-label" for="cert_header_title">
-										<?php esc_html_e( 'Name der Organisation / Kopfzeile', 'ha-bpmn-manager' ); ?>
+										<?php esc_html_e( 'Organization Name / Header', 'ha-bpmn-manager' ); ?>
 									</label>
 									<p class="ha-setting-desc">
-										<?php esc_html_e( 'Erscheint in Großbuchstaben ganz oben auf der Urkunde. Leer lassen für Standard („GILDE DER PROZESSMEISTER • QM & ISO-19510 GOVERNANCE“).', 'ha-bpmn-manager' ); ?>
+										<?php esc_html_e( 'Appears in capital letters at the very top of the certificate. Leave empty for default ("GUILD OF PROCESS MASTERS • QM & ISO-19510 GOVERNANCE").', 'ha-bpmn-manager' ); ?>
 									</p>
 								</div>
 								<div class="ha-setting-control">
@@ -1310,10 +1310,10 @@ class CPT {
 							<div class="ha-setting-row">
 								<div class="ha-setting-info">
 									<label class="ha-setting-label" for="cert_authority_text">
-										<?php esc_html_e( 'Governance-Schriftzug / Prüfstelle', 'ha-bpmn-manager' ); ?>
+										<?php esc_html_e( 'Governance Text / Examination Authority', 'ha-bpmn-manager' ); ?>
 									</label>
 									<p class="ha-setting-desc">
-										<?php esc_html_e( 'Schriftzug unter der Hauptunterschrift (z. B. „HA-BPMN Guild Governance“ oder „Enterprise Architecture Board“).', 'ha-bpmn-manager' ); ?>
+										<?php esc_html_e( 'Text below the primary signature (e.g. "HA-BPMN Guild Governance" or "Enterprise Architecture Board").', 'ha-bpmn-manager' ); ?>
 									</p>
 								</div>
 								<div class="ha-setting-control">
@@ -1324,10 +1324,10 @@ class CPT {
 							<div class="ha-setting-row">
 								<div class="ha-setting-info">
 									<label class="ha-setting-label" for="cert_id_prefix">
-										<?php esc_html_e( 'Zertifikats-ID Präfix', 'ha-bpmn-manager' ); ?>
+										<?php esc_html_e( 'Certificate ID Prefix', 'ha-bpmn-manager' ); ?>
 									</label>
 									<p class="ha-setting-desc">
-										<?php esc_html_e( 'Kürzel vor der generierten Verifikationsnummer (z. B. „HA-BPMN-“ oder „CORP-CERT-“).', 'ha-bpmn-manager' ); ?>
+										<?php esc_html_e( 'Prefix before the generated verification number (e.g. "HA-BPMN-" or "CORP-CERT-").', 'ha-bpmn-manager' ); ?>
 									</p>
 								</div>
 								<div class="ha-setting-control">
@@ -1340,23 +1340,23 @@ class CPT {
 					<!-- Card 2: Titel, Untertitel & Widmung -->
 					<div class="ha-card">
 						<div class="ha-card-header">
-							<h2><?php esc_html_e( 'Urkunden-Titel, Anrede & Widmungstext', 'ha-bpmn-manager' ); ?></h2>
-							<p><?php esc_html_e( 'Passe den Haupttitel, die persönliche Widmung und die Darstellung der Leistungs-Badges an.', 'ha-bpmn-manager' ); ?></p>
+							<h2><?php esc_html_e( 'Certificate Title, Salutation & Dedication', 'ha-bpmn-manager' ); ?></h2>
+							<p><?php esc_html_e( 'Customize the certificate title, personal dedication, and achievement badges.', 'ha-bpmn-manager' ); ?></p>
 						</div>
 						<div class="ha-card-body">
 							<div class="ha-setting-row">
 								<div class="ha-setting-info">
 									<label class="ha-setting-label" for="cert_title_mode">
-										<?php esc_html_e( 'Titel-Modus', 'ha-bpmn-manager' ); ?>
+										<?php esc_html_e( 'Title Mode', 'ha-bpmn-manager' ); ?>
 									</label>
 									<p class="ha-setting-desc">
-										<?php esc_html_e( 'Wähle, ob der Urkundentitel dynamisch nach erreichter Quest-Ehrenstufe vergeben wird (gamifiziert) oder als fester Unternehmenstitel.', 'ha-bpmn-manager' ); ?>
+										<?php esc_html_e( 'Choose whether the certificate title is assigned dynamically based on quest honor level or as a fixed corporate title.', 'ha-bpmn-manager' ); ?>
 									</p>
 								</div>
 								<div class="ha-setting-control">
 									<select id="cert_title_mode" name="ha_bpmn_settings[cert_title_mode]" class="regular-text">
-										<option value="dynamic" <?php selected( 'dynamic', $settings['cert_title_mode'] ); ?>><?php esc_html_e( '🏆 Dynamisch nach Ehrenstufe (Titanen-Großmeister, Meister-Architekt, etc.)', 'ha-bpmn-manager' ); ?></option>
-										<option value="custom" <?php selected( 'custom', $settings['cert_title_mode'] ); ?>><?php esc_html_e( '🏢 Fester individueller Titel (z. B. Zertifikat für BPMN 2.0 Prozessmodellierung)', 'ha-bpmn-manager' ); ?></option>
+										<option value="dynamic" <?php selected( 'dynamic', $settings['cert_title_mode'] ); ?>><?php esc_html_e( '🏆 Dynamic based on honor level (Titan Grandmaster, Master Architect, etc.)', 'ha-bpmn-manager' ); ?></option>
+										<option value="custom" <?php selected( 'custom', $settings['cert_title_mode'] ); ?>><?php esc_html_e( '🏢 Fixed custom title (e.g. Certificate for BPMN 2.0 Process Modeling)', 'ha-bpmn-manager' ); ?></option>
 									</select>
 								</div>
 							</div>
@@ -1364,10 +1364,10 @@ class CPT {
 							<div class="ha-setting-row">
 								<div class="ha-setting-info">
 									<label class="ha-setting-label" for="cert_custom_title">
-										<?php esc_html_e( 'Individueller Urkunden-Haupttitel', 'ha-bpmn-manager' ); ?>
+										<?php esc_html_e( 'Custom Main Title', 'ha-bpmn-manager' ); ?>
 									</label>
 									<p class="ha-setting-desc">
-										<?php esc_html_e( 'Gilt bei Titel-Modus „Fester individueller Titel“ oder überschreibt den Standardtitel.', 'ha-bpmn-manager' ); ?>
+										<?php esc_html_e( 'Applies when title mode is "Fixed custom title" or overrides the default title.', 'ha-bpmn-manager' ); ?>
 									</p>
 								</div>
 								<div class="ha-setting-control">
@@ -1378,10 +1378,10 @@ class CPT {
 							<div class="ha-setting-row">
 								<div class="ha-setting-info">
 									<label class="ha-setting-label" for="cert_custom_subtitle">
-										<?php esc_html_e( 'Individueller Untertitel', 'ha-bpmn-manager' ); ?>
+										<?php esc_html_e( 'Subtitle / Distinction', 'ha-bpmn-manager' ); ?>
 									</label>
 									<p class="ha-setting-desc">
-										<?php esc_html_e( 'Optionaler Untertitel unter dem Haupttitel. Leer lassen für Standard (Prädikat & Gildenzeugnis).', 'ha-bpmn-manager' ); ?>
+										<?php esc_html_e( 'Optional subtitle below the main title. Leave blank for default.', 'ha-bpmn-manager' ); ?>
 									</p>
 								</div>
 								<div class="ha-setting-control">
@@ -1392,10 +1392,10 @@ class CPT {
 							<div class="ha-setting-row">
 								<div class="ha-setting-info">
 									<label class="ha-setting-label" for="cert_intro_text">
-										<?php esc_html_e( 'Einleitungs-Formel (Anrede)', 'ha-bpmn-manager' ); ?>
+										<?php esc_html_e( 'Salutation / Introductory Line', 'ha-bpmn-manager' ); ?>
 									</label>
 									<p class="ha-setting-desc">
-										<?php esc_html_e( 'Textzeile vor dem Namen des Empfängers (Standard: „Hiermit wird feierlich verliehen an:“).', 'ha-bpmn-manager' ); ?>
+										<?php esc_html_e( 'Text line before the recipient name (default: "This diploma is proudly conferred upon:").', 'ha-bpmn-manager' ); ?>
 									</p>
 								</div>
 								<div class="ha-setting-control">
@@ -1406,10 +1406,10 @@ class CPT {
 							<div class="ha-setting-row">
 								<div class="ha-setting-info">
 									<label class="ha-setting-label" for="cert_custom_dedication">
-										<?php esc_html_e( 'Benutzerdefinierte Würdigung (Laudatio)', 'ha-bpmn-manager' ); ?>
+										<?php esc_html_e( 'Custom Dedication (Laudatio)', 'ha-bpmn-manager' ); ?>
 									</label>
 									<p class="ha-setting-desc">
-										<?php esc_html_e( 'Eigener Würdigungstext. Leer lassen, um die automatische Zusammenfassung der gelösten Aufgaben und Linter-Puzzles zu nutzen.', 'ha-bpmn-manager' ); ?>
+										<?php esc_html_e( 'Custom dedication text. Leave blank to use the automatic summary of completed tasks and linter challenges.', 'ha-bpmn-manager' ); ?>
 									</p>
 								</div>
 								<div class="ha-setting-control">
@@ -1420,10 +1420,10 @@ class CPT {
 							<div class="ha-setting-row">
 								<div class="ha-setting-info">
 									<label class="ha-setting-label" for="cert_show_badges">
-										<?php esc_html_e( 'Gamification-Badges anzeigen', 'ha-bpmn-manager' ); ?>
+										<?php esc_html_e( 'Show Achievement Badges', 'ha-bpmn-manager' ); ?>
 									</label>
 									<p class="ha-setting-desc">
-										<?php esc_html_e( 'Zeigt die 3 Leistungs-Pillen (🏛️ Kapitel, ⭐ XP-Score, 🧩 Linter-Rätsel) auf der Urkunde an. Deaktivieren für einen rein formellen Look.', 'ha-bpmn-manager' ); ?>
+										<?php esc_html_e( 'Displays the 3 achievement badges (Chapters, XP score, Linter puzzles) on the certificate. Disable for a purely formal look.', 'ha-bpmn-manager' ); ?>
 									</p>
 								</div>
 								<div class="ha-setting-control">
@@ -1437,48 +1437,49 @@ class CPT {
 					</div>
 
 					<!-- Card 3: Unterschriften -->
+					<!-- Card 3: Unterschriften -->
 					<div class="ha-card">
 						<div class="ha-card-header">
-							<h2><?php esc_html_e( 'Unterschriften & Unterzeichner (Single / Dual Signature)', 'ha-bpmn-manager' ); ?></h2>
-							<p><?php esc_html_e( 'Lade eigene Unterschriften-Bilder hoch (transparente PNGs oder SVGs) oder nutze die integrierten Vektor-Kalligraphien.', 'ha-bpmn-manager' ); ?></p>
+							<h2><?php esc_html_e( 'Signatures & Signers (Single / Dual Signature)', 'ha-bpmn-manager' ); ?></h2>
+							<p><?php esc_html_e( 'Upload your own signature images (transparent PNGs or SVGs) or use built-in vector calligraphy.', 'ha-bpmn-manager' ); ?></p>
 						</div>
 						<div class="ha-card-body">
 							<div class="ha-setting-row">
 								<div class="ha-setting-info">
 									<label class="ha-setting-label" for="cert_signature_mode">
-										<?php esc_html_e( 'Unterschriften-Modus', 'ha-bpmn-manager' ); ?>
+										<?php esc_html_e( 'Signature Mode', 'ha-bpmn-manager' ); ?>
 									</label>
 									<p class="ha-setting-desc">
-										<?php esc_html_e( 'Wähle zwischen einer einzelnen Unterschrift (rechts) oder doppelter Unterschrift (links Prüfer/Trainer, rechts Leitung/Gildenmeister).', 'ha-bpmn-manager' ); ?>
+										<?php esc_html_e( 'Choose between single signature (right) or dual signature (left trainer/examiner, right head/guildmaster).', 'ha-bpmn-manager' ); ?>
 									</p>
 								</div>
 								<div class="ha-setting-control">
 									<select id="cert_signature_mode" name="ha_bpmn_settings[cert_signature_mode]" class="regular-text">
-										<option value="single" <?php selected( 'single', $settings['cert_signature_mode'] ); ?>><?php esc_html_e( '✍️ Einzel-Unterschrift (Rechts, Standard)', 'ha-bpmn-manager' ); ?></option>
-										<option value="dual" <?php selected( 'dual', $settings['cert_signature_mode'] ); ?>><?php esc_html_e( '✍️✍️ Doppel-Unterschrift (Links Prüfer/Trainer, Rechts Leitung)', 'ha-bpmn-manager' ); ?></option>
+										<option value="single" <?php selected( 'single', $settings['cert_signature_mode'] ); ?>><?php esc_html_e( '✍️ Single Signature (Right, Default)', 'ha-bpmn-manager' ); ?></option>
+										<option value="dual" <?php selected( 'dual', $settings['cert_signature_mode'] ); ?>><?php esc_html_e( '✍️✍️ Dual Signature (Left Trainer/Examiner, Right Head)', 'ha-bpmn-manager' ); ?></option>
 									</select>
 								</div>
 							</div>
 
 							<!-- Unterzeichner 1 (Hauptunterzeichner / Rechts) -->
-							<h4 style="margin-top: 16px; margin-bottom: 8px; color: #1e293b;"><?php esc_html_e( '1. Hauptunterzeichner (Rechts)', 'ha-bpmn-manager' ); ?></h4>
+							<h4 style="margin-top: 16px; margin-bottom: 8px; color: #1e293b;"><?php esc_html_e( '1. Primary Signer (Right)', 'ha-bpmn-manager' ); ?></h4>
 
 							<div class="ha-setting-row">
 								<div class="ha-setting-info">
 									<label class="ha-setting-label" for="cert_signature_image">
-										<?php esc_html_e( 'Unterschrift 1 (Bilddatei)', 'ha-bpmn-manager' ); ?>
+										<?php esc_html_e( 'Signature 1 (Image File)', 'ha-bpmn-manager' ); ?>
 									</label>
 									<p class="ha-setting-desc">
-										<?php esc_html_e( 'Empfohlen: Transparente PNG- oder SVG-Grafik der handgeschriebenen Unterschrift. Leer lassen für elegante Vektor-Kalligraphie.', 'ha-bpmn-manager' ); ?>
+										<?php esc_html_e( 'Recommended: Transparent PNG or SVG graphic of the handwritten signature. Leave blank for vector calligraphy.', 'ha-bpmn-manager' ); ?>
 									</p>
 								</div>
 								<div class="ha-setting-control" style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
 									<input type="text" id="cert_signature_image" name="ha_bpmn_settings[cert_signature_image]" value="<?php echo esc_url( $settings['cert_signature_image'] ); ?>" class="regular-text ha-media-url-input" />
 									<button type="button" class="button ha-btn-upload-media" data-target="cert_signature_image" data-preview="preview_cert_signature_image">
-										<?php esc_html_e( 'Bild auswählen', 'ha-bpmn-manager' ); ?>
+										<?php esc_html_e( 'Select Image', 'ha-bpmn-manager' ); ?>
 									</button>
 									<button type="button" class="button ha-btn-remove-media" data-target="cert_signature_image" data-preview="preview_cert_signature_image">
-										<?php esc_html_e( 'Entfernen', 'ha-bpmn-manager' ); ?>
+										<?php esc_html_e( 'Remove', 'ha-bpmn-manager' ); ?>
 									</button>
 									<img id="preview_cert_signature_image" src="<?php echo esc_url( $settings['cert_signature_image'] ); ?>" style="max-height: 38px; border: 1px solid #cbd5e1; border-radius: 4px; padding: 2px; background: #fff; <?php echo empty( $settings['cert_signature_image'] ) ? 'display:none;' : ''; ?>" alt="Preview" />
 								</div>
@@ -1487,10 +1488,10 @@ class CPT {
 							<div class="ha-setting-row">
 								<div class="ha-setting-info">
 									<label class="ha-setting-label" for="cert_signer_name">
-										<?php esc_html_e( 'Name des 1. Unterzeichners', 'ha-bpmn-manager' ); ?>
+										<?php esc_html_e( 'Name of 1st Signer', 'ha-bpmn-manager' ); ?>
 									</label>
 									<p class="ha-setting-desc">
-										<?php esc_html_e( 'Optionaler Name der unterzeichnenden Person (z. B. „Dr. Alexander Brand“).', 'ha-bpmn-manager' ); ?>
+										<?php esc_html_e( 'Optional name of the signing person (e.g. "Dr. Alexander Brand").', 'ha-bpmn-manager' ); ?>
 									</p>
 								</div>
 								<div class="ha-setting-control">
@@ -1501,10 +1502,10 @@ class CPT {
 							<div class="ha-setting-row">
 								<div class="ha-setting-info">
 									<label class="ha-setting-label" for="cert_signer_title">
-										<?php esc_html_e( 'Titel / Funktion des 1. Unterzeichners', 'ha-bpmn-manager' ); ?>
+										<?php esc_html_e( 'Title / Role of 1st Signer', 'ha-bpmn-manager' ); ?>
 									</label>
 									<p class="ha-setting-desc">
-										<?php esc_html_e( 'Funktionsbezeichnung (Standard: „Der Gildenmeister“).', 'ha-bpmn-manager' ); ?>
+										<?php esc_html_e( 'Title / designation (default: "The Guild Master").', 'ha-bpmn-manager' ); ?>
 									</p>
 								</div>
 								<div class="ha-setting-control">
@@ -1513,24 +1514,24 @@ class CPT {
 							</div>
 
 							<!-- Unterzeichner 2 (Zweitunterzeichner / Links für Dual-Modus) -->
-							<h4 style="margin-top: 24px; margin-bottom: 8px; color: #1e293b;"><?php esc_html_e( '2. Zweitunterzeichner (Links bei Doppelunterschrift)', 'ha-bpmn-manager' ); ?></h4>
+							<h4 style="margin-top: 24px; margin-bottom: 8px; color: #1e293b;"><?php esc_html_e( '2. Second Examiner / Co-Signer (Left)', 'ha-bpmn-manager' ); ?></h4>
 
 							<div class="ha-setting-row">
 								<div class="ha-setting-info">
 									<label class="ha-setting-label" for="cert_signature_image_2">
-										<?php esc_html_e( 'Unterschrift 2 (Bilddatei)', 'ha-bpmn-manager' ); ?>
+										<?php esc_html_e( 'Signature 2 (Image File)', 'ha-bpmn-manager' ); ?>
 									</label>
 									<p class="ha-setting-desc">
-										<?php esc_html_e( 'Grafik der Zweitunterschrift (z. B. Trainer oder Prüfer).', 'ha-bpmn-manager' ); ?>
+										<?php esc_html_e( 'Graphic of the second signature (e.g. trainer or examiner).', 'ha-bpmn-manager' ); ?>
 									</p>
 								</div>
 								<div class="ha-setting-control" style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
 									<input type="text" id="cert_signature_image_2" name="ha_bpmn_settings[cert_signature_image_2]" value="<?php echo esc_url( $settings['cert_signature_image_2'] ); ?>" class="regular-text ha-media-url-input" />
 									<button type="button" class="button ha-btn-upload-media" data-target="cert_signature_image_2" data-preview="preview_cert_signature_image_2">
-										<?php esc_html_e( 'Bild auswählen', 'ha-bpmn-manager' ); ?>
+										<?php esc_html_e( 'Select Image', 'ha-bpmn-manager' ); ?>
 									</button>
 									<button type="button" class="button ha-btn-remove-media" data-target="cert_signature_image_2" data-preview="preview_cert_signature_image_2">
-										<?php esc_html_e( 'Entfernen', 'ha-bpmn-manager' ); ?>
+										<?php esc_html_e( 'Remove', 'ha-bpmn-manager' ); ?>
 									</button>
 									<img id="preview_cert_signature_image_2" src="<?php echo esc_url( $settings['cert_signature_image_2'] ); ?>" style="max-height: 38px; border: 1px solid #cbd5e1; border-radius: 4px; padding: 2px; background: #fff; <?php echo empty( $settings['cert_signature_image_2'] ) ? 'display:none;' : ''; ?>" alt="Preview" />
 								</div>
@@ -1539,10 +1540,10 @@ class CPT {
 							<div class="ha-setting-row">
 								<div class="ha-setting-info">
 									<label class="ha-setting-label" for="cert_signer_name_2">
-										<?php esc_html_e( 'Name des 2. Unterzeichners', 'ha-bpmn-manager' ); ?>
+										<?php esc_html_e( 'Name of 2nd Signer', 'ha-bpmn-manager' ); ?>
 									</label>
 									<p class="ha-setting-desc">
-										<?php esc_html_e( 'Name des Trainers / Zweitprüfers (z. B. „Prof. Dr. M. Weber“).', 'ha-bpmn-manager' ); ?>
+										<?php esc_html_e( 'Name of the trainer or co-examiner (e.g. "Prof. Dr. M. Weber").', 'ha-bpmn-manager' ); ?>
 									</p>
 								</div>
 								<div class="ha-setting-control">
@@ -1553,10 +1554,10 @@ class CPT {
 							<div class="ha-setting-row">
 								<div class="ha-setting-info">
 									<label class="ha-setting-label" for="cert_signer_title_2">
-										<?php esc_html_e( 'Titel / Funktion des 2. Unterzeichners', 'ha-bpmn-manager' ); ?>
+										<?php esc_html_e( 'Title / Role of 2nd Signer', 'ha-bpmn-manager' ); ?>
 									</label>
 									<p class="ha-setting-desc">
-										<?php esc_html_e( 'Funktion des Zweitprüfers (z. B. „Leitender BPMN-Trainer & Prüfer“).', 'ha-bpmn-manager' ); ?>
+										<?php esc_html_e( 'Title / role of the co-examiner (e.g. "BPMN Trainer & Examiner").', 'ha-bpmn-manager' ); ?>
 									</p>
 								</div>
 								<div class="ha-setting-control">
@@ -1569,26 +1570,26 @@ class CPT {
 					<!-- Card 4: Siegel, Logo & Wasserzeichen -->
 					<div class="ha-card">
 						<div class="ha-card-header">
-							<h2><?php esc_html_e( 'Offizielles Siegel, Stempel & Wasserzeichen', 'ha-bpmn-manager' ); ?></h2>
-							<p><?php esc_html_e( 'Lade ein offizielles Firmen-Siegel, Akademie-Wappen oder ein zartes Hintergrund-Wasserzeichen hoch.', 'ha-bpmn-manager' ); ?></p>
+							<h2><?php esc_html_e( 'Official Seal, Stamp & Watermark', 'ha-bpmn-manager' ); ?></h2>
+							<p><?php esc_html_e( 'Upload an official company seal, academy crest, or subtle background watermark.', 'ha-bpmn-manager' ); ?></p>
 						</div>
 						<div class="ha-card-body">
 							<div class="ha-setting-row">
 								<div class="ha-setting-info">
 									<label class="ha-setting-label" for="cert_seal_image">
-										<?php esc_html_e( 'Offizielles Siegel / Stempel / Logo', 'ha-bpmn-manager' ); ?>
+										<?php esc_html_e( 'Official Seal / Stamp / Logo', 'ha-bpmn-manager' ); ?>
 									</label>
 									<p class="ha-setting-desc">
-										<?php esc_html_e( 'Kreisrundes Firmen- oder Akademie-Siegel. Leer lassen für das dynamische Ehrenstufen-Medaillon mit BPMN-Prägung.', 'ha-bpmn-manager' ); ?>
+										<?php esc_html_e( 'Circular company or academy seal. Leave empty for the dynamic honor level medallion with BPMN embossing.', 'ha-bpmn-manager' ); ?>
 									</p>
 								</div>
 								<div class="ha-setting-control" style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
 									<input type="text" id="cert_seal_image" name="ha_bpmn_settings[cert_seal_image]" value="<?php echo esc_url( $settings['cert_seal_image'] ); ?>" class="regular-text ha-media-url-input" />
 									<button type="button" class="button ha-btn-upload-media" data-target="cert_seal_image" data-preview="preview_cert_seal_image">
-										<?php esc_html_e( 'Bild auswählen', 'ha-bpmn-manager' ); ?>
+										<?php esc_html_e( 'Select Image', 'ha-bpmn-manager' ); ?>
 									</button>
 									<button type="button" class="button ha-btn-remove-media" data-target="cert_seal_image" data-preview="preview_cert_seal_image">
-										<?php esc_html_e( 'Entfernen', 'ha-bpmn-manager' ); ?>
+										<?php esc_html_e( 'Remove', 'ha-bpmn-manager' ); ?>
 									</button>
 									<img id="preview_cert_seal_image" src="<?php echo esc_url( $settings['cert_seal_image'] ); ?>" style="max-height: 48px; border: 1px solid #cbd5e1; border-radius: 50%; padding: 2px; background: #fff; <?php echo empty( $settings['cert_seal_image'] ) ? 'display:none;' : ''; ?>" alt="Seal Preview" />
 								</div>
@@ -1597,19 +1598,19 @@ class CPT {
 							<div class="ha-setting-row">
 								<div class="ha-setting-info">
 									<label class="ha-setting-label" for="cert_watermark_image">
-										<?php esc_html_e( 'Hintergrund-Wasserzeichen (Optional)', 'ha-bpmn-manager' ); ?>
+										<?php esc_html_e( 'Background Watermark (Optional)', 'ha-bpmn-manager' ); ?>
 									</label>
 									<p class="ha-setting-desc">
-										<?php esc_html_e( 'Wird zentriert im Hintergrund der Urkunde mit dezenter Transparenz (ca. 5%) hinter dem Text platziert.', 'ha-bpmn-manager' ); ?>
+										<?php esc_html_e( 'Placed centered in the background of the certificate with subtle transparency (approx. 5%) behind the text.', 'ha-bpmn-manager' ); ?>
 									</p>
 								</div>
 								<div class="ha-setting-control" style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
 									<input type="text" id="cert_watermark_image" name="ha_bpmn_settings[cert_watermark_image]" value="<?php echo esc_url( $settings['cert_watermark_image'] ); ?>" class="regular-text ha-media-url-input" />
 									<button type="button" class="button ha-btn-upload-media" data-target="cert_watermark_image" data-preview="preview_cert_watermark_image">
-										<?php esc_html_e( 'Bild auswählen', 'ha-bpmn-manager' ); ?>
+										<?php esc_html_e( 'Select Image', 'ha-bpmn-manager' ); ?>
 									</button>
 									<button type="button" class="button ha-btn-remove-media" data-target="cert_watermark_image" data-preview="preview_cert_watermark_image">
-										<?php esc_html_e( 'Entfernen', 'ha-bpmn-manager' ); ?>
+										<?php esc_html_e( 'Remove', 'ha-bpmn-manager' ); ?>
 									</button>
 									<img id="preview_cert_watermark_image" src="<?php echo esc_url( $settings['cert_watermark_image'] ); ?>" style="max-height: 48px; border: 1px solid #cbd5e1; border-radius: 4px; padding: 2px; background: #fff; <?php echo empty( $settings['cert_watermark_image'] ) ? 'display:none;' : ''; ?>" alt="Watermark Preview" />
 								</div>
@@ -1620,26 +1621,26 @@ class CPT {
 					<!-- Card 5: Farbwelt & Corporate Identity -->
 					<div class="ha-card">
 						<div class="ha-card-header">
-							<h2><?php esc_html_e( 'Farbwelt & Corporate Identity (Themes)', 'ha-bpmn-manager' ); ?></h2>
-							<p><?php esc_html_e( 'Passe Rahmen, Verläufe und Ornamente an dein Unternehmens-Farbschema an.', 'ha-bpmn-manager' ); ?></p>
+							<h2><?php esc_html_e( 'Color Theme & Design Accents', 'ha-bpmn-manager' ); ?></h2>
+							<p><?php esc_html_e( 'Adjust borders, gradients, and ornaments to match your brand color scheme.', 'ha-bpmn-manager' ); ?></p>
 						</div>
 						<div class="ha-card-body">
 							<div class="ha-setting-row">
 								<div class="ha-setting-info">
 									<label class="ha-setting-label" for="cert_color_theme">
-										<?php esc_html_e( 'Farbschema / Theme', 'ha-bpmn-manager' ); ?>
+										<?php esc_html_e( 'Design Color Theme', 'ha-bpmn-manager' ); ?>
 									</label>
 									<p class="ha-setting-desc">
-										<?php esc_html_e( 'Wähle ein vordefiniertes Design-Farbschema oder definiere eine eigene Akzentfarbe.', 'ha-bpmn-manager' ); ?>
+										<?php esc_html_e( 'Choose a predefined color theme or define a custom accent color.', 'ha-bpmn-manager' ); ?>
 									</p>
 								</div>
 								<div class="ha-setting-control">
 									<select id="cert_color_theme" name="ha_bpmn_settings[cert_color_theme]" class="regular-text">
-										<option value="honor_adaptive" <?php selected( 'honor_adaptive', $settings['cert_color_theme'] ); ?>><?php esc_html_e( '👑 Ehrenstufen-Dynamisch (Titan-Violett, Rubinrot, Gold, Silber, Bronze)', 'ha-bpmn-manager' ); ?></option>
-										<option value="classic_gold" <?php selected( 'classic_gold', $settings['cert_color_theme'] ); ?>><?php esc_html_e( '🌟 Zeitloses Gold & Preußischblau (Classic Navy & Gold)', 'ha-bpmn-manager' ); ?></option>
-										<option value="corporate_navy" <?php selected( 'corporate_navy', $settings['cert_color_theme'] ); ?>><?php esc_html_e( '🏛️ Corporate Tiefblau & Silber (Modern Enterprise)', 'ha-bpmn-manager' ); ?></option>
-										<option value="emerald_green" <?php selected( 'emerald_green', $settings['cert_color_theme'] ); ?>><?php esc_html_e( '🌿 Smaragdgrün & Messing (Excellence Emerald)', 'ha-bpmn-manager' ); ?></option>
-										<option value="custom" <?php selected( 'custom', $settings['cert_color_theme'] ); ?>><?php esc_html_e( '🎨 Eigene Akzentfarbe (HEX-Farbwähler)', 'ha-bpmn-manager' ); ?></option>
+										<option value="honor_adaptive" <?php selected( 'honor_adaptive', $settings['cert_color_theme'] ); ?>><?php esc_html_e( '👑 Dynamic Honor Levels (Titanium Violet, Ruby Red, Gold, Silver, Bronze)', 'ha-bpmn-manager' ); ?></option>
+										<option value="classic_gold" <?php selected( 'classic_gold', $settings['cert_color_theme'] ); ?>><?php esc_html_e( '🌟 Timeless Gold & Prussian Blue (Classic Navy & Gold)', 'ha-bpmn-manager' ); ?></option>
+										<option value="corporate_navy" <?php selected( 'corporate_navy', $settings['cert_color_theme'] ); ?>><?php esc_html_e( '🏛️ Corporate Deep Blue & Silver (Modern Enterprise)', 'ha-bpmn-manager' ); ?></option>
+										<option value="emerald_green" <?php selected( 'emerald_green', $settings['cert_color_theme'] ); ?>><?php esc_html_e( '🌿 Emerald Green & Brass (Excellence Emerald)', 'ha-bpmn-manager' ); ?></option>
+										<option value="custom" <?php selected( 'custom', $settings['cert_color_theme'] ); ?>><?php esc_html_e( '🎨 Custom Accent Color (HEX Color Picker)', 'ha-bpmn-manager' ); ?></option>
 									</select>
 								</div>
 							</div>
@@ -1647,10 +1648,10 @@ class CPT {
 							<div class="ha-setting-row">
 								<div class="ha-setting-info">
 									<label class="ha-setting-label" for="cert_custom_color">
-										<?php esc_html_e( 'Eigene Akzentfarbe (bei Modus Custom)', 'ha-bpmn-manager' ); ?>
+										<?php esc_html_e( 'Custom Accent Color', 'ha-bpmn-manager' ); ?>
 									</label>
 									<p class="ha-setting-desc">
-										<?php esc_html_e( 'Wähle deinen Unternehmens-Farbcode (Hex-Wert) für den Urkundenrahmen und Akzentlinien.', 'ha-bpmn-manager' ); ?>
+										<?php esc_html_e( 'Choose your company color code (Hex value) for the certificate frame and accent lines.', 'ha-bpmn-manager' ); ?>
 									</p>
 								</div>
 								<div class="ha-setting-control">
@@ -1668,7 +1669,7 @@ class CPT {
 					<div>
 						<button type="button" class="button button-secondary button-large ha-btn-preview-cert" style="display: inline-flex; align-items: center; gap: 8px; font-weight: 600;">
 							<span class="dashicons dashicons-visibility" style="font-size: 20px; width: 20px; height: 20px; vertical-align: middle; line-height: 1;"></span>
-							<?php esc_html_e( 'Urkunden-Vorschau (Live)', 'ha-bpmn-manager' ); ?>
+							<?php esc_html_e( 'Certificate Preview (Live)', 'ha-bpmn-manager' ); ?>
 						</button>
 					</div>
 				</div>
@@ -1747,7 +1748,7 @@ class CPT {
 					$(document).on('click', '.ha-btn-preview-cert', function(e) {
 						e.preventDefault();
 						if (typeof window.haBpmnShowCertificate !== 'function') {
-							alert('<?php echo esc_js( __( 'Zertifikats-Modul wird geladen... Bitte einen kurzen Moment warten.', 'ha-bpmn-manager' ) ); ?>');
+							alert('<?php echo esc_js( __( 'Loading certificate module... Please wait a moment.', 'ha-bpmn-manager' ) ); ?>');
 							return;
 						}
 

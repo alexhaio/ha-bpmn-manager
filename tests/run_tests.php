@@ -914,19 +914,54 @@ namespace HA_BPMN\Tests {
 			echo "\n\033[33m[10/10] Localization Files & Translation Tables\033[0m\n";
 
 			$l10nFiles = glob( $this->pluginDir . '/languages/*.l10n.php' );
-			$this->assert( count( $l10nFiles ) >= 30, "Found " . count( $l10nFiles ) . " WordPress 6.5+ .l10n.php localization files" );
+			$this->assert( count( $l10nFiles ) >= 35, "Found " . count( $l10nFiles ) . " WordPress 6.5+ .l10n.php localization files (expected >= 35)" );
 
-			$validArrays = 0;
+			// Check POT template exists and has full coverage
+			$potFile = $this->pluginDir . '/languages/ha-bpmn-manager.pot';
+			$this->assert( file_exists( $potFile ), "Base translation template ha-bpmn-manager.pot exists" );
+			$potContent = (string) file_get_contents( $potFile );
+			$this->assert( strpos( $potContent, 'Check for updates' ) !== false, "POT template contains 'Check for updates'" );
+			$this->assert( strpos( $potContent, 'Master Certificate & Quest Award' ) !== false, "POT template contains certificate strings" );
+
+			$allCounterpartsExist = true;
+			$allIdenticalKeys     = true;
+			$validArrays          = 0;
+			$totalLocalesChecked  = 0;
+
 			foreach ( $l10nFiles as $file ) {
+				$totalLocalesChecked++;
 				$data = require $file;
-				if ( is_array( $data ) && isset( $data['messages'] ) ) {
+				if ( is_array( $data ) && isset( $data['messages'] ) && is_array( $data['messages'] ) ) {
 					$validArrays++;
 				}
-			}
-			$this->assertSame( count( $l10nFiles ), $validArrays, "All .l10n.php files return valid message arrays" );
 
-			// Check POT template exists
-			$this->assert( file_exists( $this->pluginDir . '/languages/ha-bpmn-manager.pot' ), "Base translation template ha-bpmn-manager.pot exists" );
+				$poFile = preg_replace( '/\.l10n\.php$/', '.po', $file );
+				$moFile = preg_replace( '/\.l10n\.php$/', '.mo', $file );
+
+				if ( ! file_exists( $poFile ) || ! file_exists( $moFile ) ) {
+					$allCounterpartsExist = false;
+					$this->assert( false, "Missing traditional PO or MO counterpart for {$file}" );
+					break;
+				}
+
+				// Check count in PHP
+				$phpCount = count( $data['messages'] );
+				if ( $phpCount < 300 ) {
+					$allIdenticalKeys = false;
+					$this->assert( false, "Locale " . basename( $file ) . " has insufficient messages: {$phpCount}" );
+					break;
+				}
+			}
+
+			$this->assertSame( count( $l10nFiles ), $validArrays, "All " . count( $l10nFiles ) . " .l10n.php files return valid message arrays" );
+			$this->assert( $allCounterpartsExist, "All 35 locales have complete .po and .mo counterpart files" );
+			$this->assert( $allIdenticalKeys, "All 35 translation packs have full message coverage (332 strings each)" );
+
+			// Verify German translation completeness
+			$deTranslations = require $this->pluginDir . '/languages/ha-bpmn-manager-de_DE.l10n.php';
+			$this->assertSame( 'Nach Updates suchen', $deTranslations['messages']['Check for updates'] ?? '', "German pack translates 'Check for updates' to 'Nach Updates suchen'" );
+			$this->assertSame( 'Meister-Urkunde & Quest-Zertifikat', $deTranslations['messages']['Master Certificate & Quest Award'] ?? '', "German pack translates certificate title" );
+			$this->assertSame( 'Interaktive Anleitung & BPMN-Quest (Tutorial)', $deTranslations['messages']['Interactive Guide & BPMN-Quest (Tutorial)'] ?? '', "German pack translates tutorial toggle" );
 		}
 
 		private function testUpdaterAndContentsRewriting(): void {
