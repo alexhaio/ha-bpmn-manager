@@ -9,6 +9,7 @@
 
 import { diff } from 'bpmn-js-differ';
 import BpmnModdle from 'bpmn-moddle';
+import { escapeHtml } from './escape-html.js';
 
 /**
  * Opens the Revisions History modal.
@@ -42,22 +43,22 @@ export async function openRevisionsModal(modeler, diagramId, restBase, restNonce
   modal.innerHTML = `
     <div class="ha-bpmn-modal-dialog ha-revisions-dialog">
       <div class="ha-bpmn-modal-header">
-        <h2>${titleText}</h2>
-        <button type="button" class="ha-bpmn-modal-close" aria-label="${closeLabel}">&times;</button>
+        <h2>${escapeHtml(titleText)}</h2>
+        <button type="button" class="ha-bpmn-modal-close" aria-label="${escapeHtml(closeLabel)}">&times;</button>
       </div>
       <div class="ha-bpmn-modal-body">
-        <div class="ha-revisions-loading">${loadingText}</div>
+        <div class="ha-revisions-loading">${escapeHtml(loadingText)}</div>
         <div class="ha-revisions-content" style="display:none;">
           <div class="ha-revisions-list-col">
-            <h3>${savedVersionsHeading}</h3>
+            <h3>${escapeHtml(savedVersionsHeading)}</h3>
             <ul class="ha-revisions-list"></ul>
           </div>
           <div class="ha-revisions-diff-col">
-            <h3>${diffAnalysisHeading}</h3>
-            <div class="ha-diff-summary">${selectRevisionHelp}</div>
+            <h3>${escapeHtml(diffAnalysisHeading)}</h3>
+            <div class="ha-diff-summary">${escapeHtml(selectRevisionHelp)}</div>
             <div class="ha-diff-details"></div>
             <div class="ha-diff-actions" style="display:none; margin-top: 16px;">
-              <button type="button" class="button button-primary ha-btn-restore-revision">${restoreBtnText}</button>
+              <button type="button" class="button button-primary ha-btn-restore-revision">${escapeHtml(restoreBtnText)}</button>
             </div>
           </div>
         </div>
@@ -82,7 +83,7 @@ export async function openRevisionsModal(modeler, diagramId, restBase, restNonce
     revisions = await res.json();
   } catch (err) {
     modal.querySelector('.ha-revisions-loading').innerHTML = `
-      <p style="color: #dc2626;">Konnte Revisionen nicht laden: ${err.message}</p>
+      <p style="color: #dc2626;">${escapeHtml(isDe ? 'Konnte Revisionen nicht laden:' : 'Could not load revisions:')} ${escapeHtml(err.message)}</p>
     `;
     return;
   }
@@ -99,7 +100,7 @@ export async function openRevisionsModal(modeler, diagramId, restBase, restNonce
   contentEl.style.display = 'flex';
 
   if (!Array.isArray(revisions) || revisions.length === 0) {
-    listEl.innerHTML = '<li class="no-revisions">Keine früheren Revisionen vorhanden.</li>';
+    listEl.innerHTML = `<li class="no-revisions">${escapeHtml(isDe ? 'Keine früheren Revisionen vorhanden.' : 'No earlier revisions available.')}</li>`;
     return;
   }
 
@@ -109,8 +110,8 @@ export async function openRevisionsModal(modeler, diagramId, restBase, restNonce
     const li = document.createElement('li');
     li.className = 'ha-revision-item';
     li.innerHTML = `
-      <div class="ha-rev-title">Revision #${rev.id}</div>
-      <div class="ha-rev-meta">${rev.date} von <strong>${escapeHtml(rev.author)}</strong></div>
+      <div class="ha-rev-title">Revision #${escapeHtml(rev.id)}</div>
+      <div class="ha-rev-meta">${escapeHtml(rev.date)} ${escapeHtml(isDe ? 'von' : 'by')} <strong>${escapeHtml(rev.author)}</strong></div>
     `;
 
     li.addEventListener('click', () => {
@@ -136,7 +137,7 @@ export async function openRevisionsModal(modeler, diagramId, restBase, restNonce
       const pastXml = rev.xml;
 
       if (!pastXml) {
-        summaryEl.innerHTML = `<p>${i18n.noXmlInRevision || (isDe ? 'In dieser Revision ist keine BPMN-Definition gespeichert.' : 'No BPMN definition is stored in this revision.')}</p>`;
+        summaryEl.innerHTML = `<p>${escapeHtml(i18n.noXmlInRevision || (isDe ? 'In dieser Revision ist keine BPMN-Definition gespeichert.' : 'No BPMN definition is stored in this revision.'))}</p>`;
         return;
       }
 
@@ -155,17 +156,17 @@ export async function openRevisionsModal(modeler, diagramId, restBase, restNonce
 
       summaryEl.innerHTML = `
         <div class="ha-diff-stats">
-          <span class="stat-badge added">+${added.length} ${addedText}</span>
-          <span class="stat-badge changed">~${changed.length + layoutChanged.length} ${modifiedText}</span>
-          <span class="stat-badge removed">-${removed.length} ${deletedText}</span>
+          <span class="stat-badge added">+${added.length} ${escapeHtml(addedText)}</span>
+          <span class="stat-badge changed">~${changed.length + layoutChanged.length} ${escapeHtml(modifiedText)}</span>
+          <span class="stat-badge removed">-${removed.length} ${escapeHtml(deletedText)}</span>
         </div>
       `;
 
-      const addedPrefix = i18n.elementAdded || (isDe ? 'Element hinzugefügt:' : 'Element added:');
-      const changedPrefix = i18n.elementChanged || (isDe ? 'Elementinhalt geändert:' : 'Element content changed:');
-      const layoutPrefix = i18n.layoutChanged || (isDe ? 'Position/Layout geändert:' : 'Position/layout changed:');
-      const removedPrefix = i18n.elementDeleted || (isDe ? 'Element gelöscht:' : 'Element deleted:');
-      const identicalMsg = i18n.identicalRevision || (isDe ? 'Diese Revision ist identisch mit dem aktuellen Stand im Editor.' : 'This revision is identical to the current editor state.');
+      const addedPrefix = escapeHtml(i18n.elementAdded || (isDe ? 'Element hinzugefügt:' : 'Element added:'));
+      const changedPrefix = escapeHtml(i18n.elementChanged || (isDe ? 'Elementinhalt geändert:' : 'Element content changed:'));
+      const layoutPrefix = escapeHtml(i18n.layoutChanged || (isDe ? 'Position/Layout geändert:' : 'Position/layout changed:'));
+      const removedPrefix = escapeHtml(i18n.elementDeleted || (isDe ? 'Element gelöscht:' : 'Element deleted:'));
+      const identicalMsg = escapeHtml(i18n.identicalRevision || (isDe ? 'Diese Revision ist identisch mit dem aktuellen Stand im Editor.' : 'This revision is identical to the current editor state.'));
 
       let html = '<ul class="ha-diff-list">';
       added.forEach(id => html += `<li class="diff-added"><span class="badge">+</span> ${addedPrefix} <code>${escapeHtml(id)}</code></li>`);
@@ -182,7 +183,7 @@ export async function openRevisionsModal(modeler, diagramId, restBase, restNonce
       const fallbackMsg = isDe
         ? `Einfacher Revisionsstand vom ${rev.date}. Detaillierte Diff-Grafik konnte nicht erstellt werden.`
         : `Basic revision state from ${rev.date}. Detailed diff graphics could not be generated.`;
-      summaryEl.innerHTML = `<p style="color: #64748b;">${fallbackMsg}</p>`;
+      summaryEl.innerHTML = `<p style="color: #64748b;">${escapeHtml(fallbackMsg)}</p>`;
     }
   }
 
@@ -202,9 +203,4 @@ export async function openRevisionsModal(modeler, diagramId, restBase, restNonce
       }
     }
   });
-}
-
-function escapeHtml(str) {
-  if (!str) return '';
-  return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }

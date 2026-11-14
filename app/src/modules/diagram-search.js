@@ -7,6 +7,8 @@
  * @package HA_BPMN_Manager
  */
 
+import { escapeHtml } from './escape-html.js';
+
 /**
  * Initializes Diagram Search on a bpmn-js instance.
  *
@@ -17,10 +19,10 @@ export function initDiagramSearch(wrap, bpmnInstance, i18n = {}) {
   let searchBar = wrap.querySelector('.ha-bpmn-search-bar');
   const searchBtn = wrap.querySelector('.ha-btn-search');
 
-  const placeholder = i18n.searchPlaceholder || 'Diagramm durchsuchen...';
-  const prevTitle = i18n.previousMatch || 'Vorheriger Treffer';
-  const nextTitle = i18n.nextMatch || 'Nächster Treffer';
-  const closeTitle = i18n.closeSearch || 'Suche schließen';
+  const placeholder = escapeHtml(i18n.searchPlaceholder || 'Diagramm durchsuchen...');
+  const prevTitle = escapeHtml(i18n.previousMatch || 'Vorheriger Treffer');
+  const nextTitle = escapeHtml(i18n.nextMatch || 'Nächster Treffer');
+  const closeTitle = escapeHtml(i18n.closeSearch || 'Suche schließen');
 
   if (!searchBar) {
     searchBar = document.createElement('div');

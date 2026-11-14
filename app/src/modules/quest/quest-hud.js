@@ -13,6 +13,7 @@
 import { LINTER_CHALLENGES } from './challenges.js';
 import { showCertificateModal, getHonorGrade } from './certificate.js';
 import { getQuestXml } from '../templates.js';
+import { escapeHtml } from '../escape-html.js';
 import {
   getHudString,
   getChapterInfo,
@@ -737,9 +738,24 @@ export class QuestHUD {
     window.addEventListener('touchmove', onPointerMove, { passive: false });
     window.addEventListener('mouseup', onPointerUp);
     window.addEventListener('touchend', onPointerUp);
+
+    this._dragHandlers = { onPointerMove, onPointerUp };
+  }
+
+  destroyDraggable() {
+    if (this._dragHandlers) {
+      window.removeEventListener('mousemove', this._dragHandlers.onPointerMove);
+      window.removeEventListener('touchmove', this._dragHandlers.onPointerMove);
+      window.removeEventListener('mouseup', this._dragHandlers.onPointerUp);
+      window.removeEventListener('touchend', this._dragHandlers.onPointerUp);
+      this._dragHandlers = null;
+    }
+    this._draggableInitialized = false;
   }
 
   attachBPMNListeners() {
+    if (this._bpmnListenersAttached) return;
+    this._bpmnListenersAttached = true;
     try {
       const eventBus = this.modeler.get('eventBus', false);
       if (!eventBus) return;
@@ -1199,7 +1215,7 @@ export class QuestHUD {
           const fill = di.fill || di.background || (di.get && di.get('fill'));
           const stroke = di.stroke || di.border || (di.get && di.get('stroke'));
           if (!fill && !stroke) return false;
-          return el.id === 'Task_CallHelp' || el.id === 'Task_TrollTrap' || (el.type === 'bpmn:EndEvent' && el.id !== 'EndEvent_Grandmaster') || (el.x >= 750 && el.x <= 1600 && el.y >= 200);
+          return el.id === 'Task_CallHelp' || el.id === 'Task_TrollCave' || (el.type === 'bpmn:EndEvent' && el.id !== 'EndEvent_Grandmaster') || (el.x >= 750 && el.x <= 1600 && el.y >= 200);
         });
         if (hazardColored.length > 0) {
           this.completeSubtask('c2_color_hazard');
@@ -1393,22 +1409,22 @@ export class QuestHUD {
     notif.innerHTML = `
       <div class="ha-quest-linter-card">
         <div class="ha-quest-linter-card-header">
-          <span>📜 ${rules.modalTitle}</span>
-          <button type="button" class="ha-quest-linter-close" aria-label="${this.t('close')}">&times;</button>
+          <span>📜 ${escapeHtml(rules.modalTitle)}</span>
+          <button type="button" class="ha-quest-linter-close" aria-label="${escapeHtml(this.t('close'))}">&times;</button>
         </div>
         <div class="ha-quest-linter-card-body">
           <div class="ha-quest-linter-intro">
-            <div class="ha-quest-linter-intro-title">💡 ${rules.introTitle}</div>
-            <p>${rules.introP1}<br><br>${rules.introP2}</p>
+            <div class="ha-quest-linter-intro-title">💡 ${escapeHtml(rules.introTitle)}</div>
+            <p>${escapeHtml(rules.introP1)}<br><br>${escapeHtml(rules.introP2)}</p>
           </div>
-          <div class="ha-quest-linter-rules-title">🎯 ${rules.rulesTitle}</div>
+          <div class="ha-quest-linter-rules-title">🎯 ${escapeHtml(rules.rulesTitle)}</div>
           <ul>
-            <li><strong>1. ${rules.rule1Title}</strong> ${rules.rule1Desc}</li>
-            <li><strong>2. ${rules.rule2Title}</strong> ${rules.rule2Desc}</li>
-            <li><strong>3. ${rules.rule3Title}</strong> ${rules.rule3Desc}</li>
+            <li><strong>1. ${escapeHtml(rules.rule1Title)}</strong> ${escapeHtml(rules.rule1Desc)}</li>
+            <li><strong>2. ${escapeHtml(rules.rule2Title)}</strong> ${escapeHtml(rules.rule2Desc)}</li>
+            <li><strong>3. ${escapeHtml(rules.rule3Title)}</strong> ${escapeHtml(rules.rule3Desc)}</li>
           </ul>
           <div class="ha-quest-linter-card-footer">
-            <span>${this.t('rulesStudiedDone')}</span>
+            <span>${escapeHtml(this.t('rulesStudiedDone'))}</span>
           </div>
         </div>
       </div>
@@ -1774,39 +1790,39 @@ export class QuestHUD {
 
     this.hudElement.innerHTML = `
       <!-- Minimized Floating Badge -->
-      <div class="ha-quest-pill" title="${this.t('openCompanion')} (${nextTierInfo})">
+      <div class="ha-quest-pill" title="${escapeHtml(this.t('openCompanion'))} (${escapeHtml(nextTierInfo)})">
         <span class="ha-quest-pill-icon">🎮</span>
         <span class="ha-quest-pill-title">BPMN-Quest (${this.currentChapterIndex + 1}/${this.chapters.length})</span>
-        <span class="ha-quest-pill-xp" style="background:${honor.bannerBg};color:${honor.bannerText};border:1px solid ${honor.bannerBorder};">⭐ ${this.xp} XP • ${honor.shortLabel}</span>
+        <span class="ha-quest-pill-xp" style="background:${honor.bannerBg};color:${honor.bannerText};border:1px solid ${honor.bannerBorder};">⭐ ${this.xp} XP • ${escapeHtml(honor.shortLabel)}</span>
       </div>
 
       <!-- Main Expanded HUD Container -->
       <div class="ha-quest-panel">
         <div class="ha-quest-panel-header">
-          <div class="ha-quest-drag-handle" title="${this.t('dragHandleTitle')}">⋮⋮</div>
+          <div class="ha-quest-drag-handle" title="${escapeHtml(this.t('dragHandleTitle'))}">⋮⋮</div>
           <div class="ha-quest-header-left">
             <span class="ha-quest-logo">${honor.tier === 5 ? '💎' : '🎮'}</span>
             <div class="ha-quest-title-wrap">
               <h4 class="ha-quest-app-title">BPMN-Quest • Studio Companion</h4>
-              <div class="ha-quest-xp-bar" title="${nextTierInfo}">
-                <span class="ha-quest-xp-label" style="color:${honor.badgeColor};">⭐ ${this.xp} XP • ${honor.shortLabel}</span>
-                <span class="ha-quest-rank-label">👑 ${honor.guildTitle}</span>
+              <div class="ha-quest-xp-bar" title="${escapeHtml(nextTierInfo)}">
+                <span class="ha-quest-xp-label" style="color:${honor.badgeColor};">⭐ ${this.xp} XP • ${escapeHtml(honor.shortLabel)}</span>
+                <span class="ha-quest-rank-label">👑 ${escapeHtml(honor.guildTitle)}</span>
               </div>
             </div>
           </div>
           <div class="ha-quest-header-actions">
-            <button type="button" class="ha-quest-btn-icon ha-quest-btn-minimize" title="${this.t('minimize')}">&minus;</button>
-            <button type="button" class="ha-quest-btn-icon ha-quest-btn-close" title="${this.t('close')}">&times;</button>
+            <button type="button" class="ha-quest-btn-icon ha-quest-btn-minimize" title="${escapeHtml(this.t('minimize'))}">&minus;</button>
+            <button type="button" class="ha-quest-btn-icon ha-quest-btn-close" title="${escapeHtml(this.t('close'))}">&times;</button>
           </div>
         </div>
 
         <!-- Tab Selector -->
         <div class="ha-quest-tabs">
           <button type="button" class="ha-quest-tab ${this.activeTab === 'walkthrough' ? 'active' : ''}" data-tab="walkthrough">
-            🏰 ${this.t('tabJourney')}
+            🏰 ${escapeHtml(this.t('tabJourney'))}
           </button>
           <button type="button" class="ha-quest-tab ${this.activeTab === 'challenges' ? 'active' : ''}" data-tab="challenges">
-            🧩 ${this.t('tabChallenges')}
+            🧩 ${escapeHtml(this.t('tabChallenges'))}
           </button>
         </div>
 
@@ -1836,8 +1852,8 @@ export class QuestHUD {
           if (isLocked) cls += ' locked';
 
           return `
-            <button type="button" class="${cls}" data-chapter="${idx}" ${isLocked ? 'disabled' : ''} title="${isLocked ? this.t('lockedTooltip') : this.getChapterTitle(c)}">
-              ${isLocked ? '🔒' : c.icon}
+            <button type="button" class="${cls}" data-chapter="${idx}" ${isLocked ? 'disabled' : ''} title="${escapeHtml(isLocked ? this.t('lockedTooltip') : this.getChapterTitle(c))}">
+              ${isLocked ? '🔒' : escapeHtml(c.icon)}
             </button>
           `;
         }).join('')}
@@ -1845,34 +1861,34 @@ export class QuestHUD {
 
       <div class="ha-quest-card">
         <div class="ha-quest-card-header">
-          <span class="ha-quest-chapter-badge">${this.t('chapterBadge')} ${this.currentChapterIndex + 1} / ${this.chapters.length}</span>
-          <span class="ha-quest-progress-pct">${progressPct}% ${this.t('solved')}</span>
+          <span class="ha-quest-chapter-badge">${escapeHtml(this.t('chapterBadge'))} ${this.currentChapterIndex + 1} / ${this.chapters.length}</span>
+          <span class="ha-quest-progress-pct">${progressPct}% ${escapeHtml(this.t('solved'))}</span>
         </div>
-        <h3 class="ha-quest-chapter-title">${this.getChapterTitle(chap)}</h3>
+        <h3 class="ha-quest-chapter-title">${escapeHtml(this.getChapterTitle(chap))}</h3>
 
         <div class="ha-quest-mission-box">
           <div class="ha-quest-mission-top">
-            <span class="ha-quest-mission-label">🎯 ${this.t('yourMission')}:</span>
+            <span class="ha-quest-mission-label">🎯 ${escapeHtml(this.t('yourMission'))}:</span>
             ${isCurrentDone
-              ? `<span class="ha-quest-status-done">✅ ${this.t('done')}</span>`
-              : `<span class="ha-quest-status-pending">⏳ ${this.t('pending')} (${doneCount}/${subtasks.length})</span>`}
+              ? `<span class="ha-quest-status-done">✅ ${escapeHtml(this.t('done'))}</span>`
+              : `<span class="ha-quest-status-pending">⏳ ${escapeHtml(this.t('pending'))} (${doneCount}/${subtasks.length})</span>`}
           </div>
-          <p class="ha-quest-mission-desc">${this.getChapterTaskText(chap)}</p>
+          <p class="ha-quest-mission-desc">${escapeHtml(this.getChapterTaskText(chap))}</p>
         </div>
 
         <!-- Step-by-Step Subtasks Checklist -->
         <div class="ha-quest-subtasks-wrap">
           <div class="ha-quest-subtasks-header">
-            <span class="ha-quest-subtasks-title">📋 ${this.t('subtasksHeader')}</span>
+            <span class="ha-quest-subtasks-title">📋 ${escapeHtml(this.t('subtasksHeader'))}</span>
             <span class="ha-quest-subtasks-counter">${doneCount} / ${subtasks.length}</span>
           </div>
           <ul class="ha-quest-subtasks-list">
             ${subtasks.map(st => {
               const isDone = isCurrentDone || this.completedSubtasks.has(st.id);
               return `
-                <li class="ha-quest-subtask-item ${isDone ? 'is-done' : ''}" title="${this.getSubtaskHint(st)}">
+                <li class="ha-quest-subtask-item ${isDone ? 'is-done' : ''}" title="${escapeHtml(this.getSubtaskHint(st))}">
                   <span class="ha-quest-subtask-check">${isDone ? '✅' : '⬜'}</span>
-                  <span class="ha-quest-subtask-text">${this.getSubtaskText(st)}</span>
+                  <span class="ha-quest-subtask-text">${escapeHtml(this.getSubtaskText(st))}</span>
                 </li>
               `;
             }).join('')}
@@ -1882,43 +1898,43 @@ export class QuestHUD {
         <div class="ha-quest-tip-box">
           <span class="ha-quest-tip-icon">💡</span>
           <div class="ha-quest-tip-content">
-            <strong>${this.t('insightsTitle')}:</strong>
-            <span>${this.getChapterTipText(chap)}</span>
+            <strong>${escapeHtml(this.t('insightsTitle'))}:</strong>
+            <span>${escapeHtml(this.getChapterTipText(chap))}</span>
           </div>
         </div>
 
         <div class="ha-quest-card-controls">
-          <button type="button" class="button ha-quest-btn-focus" data-target="${chap.targetId}">
-            🔍 ${this.t('focusCamera')}
+          <button type="button" class="button ha-quest-btn-focus" data-target="${escapeHtml(chap.targetId)}">
+            🔍 ${escapeHtml(this.t('focusCamera'))}
           </button>
-          <button type="button" class="button ha-quest-btn-highlight" data-target="${chap.targetId}">
-            ✨ ${this.t('highlight')}
+          <button type="button" class="button ha-quest-btn-highlight" data-target="${escapeHtml(chap.targetId)}">
+            ✨ ${escapeHtml(this.t('highlight'))}
           </button>
         </div>
       </div>
 
       <div class="ha-quest-footer-actions">
         <button type="button" class="button button-secondary ha-quest-btn-prev" ${this.currentChapterIndex === 0 ? 'disabled' : ''}>
-          ◀ ${this.t('prevChapter')}
+          ◀ ${escapeHtml(this.t('prevChapter'))}
         </button>
 
         ${isLastChapter ? `
           <button type="button" class="button button-primary ha-quest-btn-cert ${isCurrentDone ? 'ha-btn-cert-ready' : ''}">
-            🏆 ${this.t('openCertificate')}
+            🏆 ${escapeHtml(this.t('openCertificate'))}
           </button>
         ` : `
-          <button type="button" class="button button-primary ha-quest-btn-next ${!isCurrentDone ? 'disabled' : ''}" ${!isCurrentDone ? 'disabled' : ''} title="${!isCurrentDone ? this.t('completeSubtasksFirst') : ''}">
-            ${!isCurrentDone ? '🔒 ' : ''}${this.t('nextChapter')} ▶
+          <button type="button" class="button button-primary ha-quest-btn-next ${!isCurrentDone ? 'disabled' : ''}" ${!isCurrentDone ? 'disabled' : ''} title="${!isCurrentDone ? escapeHtml(this.t('completeSubtasksFirst')) : ''}">
+            ${!isCurrentDone ? '🔒 ' : ''}${escapeHtml(this.t('nextChapter'))} ▶
           </button>
         `}
       </div>
 
       <div class="ha-quest-reset-wrap">
-        <button type="button" class="ha-quest-btn-link-reload-template" title="${this.t('reloadTemplateOnlyTooltip')}">
-          📄 ${this.t('reloadTemplateOnly')}
+        <button type="button" class="ha-quest-btn-link-reload-template" title="${escapeHtml(this.t('reloadTemplateOnlyTooltip'))}">
+          📄 ${escapeHtml(this.t('reloadTemplateOnly'))}
         </button>
-        <button type="button" class="ha-quest-btn-link-reset" title="${this.t('reloadTemplateAndResetTooltip')}">
-          🔄 ${this.t('reloadTemplateAndReset')}
+        <button type="button" class="ha-quest-btn-link-reset" title="${escapeHtml(this.t('reloadTemplateAndResetTooltip'))}">
+          🔄 ${escapeHtml(this.t('reloadTemplateAndReset'))}
         </button>
       </div>
     `;
@@ -1928,7 +1944,7 @@ export class QuestHUD {
     return `
       <div class="ha-quest-challenges-list">
         <div class="ha-quest-challenges-intro">
-          <p>${this.t('challengesIntro')}</p>
+          <p>${escapeHtml(this.t('challengesIntro'))}</p>
         </div>
 
         ${LINTER_CHALLENGES.map((ch) => {
@@ -1938,19 +1954,19 @@ export class QuestHUD {
           const title = ch.title[resolved] || ch.title[resolved.split('_')[0]] || ch.title.en || ch.title.de;
           const intro = ch.intro[resolved] || ch.intro[resolved.split('_')[0]] || ch.intro.en || ch.intro.de;
           return `
-            <div class="ha-quest-challenge-card ${isDone ? 'completed' : ''}" data-challenge-id="${ch.id}">
+            <div class="ha-quest-challenge-card ${isDone ? 'completed' : ''}" data-challenge-id="${escapeHtml(ch.id)}">
               <div class="ha-quest-ch-top">
-                <span class="ha-quest-ch-badge">${badge}</span>
+                <span class="ha-quest-ch-badge">${escapeHtml(badge)}</span>
                 <span class="ha-quest-ch-xp">+${ch.xp} XP</span>
               </div>
-              <h4 class="ha-quest-ch-title">${title}</h4>
-              <p class="ha-quest-ch-intro">${intro}</p>
+              <h4 class="ha-quest-ch-title">${escapeHtml(title)}</h4>
+              <p class="ha-quest-ch-intro">${escapeHtml(intro)}</p>
               <div class="ha-quest-ch-actions">
                 ${isDone ? `
-                  <span class="ha-quest-ch-solved">✅ ${this.t('done')}</span>
+                  <span class="ha-quest-ch-solved">✅ ${escapeHtml(this.t('done'))}</span>
                 ` : `
-                  <button type="button" class="button button-secondary ha-quest-btn-start-ch" data-ch-id="${ch.id}">
-                    🚀 ${this.t('startPuzzle')}
+                  <button type="button" class="button button-secondary ha-quest-btn-start-ch" data-ch-id="${escapeHtml(ch.id)}">
+                    🚀 ${escapeHtml(this.t('startPuzzle'))}
                   </button>
                 `}
               </div>
@@ -2004,6 +2020,7 @@ export class QuestHUD {
     const closeBtn = this.hudElement.querySelector('.ha-quest-btn-close');
     if (closeBtn) {
       closeBtn.addEventListener('click', () => {
+        this.destroyDraggable();
         this.hudElement.remove();
       });
     }
@@ -2062,9 +2079,10 @@ export class QuestHUD {
     const certBtn = this.hudElement.querySelector('.ha-quest-btn-cert');
     if (certBtn) {
       certBtn.addEventListener('click', () => {
+        const wpUserName = (typeof window !== 'undefined' && window.bpmnSettings && window.bpmnSettings.currentUser) || '';
         showCertificateModal({
           lang: this.lang,
-          userName: document.getElementById('user_login')?.value || this.t('userNameDefault') || 'BPMN Process Architect',
+          userName: wpUserName || document.getElementById('user_login')?.value || this.t('userNameDefault') || 'BPMN Process Architect',
           xp: this.xp,
           completedChaptersCount: this.completedChapters.size,
           totalChaptersCount: this.chapters.length,
@@ -2117,17 +2135,17 @@ export class QuestHUD {
       <div class="ha-quest-confirm-dialog" role="dialog" aria-modal="true">
         <div class="ha-quest-confirm-header">
           <span class="ha-quest-confirm-icon">📄</span>
-          <h4>${this.t('confirmReloadTitle')}</h4>
+          <h4>${escapeHtml(this.t('confirmReloadTitle'))}</h4>
         </div>
         <p class="ha-quest-confirm-text">
-          ${this.t('confirmReloadText').replace(/\n/g, '<br>')}
+          ${escapeHtml(this.t('confirmReloadText')).replace(/\n/g, '<br>')}
         </p>
         <div class="ha-quest-confirm-actions">
           <button type="button" class="button button-secondary ha-quest-confirm-cancel">
-            ${this.t('btnCancel')}
+            ${escapeHtml(this.t('btnCancel'))}
           </button>
           <button type="button" class="button button-primary ha-quest-confirm-proceed">
-            📄 ${this.t('reloadTemplateOnly')}
+            📄 ${escapeHtml(this.t('reloadTemplateOnly'))}
           </button>
         </div>
       </div>
@@ -2191,17 +2209,17 @@ export class QuestHUD {
       <div class="ha-quest-confirm-dialog" role="dialog" aria-modal="true">
         <div class="ha-quest-confirm-header">
           <span class="ha-quest-confirm-icon">⚠️</span>
-          <h4>${this.t('confirmResetTitle')}</h4>
+          <h4>${escapeHtml(this.t('confirmResetTitle'))}</h4>
         </div>
         <p class="ha-quest-confirm-text">
-          ${this.t('confirmResetText').replace(/\n/g, '<br>')}
+          ${escapeHtml(this.t('confirmResetText')).replace(/\n/g, '<br>')}
         </p>
         <div class="ha-quest-confirm-actions">
           <button type="button" class="button button-secondary ha-quest-confirm-cancel">
-            ${this.t('btnCancel')}
+            ${escapeHtml(this.t('btnCancel'))}
           </button>
           <button type="button" class="button button-danger ha-quest-confirm-proceed">
-            🔄 ${this.t('reloadTemplateAndReset')}
+            🔄 ${escapeHtml(this.t('reloadTemplateAndReset'))}
           </button>
         </div>
       </div>

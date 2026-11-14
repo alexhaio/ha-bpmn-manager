@@ -5,9 +5,9 @@ Donate link: https://www.paypal.com/paypalme/edvhacker/6
 Requires at least: 5.8
 Tested up to: 6.7
 Requires PHP: 8.2
-Stable tag: 4.8.7
-License: GPLv2 or later
-License URI: https://www.gnu.org/licenses/gpl-2.0.html
+Stable tag: 4.9.0
+License: GPLv3 or later
+License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
 Design, model, simulate, and publish interactive or zero-JS static BPMN 2.0 process workflows directly in WordPress.
 
@@ -36,7 +36,7 @@ Whether you are managing ISO 9001 quality management (QM) procedures, operationa
 
 == Installation ==
 
-1. Download `ha-bpmn-manager-v2.5.1.zip` from the release page.
+1. Download `ha-bpmn-manager-v4.9.0.zip` from the release page.
 2. In your WordPress Admin dashboard, go to **Plugins -> Add New -> Upload Plugin**.
 3. Select the downloaded ZIP file and click **Install Now**.
 4. Click **Activate Plugin**.
@@ -84,6 +84,14 @@ Yes. All XML imports (both via file upload and canvas drag-and-drop) are validat
 6. **Token Simulation:** Step-by-step execution simulation with speed selection and logging.
 
 == Changelog ==
+
+= 4.9.0 =
+* **Security Hardening (SVG & DOM XSS):** Added strict `DOMDocument` SVG sanitizer (`CPT::sanitize_svg()`) blocking `<script>`, `<foreignObject>`, inline event handlers (`on*`), and external URIs on both SVG cache write and render output, plus consistent HTML/URL escaping across all Quest HUD modals, Revision diffs, Step Tracker, Diagram Search, QM Handbook, and Certificate SVG templates.
+* **Access Control & CPT Scoping:** Enforced post type (`bpmnm`) and post status/capability checks on `[bpmnm]` shortcodes, Gutenberg blocks, `Renderer::render_diagram()`, `GET /ha-bpmn/v1/diagrams`, and revision endpoints.
+* **Uninstall & Multisite Compatibility:** Fixed `plugin/uninstall.php` to remove actual `bpmnm` diagram posts and added a forwarding root `uninstall.php` for root-slug installations. Fixed `pluginFile` basename detection and safe tab switching in WP Admin settings.
+* **Static Fallback & Export Reliability:** Shortcodes and blocks now verify cached SVG availability before skipping interactive scripts, and BPMN XML exports flush all nested output buffers cleanly.
+* **Multilingual Modeler & In-Place Quest Translation:** Enabled dynamic `customTranslate` across all supported languages (with English fallback for unsupported locales, proper `zh_TW` mapping, and Gutenberg Inspector i18n) and switched Quest language switching to in-place node label updates preserving user edits.
+* **Memory & Compatibility Polish:** Fixed Quest HUD draggable listener leaks (`destroyDraggable()`), duplicate BPMN event bindings, certificate config key alignment (`colorTheme`, `customColor`, `emerald_green`, preview guard), `Task_TrollCave` walkthrough ID mismatch, and Node-safe `color-presets` / `package.json` ESM tests.
 
 = 4.8.7 =
 * **Full Translation Parity:** Audited and synchronized all 35 language packs. Modern WordPress 6.5+ performant translations (.l10n.php) and traditional gettext files (.po and .mo) are now 100% identical with 332 complete message keys each.
@@ -155,6 +163,9 @@ Yes. All XML imports (both via file upload and canvas drag-and-drop) are validat
 * Initial release with bpmn-js integration.
 
 == Upgrade Notice ==
+
+= 4.9.0 =
+Version 4.9.0 brings major security hardening (SVG & DOM XSS sanitization), strict REST/shortcode capability checks, uninstall cleanup fixes, full non-German modeler translation, and Quest/Certificate polish. Recommended for all installations.
 
 = 2.5.1 =
 Version 2.5.1 delivers centralized asset versioning, Auto-Layout undo capability, perfect sidebar button alignment, and full WordPress coding standards compliance. Recommended for all installations.

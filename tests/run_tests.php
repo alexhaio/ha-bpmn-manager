@@ -41,10 +41,13 @@ namespace {
 		define( 'HOUR_IN_SECONDS', 3600 );
 	}
 
-	$GLOBALS['wp_test_options']  = [];
-	$GLOBALS['wp_test_actions']  = [];
-	$GLOBALS['wp_test_filters']  = [];
-	$GLOBALS['wp_test_locale']   = 'de_DE';
+	$GLOBALS['wp_test_options']   = [];
+	$GLOBALS['wp_test_actions']   = [];
+	$GLOBALS['wp_test_filters']   = [];
+	$GLOBALS['wp_test_posts']     = [];
+	$GLOBALS['wp_test_post_meta'] = [];
+	$GLOBALS['wp_test_locale']    = 'de_DE';
+	$GLOBALS['wp_test_logged_in'] = true;
 	$GLOBALS['wp_test_user_caps'] = [ 'manage_options' => true, 'activate_plugins' => true, 'edit_posts' => true, 'update_plugins' => true ];
 
 	if ( ! function_exists( 'get_option' ) ) {
@@ -507,6 +510,9 @@ namespace {
 
 	if ( ! function_exists( 'get_post_meta' ) ) {
 		function get_post_meta( $post_id, $key = '', $single = false ) {
+			if ( isset( $GLOBALS['wp_test_post_meta'][ (int) $post_id ][ $key ] ) ) {
+				return $GLOBALS['wp_test_post_meta'][ (int) $post_id ][ $key ];
+			}
 			if ( 'bpmn_xml' === $key ) {
 				return '<bpmn:definitions id="Def_1"></bpmn:definitions>';
 			}
@@ -514,9 +520,30 @@ namespace {
 		}
 	}
 
+	if ( ! function_exists( 'delete_post_meta' ) ) {
+		function delete_post_meta( $post_id, $meta_key, $meta_value = '' ): bool {
+			unset( $GLOBALS['wp_test_post_meta'][ (int) $post_id ][ $meta_key ] );
+			return true;
+		}
+	}
+
 	if ( ! function_exists( 'get_post_status' ) ) {
-		function get_post_status( $post_id ): string {
+		function get_post_status( $post = 0 ): string {
+			$post_id = is_object( $post ) ? (int) ( $post->ID ?? 0 ) : (int) $post;
+			if ( isset( $GLOBALS['wp_test_posts'][ $post_id ]->post_status ) ) {
+				return (string) $GLOBALS['wp_test_posts'][ $post_id ]->post_status;
+			}
 			return 'publish';
+		}
+	}
+
+	if ( ! function_exists( 'get_post_type' ) ) {
+		function get_post_type( $post = 0 ): string {
+			$post_id = is_object( $post ) ? (int) ( $post->ID ?? 0 ) : (int) $post;
+			if ( isset( $GLOBALS['wp_test_posts'][ $post_id ]->post_type ) ) {
+				return (string) $GLOBALS['wp_test_posts'][ $post_id ]->post_type;
+			}
+			return 'bpmnm';
 		}
 	}
 
@@ -532,12 +559,34 @@ namespace {
 		}
 	}
 
+	if ( ! function_exists( 'is_user_logged_in' ) ) {
+		function is_user_logged_in(): bool {
+			return (bool) ( $GLOBALS['wp_test_logged_in'] ?? false );
+		}
+	}
+
+	if ( ! function_exists( 'wp_get_current_user' ) ) {
+		function wp_get_current_user() {
+			return (object) [
+				'ID'           => 1,
+				'display_name' => 'Test Admin',
+				'user_login'   => 'admin',
+			];
+		}
+	}
+
 	if ( ! function_exists( 'get_post' ) ) {
 		function get_post( $post = null ) {
+			$post_id = is_object( $post ) ? (int) ( $post->ID ?? 101 ) : (int) ( $post ?: 101 );
+			if ( isset( $GLOBALS['wp_test_posts'][ $post_id ] ) ) {
+				return $GLOBALS['wp_test_posts'][ $post_id ];
+			}
 			return (object) [
-				'ID'           => 101,
+				'ID'           => $post_id,
 				'post_title'   => 'Test Diagram',
 				'post_content' => '<bpmn:definitions></bpmn:definitions>',
+				'post_type'    => 'bpmnm',
+				'post_status'  => 'publish',
 			];
 		}
 	}
@@ -609,6 +658,7 @@ namespace HA_BPMN\Tests {
 			$this->testRendererShortcode();
 			$this->testLocalizationIntegrity();
 			$this->testUpdaterAndContentsRewriting();
+			$this->testSecurityAndIntegrity();
 
 			echo "\n\033[36m---------------------------------------------------\033[0m\n";
 			if ( $this->failed === 0 ) {
@@ -1018,6 +1068,68 @@ namespace HA_BPMN\Tests {
 			// 9. GitHub API release asset download requests set octet-stream header
 			$assetArgs = $updater->filter_github_asset_download_args( [], 'https://api.github.com/repos/alexhaio/ha-bpmn-manager/releases/assets/12345' );
 			$this->assert( isset( $assetArgs['headers']['Accept'] ) && 'application/octet-stream' === $assetArgs['headers']['Accept'], "Asset download requests specify application/octet-stream" );
+		}
+
+		private function testSecurityAndIntegrity(): void {
+			echo "\n\033[33m[12/12] Security Hardening, SVG Sanitization, CPT Scoping & Uninstall\033[0m\n";
+
+			// 1. SVG sanitization strips XSS vectors while keeping safe vector markup
+			$dirtySvg = '<svg xmlns="http://www.w3.org/2000/svg" onload="alert(1)" viewBox="0 0 100 100"><script>alert(1)</script><foreignObject><div>xss</div></foreignObject><a href="javascript:alert(2)"><rect x="0" y="0" width="50" height="50" onclick="evil()"/></a><use href="#icon"/><use xlink:href="https://evil.test/x.svg#y"/></svg>';
+			$cleanSvg = \HA_BPMN\CPT::sanitize_svg( $dirtySvg );
+			$this->assert( strpos( $cleanSvg, '<svg' ) !== false, "Sanitizer keeps valid root <svg> element" );
+			$this->assert( strpos( $cleanSvg, '<rect' ) !== false, "Sanitizer preserves safe vector <rect> shape" );
+			$this->assert( stripos( $cleanSvg, '<script' ) === false, "Sanitizer strips <script> elements" );
+			$this->assert( stripos( $cleanSvg, 'foreignObject' ) === false, "Sanitizer strips <foreignObject> elements" );
+			$this->assert( stripos( $cleanSvg, 'onload=' ) === false && stripos( $cleanSvg, 'onclick=' ) === false, "Sanitizer strips inline on* event handlers" );
+			$this->assert( stripos( $cleanSvg, 'javascript:' ) === false, "Sanitizer strips javascript: URIs" );
+			$this->assert( strpos( $cleanSvg, 'https://evil.test' ) === false, "Sanitizer strips external <use> URIs" );
+			$this->assert( strpos( $cleanSvg, 'href="#icon"' ) !== false, "Sanitizer preserves safe local #fragment references" );
+			$this->assertSame( '', \HA_BPMN\CPT::sanitize_svg( '<div>not an svg</div>' ), "Non-SVG input returns empty string" );
+
+			// 2. Renderer refuses non-bpmnm post types and non-readable drafts
+			$renderer = \HA_BPMN\Renderer::instance();
+			$GLOBALS['wp_test_posts'][901] = (object) [
+				'ID'          => 901,
+				'post_title'  => 'Private Post',
+				'post_type'   => 'post',
+				'post_status' => 'publish',
+			];
+			$this->assertSame( '', $renderer->render_diagram( [ 'id' => 901 ] ), "Renderer refuses non-bpmnm post types" );
+
+			$GLOBALS['wp_test_posts'][902] = (object) [
+				'ID'          => 902,
+				'post_title'  => 'Draft BPMN',
+				'post_type'   => 'bpmnm',
+				'post_status' => 'draft',
+			];
+			$oldCaps = $GLOBALS['wp_test_user_caps'];
+			$GLOBALS['wp_test_user_caps'] = [];
+			$this->assertSame( '', $renderer->render_diagram( [ 'id' => 902 ] ), "Renderer hides draft diagram from unauthorized visitors" );
+			$GLOBALS['wp_test_user_caps'] = $oldCaps;
+
+			// 3. Static mode falls back to interactive container when static SVG cache is empty
+			$GLOBALS['wp_test_posts'][903] = (object) [
+				'ID'          => 903,
+				'post_title'  => 'Cached BPMN',
+				'post_type'   => 'bpmnm',
+				'post_status' => 'publish',
+			];
+			$GLOBALS['wp_test_post_meta'][903]['_ha_bpmn_svg_cache'] = '';
+			$fallbackHtml = $renderer->render_diagram( [ 'id' => 903, 'mode' => 'static' ] );
+			$this->assert( strpos( $fallbackHtml, 'ha-bpmn-viewer-wrap' ) !== false, "Static mode falls back cleanly to interactive wrapper when SVG cache is empty" );
+
+			// 4. Static mode sanitizes cached SVG on render
+			$GLOBALS['wp_test_post_meta'][903]['_ha_bpmn_svg_cache'] = '<svg xmlns="http://www.w3.org/2000/svg"><script>xss()</script><circle cx="5" cy="5" r="4"/></svg>';
+			$staticHtml = $renderer->render_diagram( [ 'id' => 903, 'mode' => 'static' ] );
+			$this->assert( strpos( $staticHtml, 'ha-bpmn-static-wrap' ) !== false, "Static mode renders static wrapper when SVG cache is valid" );
+			$this->assert( strpos( $staticHtml, '<circle' ) !== false && stripos( $staticHtml, '<script' ) === false, "Static output strips injected <script> from cached SVG" );
+
+			// 5. Root & plugin uninstall.php consistency
+			$rootUninstall = (string) file_get_contents( $this->rootDir . '/uninstall.php' );
+			$pluginUninstall = (string) file_get_contents( $this->pluginDir . '/uninstall.php' );
+			$this->assert( file_exists( $this->rootDir . '/uninstall.php' ), "Root uninstall.php exists" );
+			$this->assert( strpos( $rootUninstall, '/plugin/uninstall.php' ) !== false, "Root uninstall.php forwards to plugin/uninstall.php" );
+			$this->assert( strpos( $pluginUninstall, 'ha_bpmn_diagram' ) === false && strpos( $pluginUninstall, "'bpmnm'" ) !== false, "plugin/uninstall.php targets 'bpmnm' CPT instead of non-existent ha_bpmn_diagram" );
 		}
 	}
 

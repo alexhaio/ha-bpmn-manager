@@ -1,7 +1,11 @@
-const path = require('path');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+import path from 'path';
+import { fileURLToPath } from 'url';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 
-module.exports = (env, argv) => {
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+export default (env, argv) => {
   const isProduction = argv.mode === 'production';
 
   return {
@@ -13,6 +17,13 @@ module.exports = (env, argv) => {
     },
     module: {
       rules: [
+        {
+          test: /\.m?js$/,
+          type: 'javascript/auto',
+          resolve: {
+            fullySpecified: false
+          }
+        },
         {
           test: /\.css$/,
           use: [

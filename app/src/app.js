@@ -49,7 +49,6 @@ import { initTaskDrawer } from './modules/task-drawer.js';
 import { initDiagramSearch } from './modules/diagram-search.js';
 import { initStepTracker } from './modules/step-tracker.js';
 import { openQmHandbook } from './modules/qm-handbook.js';
-import { COLOR_PRESETS, applyColorPreset } from './modules/color-presets.js';
 import { openRevisionsModal } from './modules/revisions.js';
 import { initQuestHUD } from './modules/quest/quest-hud.js';
 import { showCertificateModal } from './modules/quest/certificate.js';
@@ -94,6 +93,25 @@ export function setActiveModelerLang(lang) {
   activeModelerLang = lang || 'de';
 }
 
+function resolveUiLanguage(settings = {}) {
+  let stored = '';
+  try {
+    stored = typeof localStorage !== 'undefined' ? (localStorage.getItem('ha_bpmn_user_lang') || '') : '';
+  } catch (_) {
+    stored = '';
+  }
+  if (stored) {
+    return stored;
+  }
+  if (settings.defaultLanguage && settings.defaultLanguage !== 'auto') {
+    return settings.defaultLanguage;
+  }
+  if (settings.siteLanguage && settings.siteLanguage !== 'auto') {
+    return settings.siteLanguage;
+  }
+  return settings.language || 'de';
+}
+
 /**
  * Custom translation provider function for bpmn-js.
  * Dynamically resolves to the currently active user/site language.
@@ -103,11 +121,12 @@ export function setActiveModelerLang(lang) {
  * @return {string} Translated string.
  */
 function customTranslate(template, replacements = {}) {
-  const langKey = activeModelerLang ? activeModelerLang.toLowerCase().split('_')[0] : 'de';
-  const dict = TRANSLATION_DICTS[activeModelerLang] || TRANSLATION_DICTS[langKey] || TRANSLATION_DICTS.de || {};
+  const normalized = (activeModelerLang || 'en').toLowerCase().replace('-', '_');
+  const langKey = normalized.split('_')[0];
+  const dict = TRANSLATION_DICTS[normalized] || TRANSLATION_DICTS[langKey] || TRANSLATION_DICTS.en || {};
   const translated = dict[template] || template;
   return translated.replace(/\{([^}]+)\}/g, function(_, key) {
-    return replacements[key] || '{' + key + '}';
+    return Object.prototype.hasOwnProperty.call(replacements, key) ? replacements[key] : '{' + key + '}';
   });
 }
 
@@ -373,12 +392,10 @@ function initAdminModeler(wrap, settings) {
     dynamicModules.push(BpmnPropertiesPanelModule);
     dynamicModules.push(BpmnPropertiesProviderModule);
   }
-  const effectiveLang = localStorage.getItem('ha_bpmn_user_lang') || settings.language || 'de';
-  if (effectiveLang === 'de') {
-    dynamicModules.push({
-      translate: ['value', customTranslate]
-    });
-  }
+  setActiveModelerLang(resolveUiLanguage(settings));
+  dynamicModules.push({
+    translate: ['value', customTranslate]
+  });
 
   // Instantiate Modeler
   const modeler = new BpmnModeler({
@@ -527,17 +544,7 @@ function initAdminModeler(wrap, settings) {
 
   // Active language resolution (User override > Backend default > Site language > WP locale)
   const getActiveLanguage = () => {
-    const stored = localStorage.getItem('ha_bpmn_user_lang');
-    let lang = 'de';
-    if (stored) {
-      lang = stored;
-    } else if (settings.defaultLanguage && settings.defaultLanguage !== 'auto') {
-      lang = settings.defaultLanguage;
-    } else if (settings.siteLanguage && settings.siteLanguage !== 'auto') {
-      lang = settings.siteLanguage;
-    } else {
-      lang = settings.language || 'de';
-    }
+    const lang = resolveUiLanguage(settings);
     setActiveModelerLang(lang);
     return lang;
   };
@@ -1170,14 +1177,42 @@ function initAdminModeler(wrap, settings) {
           hud.setLanguage(newLang);
         }
 
-        // If the active diagram is the Quest adventure, live-translate the diagram XML
+        // If the active diagram is the Quest adventure, live-translate quest nodes in-place (preserving user edits)
         try {
           const { xml: currentXml } = await modeler.saveXML({ format: false });
           if (isQuestDiagram(currentXml)) {
             const localizedQuestXml = getQuestXml(newLang);
-            if (localizedQuestXml) {
-              await modeler.importXML(localizedQuestXml);
-              modeler.get('canvas').zoom('fit-viewport', 'auto');
+            if (localizedQuestXml && typeof DOMParser !== 'undefined') {
+              const doc = new DOMParser().parseFromString(localizedQuestXml, 'application/xml');
+              const elementRegistry = modeler.get('elementRegistry');
+              const modeling = modeler.get('modeling');
+              const updatesById = new Map();
+
+              doc.querySelectorAll('[id]').forEach((node) => {
+                const id = node.getAttribute('id');
+                if (!id) return;
+                const props = {};
+                if (node.hasAttribute('name')) {
+                  props.name = node.getAttribute('name');
+                }
+                if (node.localName === 'textAnnotation') {
+                  const textEl = Array.from(node.children || []).find((c) => c.localName === 'text');
+                  if (textEl) {
+                    props.text = textEl.textContent || '';
+                  }
+                }
+                if (Object.keys(props).length > 0) {
+                  updatesById.set(id, props);
+                }
+              });
+
+              elementRegistry.getAll().forEach((el) => {
+                const props = updatesById.get(el.id);
+                if (props) {
+                  modeling.updateProperties(el, props);
+                }
+              });
+
               syncXmlToForm();
               if (hud && typeof hud.goToChapter === 'function') {
                 hud.goToChapter(hud.currentChapterIndex);
@@ -1324,11 +1359,10 @@ function initFrontendViewer(wrap, settings) {
   if (modulesConfig.linter) {
     dynamicModules.push(lintModule);
   }
-  if (settings.language === 'de') {
-    dynamicModules.push({
-      translate: ['value', customTranslate]
-    });
-  }
+  setActiveModelerLang(resolveUiLanguage(settings));
+  dynamicModules.push({
+    translate: ['value', customTranslate]
+  });
 
   // Use NavigatedViewer for pure frontend viewing (fast, lightweight, interactive)
   const viewer = new NavigatedViewer({
@@ -1397,7 +1431,7 @@ function initFrontendViewer(wrap, settings) {
         initTaskDrawer(wrap, viewer, i18n);
       }
       initDiagramSearch(wrap, viewer, i18n);
-      initStepTracker(wrap, viewer);
+      initStepTracker(wrap, viewer, i18n);
     })
     .catch(err => {
       console.error('Failed to load diagram in frontend viewer:', err);

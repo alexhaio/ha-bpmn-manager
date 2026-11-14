@@ -8,7 +8,7 @@
  */
 
 export function getColorPresets(i18n = {}) {
-  const isDe = (document.documentElement.lang || 'de').startsWith('de');
+  const isDe = typeof document !== 'undefined' && (document.documentElement.lang || 'de').startsWith('de');
   return [
     {
       id: 'happy',

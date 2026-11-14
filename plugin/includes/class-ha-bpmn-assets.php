@@ -60,14 +60,26 @@ class Assets {
 
 		// Determine preferred template and UI language from backend setting or WP user locale
 		$has_custom_default = ( ! empty( $plugin_settings['default_template_lang'] ) && 'auto' !== $plugin_settings['default_template_lang'] );
-		$template_lang      = $has_custom_default ? $plugin_settings['default_template_lang'] : substr( $user_locale, 0, 2 );
-		$language           = $has_custom_default ? $plugin_settings['default_template_lang'] : ( ( 0 === strpos( $user_locale, 'de' ) ) ? 'de' : 'en' );
+		$clean_locale       = strtolower( str_replace( '-', '_', (string) $user_locale ) );
+		if ( false !== strpos( $clean_locale, 'tw' ) || false !== strpos( $clean_locale, 'hk' ) || false !== strpos( $clean_locale, 'hant' ) ) {
+			$locale_lang = 'zh_TW';
+		} else {
+			$locale_lang = substr( $clean_locale, 0, 2 );
+		}
+		$template_lang      = $has_custom_default ? $plugin_settings['default_template_lang'] : $locale_lang;
+		$language           = $has_custom_default ? $plugin_settings['default_template_lang'] : ( ( 0 === strpos( $clean_locale, 'de' ) ) ? 'de' : 'en' );
+		$current_user_name  = '';
+		if ( function_exists( 'is_user_logged_in' ) && is_user_logged_in() && function_exists( 'wp_get_current_user' ) ) {
+			$user_obj          = wp_get_current_user();
+			$current_user_name = ! empty( $user_obj->display_name ) ? (string) $user_obj->display_name : '';
+		}
 
 		return [
 			'admin'           => (bool) $is_admin,
 			'language'        => $language,
 			'siteLanguage'    => $template_lang,
 			'defaultLanguage' => ! empty( $plugin_settings['default_template_lang'] ) ? $plugin_settings['default_template_lang'] : 'auto',
+			'currentUser'     => $current_user_name,
 			'rest_nonce'      => wp_create_nonce( 'wp_rest' ),
 			'rest_base'    => rest_url( 'ha-bpmn/v1/' ),
 			'modules'      => [
@@ -215,6 +227,16 @@ class Assets {
 				'scriptTask'         => __( 'Script Task', 'ha-bpmn-manager' ),
 				'subProcess'         => __( 'Sub-Process', 'ha-bpmn-manager' ),
 				'callActivity'       => __( 'Call Activity', 'ha-bpmn-manager' ),
+				// Handbook element type labels & Step Tracker
+				'startEvent'         => __( 'Start Event', 'ha-bpmn-manager' ),
+				'endEvent'           => __( 'End Event', 'ha-bpmn-manager' ),
+				'intermediateEvent'  => __( 'Intermediate Event', 'ha-bpmn-manager' ),
+				'exclusiveGateway'   => __( 'Exclusive Gateway (XOR)', 'ha-bpmn-manager' ),
+				'parallelGateway'    => __( 'Parallel Gateway (AND)', 'ha-bpmn-manager' ),
+				'inclusiveGateway'   => __( 'Inclusive Gateway (OR)', 'ha-bpmn-manager' ),
+				'unnamedStep'        => __( '(Unnamed)', 'ha-bpmn-manager' ),
+				'stepCompleted'      => __( 'Completed', 'ha-bpmn-manager' ),
+				'stepActive'         => __( 'In Progress', 'ha-bpmn-manager' ),
 			],
 		];
 	}
@@ -418,7 +440,7 @@ class Assets {
 				'haBpmnDeactivateConfig',
 				[
 					'slug'           => 'ha-bpmn-manager',
-					'pluginFile'     => 'ha-bpmn-manager/ha-bpmn-manager.php',
+					'pluginFile'     => plugin_basename( HA_BPMN_FILE ),
 					'currentSetting' => ! empty( $settings['delete_data_on_uninstall'] ) ? '1' : '0',
 					'ajaxUrl'        => admin_url( 'admin-ajax.php' ),
 					'nonce'          => wp_create_nonce( 'ha_bpmn_deactivate_nonce' ),

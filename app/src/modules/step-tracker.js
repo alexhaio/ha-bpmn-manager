@@ -7,19 +7,26 @@
  * @package HA_BPMN_Manager
  */
 
+import { escapeHtml } from './escape-html.js';
+
 /**
  * Initializes the Step Tracker on a bpmn-js instance.
  *
  * @param {HTMLElement} wrap Container element (.ha-bpmn-viewer-wrap or .ha-bpmn-editor-wrap).
  * @param {Object} bpmnInstance Modeler or NavigatedViewer instance.
+ * @param {Object} i18n Optional dictionary of translated strings.
  */
-export function initStepTracker(wrap, bpmnInstance) {
+export function initStepTracker(wrap, bpmnInstance, i18n = {}) {
   const activeAttr = wrap.getAttribute('data-active-steps') || '';
   const completedAttr = wrap.getAttribute('data-completed-steps') || '';
 
   if (!activeAttr && !completedAttr) {
     return;
   }
+
+  const isDe = typeof document !== 'undefined' && (document.documentElement.lang || 'de').startsWith('de');
+  const completedLabel = escapeHtml(i18n.stepCompleted || (isDe ? 'Abgeschlossen' : 'Completed'));
+  const activeLabel = escapeHtml(i18n.stepActive || (isDe ? 'In Bearbeitung' : 'In Progress'));
 
   const activeList = activeAttr.split(',').map(s => s.trim().toLowerCase()).filter(Boolean);
   const completedList = completedAttr.split(',').map(s => s.trim().toLowerCase()).filter(Boolean);
@@ -45,7 +52,7 @@ export function initStepTracker(wrap, bpmnInstance) {
           if (overlays) {
             overlays.add(el.id, 'ha-status-badge', {
               position: { top: -8, right: -8 },
-              html: '<div class="ha-status-badge-completed" title="Abgeschlossen">&check;</div>'
+              html: `<div class="ha-status-badge-completed" title="${completedLabel}">&check;</div>`
             });
           }
         }
@@ -57,7 +64,7 @@ export function initStepTracker(wrap, bpmnInstance) {
           if (overlays) {
             overlays.add(el.id, 'ha-status-badge', {
               position: { top: -8, right: -8 },
-              html: '<div class="ha-status-badge-active" title="In Bearbeitung"><span class="ha-pulse-dot"></span></div>'
+              html: `<div class="ha-status-badge-active" title="${activeLabel}"><span class="ha-pulse-dot"></span></div>`
             });
           }
         }

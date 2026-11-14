@@ -7,25 +7,29 @@
  * @package HA_BPMN_Manager
  */
 
-const ELEMENT_TYPE_NAMES = {
-  'bpmn:StartEvent': 'Start-Ereignis',
-  'bpmn:EndEvent': 'End-Ereignis',
-  'bpmn:IntermediateCatchEvent': 'Zwischenereignis',
-  'bpmn:IntermediateThrowEvent': 'Zwischenereignis',
-  'bpmn:Task': 'Aufgabe',
-  'bpmn:UserTask': 'Benutzeraufgabe',
-  'bpmn:ServiceTask': 'Service-Aufgabe (System)',
-  'bpmn:SendTask': 'Nachricht senden',
-  'bpmn:ReceiveTask': 'Nachricht empfangen',
-  'bpmn:ManualTask': 'Manuelle Tätigkeit',
-  'bpmn:BusinessRuleTask': 'Geschäftsregel',
-  'bpmn:ScriptTask': 'Skriptaufgabe',
-  'bpmn:SubProcess': 'Teilprozess',
-  'bpmn:CallActivity': 'Aufruf-Aktivität',
-  'bpmn:ExclusiveGateway': 'Exklusive Verzweigung (XOR)',
-  'bpmn:ParallelGateway': 'Parallele Verzweigung (AND)',
-  'bpmn:InclusiveGateway': 'Inklusive Verzweigung (OR)'
-};
+import { escapeHtml } from './escape-html.js';
+
+function getElementTypeNames(i18n = {}, isDe = true) {
+  return {
+    'bpmn:StartEvent': i18n.startEvent || (isDe ? 'Start-Ereignis' : 'Start Event'),
+    'bpmn:EndEvent': i18n.endEvent || (isDe ? 'End-Ereignis' : 'End Event'),
+    'bpmn:IntermediateCatchEvent': i18n.intermediateEvent || (isDe ? 'Zwischenereignis' : 'Intermediate Event'),
+    'bpmn:IntermediateThrowEvent': i18n.intermediateEvent || (isDe ? 'Zwischenereignis' : 'Intermediate Event'),
+    'bpmn:Task': i18n.task || (isDe ? 'Aufgabe' : 'Task'),
+    'bpmn:UserTask': i18n.userTask || (isDe ? 'Benutzeraufgabe' : 'User Task'),
+    'bpmn:ServiceTask': i18n.serviceTask || (isDe ? 'Service-Aufgabe (System)' : 'Service Task'),
+    'bpmn:SendTask': i18n.sendTask || (isDe ? 'Nachricht senden' : 'Send Task'),
+    'bpmn:ReceiveTask': i18n.receiveTask || (isDe ? 'Nachricht empfangen' : 'Receive Task'),
+    'bpmn:ManualTask': i18n.manualTask || (isDe ? 'Manuelle Tätigkeit' : 'Manual Task'),
+    'bpmn:BusinessRuleTask': i18n.businessRuleTask || (isDe ? 'Geschäftsregel' : 'Business Rule Task'),
+    'bpmn:ScriptTask': i18n.scriptTask || (isDe ? 'Skriptaufgabe' : 'Script Task'),
+    'bpmn:SubProcess': i18n.subProcess || (isDe ? 'Teilprozess' : 'Sub-Process'),
+    'bpmn:CallActivity': i18n.callActivity || (isDe ? 'Aufruf-Aktivität' : 'Call Activity'),
+    'bpmn:ExclusiveGateway': i18n.exclusiveGateway || (isDe ? 'Exklusive Verzweigung (XOR)' : 'Exclusive Gateway (XOR)'),
+    'bpmn:ParallelGateway': i18n.parallelGateway || (isDe ? 'Parallele Verzweigung (AND)' : 'Parallel Gateway (AND)'),
+    'bpmn:InclusiveGateway': i18n.inclusiveGateway || (isDe ? 'Inklusive Verzweigung (OR)' : 'Inclusive Gateway (OR)')
+  };
+}
 
 /**
  * Generates and opens a print-ready QM handbook for the given modeler instance.
@@ -36,6 +40,8 @@ const ELEMENT_TYPE_NAMES = {
  */
 export async function openQmHandbook(bpmnInstance, title = 'Prozessdokumentation', i18n = {}) {
   const i18nObj = (i18n && typeof i18n === 'object') ? i18n : {};
+  const isDe = (typeof document !== 'undefined' && document.documentElement && (document.documentElement.lang || 'de').startsWith('de'));
+  const typeNames = getElementTypeNames(i18nObj, isDe);
 
   let svgContent = '';
   try {
@@ -58,8 +64,8 @@ export async function openQmHandbook(bpmnInstance, title = 'Prozessdokumentation
       }
 
       const bo = el.businessObject;
-      const typeLabel = ELEMENT_TYPE_NAMES[el.type] || el.type.replace('bpmn:', '');
-      const name = bo.name || '(Ohne Bezeichnung)';
+      const typeLabel = typeNames[el.type] || el.type.replace('bpmn:', '');
+      const name = bo.name || i18nObj.unnamedStep || (isDe ? '(Ohne Bezeichnung)' : '(Unnamed)');
       
       // Documentation
       let doc = '';
@@ -98,8 +104,6 @@ export async function openQmHandbook(bpmnInstance, title = 'Prozessdokumentation
       });
     });
   }
-
-  const isDe = (typeof document !== 'undefined' && document.documentElement && (document.documentElement.lang || 'de').startsWith('de'));
 
   const currentDate = new Date().toLocaleDateString(isDe ? 'de-DE' : 'en-US', {
     day: '2-digit',
@@ -321,13 +325,4 @@ export async function openQmHandbook(bpmnInstance, title = 'Prozessdokumentation
 </html>`);
 
   printWindow.document.close();
-}
-
-function escapeHtml(str) {
-  if (!str) return '';
-  return String(str)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;');
 }

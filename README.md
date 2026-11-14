@@ -62,7 +62,7 @@ ha-bpmn-manager/  (Repository Root)
   - Optional: [Docker Desktop](https://www.docker.com/), falls kein lokales Node.js vorhanden ist
 - **Für die WordPress-Laufzeit:**
   - WordPress 5.8+ (getestet bis 6.9)
-  - PHP 7.4 bis 8.4+
+  - PHP 8.2+ (getestet bis 8.4+)
 
 ---
 
@@ -103,7 +103,7 @@ Führen Sie im Projekt-Hauptverzeichnis aus:
 1. Der Inhalt von `plugin/` wird geprüft.
 2. Es wird eine temporäre Staging-Struktur mit dem kanonischen Slug `ha-bpmn-manager/` erstellt.
 3. Sämtliche Entwickler-Dateien (`.map`, `.git`, Dev-Configs) werden gefiltert.
-4. Es wird ein sauberes, kompaktes ZIP-Archiv unter `release/ha-bpmn-manager.zip` (und versionsspezifisch `release/ha-bpmn-manager-v2.5.1.zip`) erstellt.
+4. Es wird ein sauberes, kompaktes ZIP-Archiv unter `release/ha-bpmn-manager.zip` (und versionsspezifisch `release/ha-bpmn-manager-v4.9.0.zip`) erstellt.
 
 ### Build & Packaging in einem einzigen Befehl
 Kompiliert die JS/CSS-Assets neu und packt anschließend direkt das fertige ZIP:

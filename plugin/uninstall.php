@@ -34,8 +34,9 @@ delete_option( 'ha_bpmn_version' );
 delete_transient( 'ha_bpmn_admin_notices' );
 
 // 3. Diagramm-Posts und Revisionen löschen (nur bei explizit gewünschter Vollbereinigung)
+$post_type = defined( 'HA_BPMN_POST_TYPE' ) ? HA_BPMN_POST_TYPE : 'bpmnm';
 $diagram_posts = get_posts( [
-	'post_type'   => 'ha_bpmn_diagram',
+	'post_type'   => $post_type,
 	'post_status' => 'any',
 	'numberposts' => -1,
 	'fields'      => 'ids',

@@ -204,6 +204,9 @@ class Rest {
 
 		$diagrams = [];
 		foreach ( $posts as $p ) {
+			if ( 'publish' !== $p->post_status && ! current_user_can( 'edit_post', $p->ID ) && ! current_user_can( 'read_post', $p->ID ) ) {
+				continue;
+			}
 			/* translators: %d: Diagram ID */
 			$fallback_title = sprintf( __( 'Diagram #%d', 'ha-bpmn-manager' ), $p->ID );
 			$diagrams[]     = [
@@ -226,6 +229,16 @@ class Rest {
 	 */
 	public static function check_revisions_permission( $request ) {
 		$post_id = (int) $request['id'];
+		$post    = get_post( $post_id );
+
+		if ( ! $post || HA_BPMN_POST_TYPE !== $post->post_type ) {
+			return new \WP_Error(
+				'ha_bpmn_not_found',
+				__( 'Diagram not found.', 'ha-bpmn-manager' ),
+				[ 'status' => 404 ]
+			);
+		}
+
 		if ( ! current_user_can( 'edit_post', $post_id ) ) {
 			return new \WP_Error(
 				'ha_bpmn_forbidden',
@@ -240,10 +253,16 @@ class Rest {
 	 * Returns revisions for a specific diagram with XML contents.
 	 *
 	 * @param \WP_REST_Request $request The REST request.
-	 * @return \WP_REST_Response
+	 * @return \WP_REST_Response|\WP_Error
 	 */
 	public static function get_diagram_revisions( $request ) {
 		$post_id = (int) $request['id'];
+		$post    = get_post( $post_id );
+
+		if ( ! $post || HA_BPMN_POST_TYPE !== $post->post_type ) {
+			return new \WP_Error( 'ha_bpmn_not_found', __( 'Diagram not found.', 'ha-bpmn-manager' ), [ 'status' => 404 ] );
+		}
+
 		$revs    = wp_get_post_revisions( $post_id );
 
 		$results = [];

@@ -77,7 +77,10 @@ class Renderer {
 
 		$diagram_id = (int) $parsed['id'];
 		if ( ! $diagram_id ) {
-			$diagram_id = get_the_ID();
+			$current_id = get_the_ID();
+			if ( $current_id && HA_BPMN_POST_TYPE === get_post_type( $current_id ) ) {
+				$diagram_id = (int) $current_id;
+			}
 		}
 
 		if ( ! $diagram_id ) {
@@ -86,9 +89,10 @@ class Renderer {
 
 		$mode = strtolower( trim( $parsed['mode'] ) );
 		$is_static = ( 'static' === $mode || 'svg' === $mode );
+		$has_valid_static_svg = $is_static && '' !== CPT::sanitize_svg( get_post_meta( $diagram_id, '_ha_bpmn_svg_cache', true ) );
 
-		// Only enqueue full JS bundle if interactive mode
-		if ( ! $is_static ) {
+		// Only skip full JS bundle if static mode actually has a valid cached SVG
+		if ( ! $has_valid_static_svg ) {
 			Assets::instance()->enqueue_frontend_assets( true );
 		} else {
 			// Enqueue lightweight frontend CSS only
@@ -119,15 +123,17 @@ class Renderer {
 			return '<div class="ha-bpmn-block-notice">' . esc_html__( 'Please select a BPMN diagram in the block sidebar.', 'ha-bpmn-manager' ) . '</div>';
 		}
 
-		$height     = ! empty( $attributes['height'] ) ? $attributes['height'] : '600px';
-		$fullscreen = ! isset( $attributes['fullscreen'] ) || ! empty( $attributes['fullscreen'] );
-		$mode       = ! empty( $attributes['mode'] ) ? $attributes['mode'] : 'interactive';
-		$active     = ! empty( $attributes['activeSteps'] ) ? $attributes['activeSteps'] : '';
-		$completed  = ! empty( $attributes['completedSteps'] ) ? $attributes['completedSteps'] : '';
-		$search     = ! isset( $attributes['search'] ) || ! empty( $attributes['search'] );
-		$drawer     = ! isset( $attributes['drawer'] ) || ! empty( $attributes['drawer'] );
+		$height               = ! empty( $attributes['height'] ) ? $attributes['height'] : '600px';
+		$fullscreen           = ! isset( $attributes['fullscreen'] ) || ! empty( $attributes['fullscreen'] );
+		$mode                 = strtolower( trim( (string) ( ! empty( $attributes['mode'] ) ? $attributes['mode'] : 'interactive' ) ) );
+		$active               = ! empty( $attributes['activeSteps'] ) ? $attributes['activeSteps'] : '';
+		$completed            = ! empty( $attributes['completedSteps'] ) ? $attributes['completedSteps'] : '';
+		$search               = ! isset( $attributes['search'] ) || ! empty( $attributes['search'] );
+		$drawer               = ! isset( $attributes['drawer'] ) || ! empty( $attributes['drawer'] );
+		$is_static            = ( 'static' === $mode || 'svg' === $mode );
+		$has_valid_static_svg = $is_static && '' !== CPT::sanitize_svg( get_post_meta( $diagram_id, '_ha_bpmn_svg_cache', true ) );
 
-		if ( 'static' !== $mode && 'svg' !== $mode ) {
+		if ( ! $has_valid_static_svg ) {
 			Assets::instance()->enqueue_frontend_assets( true );
 		} else {
 			wp_enqueue_style( 'ha-bpmn-frontend', HA_BPMN_URL . 'assets/css/frontend.css', [], Assets::get_asset_version( 'assets/css/frontend.css' ) );
@@ -169,8 +175,12 @@ class Renderer {
 		$drawer = true
 	) {
 		$post = get_post( $diagram_id );
-		if ( ! $post ) {
+		if ( ! $post || HA_BPMN_POST_TYPE !== ( $post->post_type ?? '' ) || 'trash' === ( $post->post_status ?? '' ) ) {
 			return '<!-- HA-BPMN-Manager: Diagram not found -->';
+		}
+
+		if ( 'publish' !== ( $post->post_status ?? 'publish' ) && ! current_user_can( 'read_post', $diagram_id ) && ! current_user_can( 'edit_post', $diagram_id ) ) {
+			return '<!-- HA-BPMN-Manager: Diagram not accessible -->';
 		}
 
 		if ( post_password_required( $post ) ) {
@@ -191,8 +201,8 @@ class Renderer {
 
 		// Check Static SVG Mode
 		if ( 'static' === $mode || 'svg' === $mode ) {
-			$cached_svg = get_post_meta( $diagram_id, '_ha_bpmn_svg_cache', true );
-			if ( ! empty( $cached_svg ) ) {
+			$cached_svg = CPT::sanitize_svg( get_post_meta( $diagram_id, '_ha_bpmn_svg_cache', true ) );
+			if ( '' !== $cached_svg ) {
 				ob_start();
 				?>
 				<div class="ha-bpmn-static-wrap"

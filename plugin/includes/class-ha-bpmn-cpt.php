@@ -1690,8 +1690,18 @@ class CPT {
 				});
 				if (history.replaceState) {
 					var cleanTab = tabId.replace('tab-', '');
-					var newUrl = window.location.protocol + '//' + window.location.host + window.location.pathname + window.location.search.replace(/&tab=[^&]*/, '') + '&tab=' + cleanTab;
-					history.replaceState(null, null, newUrl);
+					try {
+						var url = new URL(window.location.href);
+						url.searchParams.set('tab', cleanTab);
+						history.replaceState(null, null, url.toString());
+					} catch (e) {
+						var sep = window.location.search ? '&' : '?';
+						var cleanSearch = window.location.search.replace(/([?&])tab=[^&]*(&|$)/, function(_, p1, p2) {
+							return p2 === '&' ? p1 : '';
+						});
+						sep = cleanSearch ? '&' : '?';
+						history.replaceState(null, null, window.location.protocol + '//' + window.location.host + window.location.pathname + cleanSearch + sep + 'tab=' + encodeURIComponent(cleanTab));
+					}
 				}
 			}
 
@@ -1776,6 +1786,7 @@ class CPT {
 						};
 
 						window.haBpmnShowCertificate({
+							isPreview: true,
 							userName: '<?php echo esc_js( wp_get_current_user()->display_name ?: 'Max Mustermann' ); ?>',
 							xp: 2000,
 							completedChaptersCount: 6,
@@ -1836,7 +1847,7 @@ class CPT {
 
 		$slug = ! empty( $post->post_name ) ? $post->post_name : 'diagram-' . $post_id;
 
-		if ( ob_get_level() ) {
+		while ( ob_get_level() > 0 ) {
 			ob_end_clean();
 		}
 
@@ -1970,6 +1981,143 @@ class CPT {
 	}
 
 	/**
+	 * Strictly sanitizes SVG markup to prevent stored XSS and XXE vectors.
+	 *
+	 * @param string $raw_svg Raw SVG XML string.
+	 * @return string Sanitized SVG markup or empty string if invalid.
+	 */
+	public static function sanitize_svg( $raw_svg ) {
+		if ( ! is_string( $raw_svg ) || false === stripos( $raw_svg, '<svg' ) ) {
+			return '';
+		}
+
+		// Reject XML DOCTYPE / entity declarations before parsing.
+		$clean = preg_replace( '/<!(?:DOCTYPE|ENTITY)\b[^>]*>/i', '', $raw_svg );
+		if ( ! is_string( $clean ) || '' === trim( $clean ) ) {
+			return '';
+		}
+
+		if ( ! class_exists( '\DOMDocument' ) ) {
+			return '';
+		}
+
+		$dom          = new \DOMDocument();
+		$prev_errors  = libxml_use_internal_errors( true );
+		$loaded       = $dom->loadXML( $clean, LIBXML_NONET | LIBXML_NOERROR | LIBXML_NOWARNING );
+		libxml_clear_errors();
+		libxml_use_internal_errors( $prev_errors );
+
+		if ( ! $loaded || ! $dom->documentElement || 'svg' !== strtolower( $dom->documentElement->localName ) ) {
+			return '';
+		}
+
+		$allowed_tags = [
+			'svg',
+			'g',
+			'path',
+			'rect',
+			'circle',
+			'ellipse',
+			'line',
+			'polyline',
+			'polygon',
+			'text',
+			'tspan',
+			'textpath',
+			'defs',
+			'marker',
+			'clippath',
+			'mask',
+			'pattern',
+			'lineargradient',
+			'radialgradient',
+			'stop',
+			'title',
+			'desc',
+			'style',
+			'use',
+			'symbol',
+			'switch',
+		];
+
+		$uri_attributes = [ 'href', 'xlink:href', 'src', 'action', 'formaction', 'data' ];
+
+		$sanitize_css = static function( $css ) {
+			$css = (string) $css;
+			// Strip CSS expressions, @import rules, script protocols, and external url(...) references (preserve #local refs).
+			$css = preg_replace( '/@import[^;]*;?/i', '', $css );
+			$css = preg_replace( '/expression\s*\([^)]*\)/i', '', $css );
+			$css = preg_replace( '/-moz-binding\s*:[^;]*;?/i', '', $css );
+			$css = preg_replace( '/(?:javascript|vbscript|data)\s*:/i', '', $css );
+			$css = preg_replace_callback(
+				'/url\s*\(\s*([\'\"]?)([^\)\'\"]+)\1\s*\)/i',
+				static function( $m ) {
+					$target = trim( $m[2] );
+					if ( 0 === strpos( $target, '#' ) ) {
+						return 'url(' . $target . ')';
+					}
+					return 'none';
+				},
+				$css
+			);
+			return (string) $css;
+		};
+
+		$nodes = [];
+		foreach ( $dom->getElementsByTagName( '*' ) as $node ) {
+			$nodes[] = $node;
+		}
+
+		foreach ( $nodes as $node ) {
+			if ( ! $node->parentNode ) {
+				continue;
+			}
+			$tag = strtolower( $node->localName );
+			if ( ! in_array( $tag, $allowed_tags, true ) ) {
+				$node->parentNode->removeChild( $node );
+				continue;
+			}
+
+			if ( 'style' === $tag ) {
+				$node->textContent = $sanitize_css( $node->textContent );
+			}
+
+			if ( $node->hasAttributes() ) {
+				$to_remove = [];
+				foreach ( $node->attributes as $attr ) {
+					$attr_name = strtolower( $attr->nodeName );
+					$local_attr = strtolower( $attr->localName ?: $attr_name );
+					$val = trim( (string) $attr->nodeValue );
+
+					// Remove all inline event handlers (onload, onerror, onclick, etc.).
+					if ( 0 === strpos( $local_attr, 'on' ) ) {
+						$to_remove[] = $attr->nodeName;
+						continue;
+					}
+
+					// Allow only local #fragment references in URI attributes.
+					if ( in_array( $attr_name, $uri_attributes, true ) || in_array( $local_attr, $uri_attributes, true ) ) {
+						if ( 0 !== strpos( $val, '#' ) ) {
+							$to_remove[] = $attr->nodeName;
+							continue;
+						}
+					}
+
+					if ( 'style' === $local_attr ) {
+						$attr->nodeValue = $sanitize_css( $val );
+					}
+				}
+				foreach ( $to_remove as $remove_name ) {
+					$node->removeAttribute( $remove_name );
+				}
+			}
+		}
+
+		$sanitized = $dom->saveXML( $dom->documentElement );
+		return is_string( $sanitized ) ? $sanitized : '';
+	}
+
+	/**
 	 * Saves cached SVG diagram representation and metadata on post save.
 	 *
 	 * @param int      $post_id Post ID.
@@ -1989,9 +2137,12 @@ class CPT {
 		}
 
 		if ( isset( $_POST['bpmn_svg_cache'] ) ) {
-			$raw_svg = wp_unslash( $_POST['bpmn_svg_cache'] );
-			if ( false !== strpos( $raw_svg, '<svg' ) && false === stripos( $raw_svg, '<script' ) ) {
-				update_post_meta( $post_id, '_ha_bpmn_svg_cache', $raw_svg );
+			$raw_svg       = wp_unslash( $_POST['bpmn_svg_cache'] );
+			$sanitized_svg = self::sanitize_svg( $raw_svg );
+			if ( '' !== $sanitized_svg ) {
+				update_post_meta( $post_id, '_ha_bpmn_svg_cache', $sanitized_svg );
+			} else {
+				delete_post_meta( $post_id, '_ha_bpmn_svg_cache' );
 			}
 		}
 	}
