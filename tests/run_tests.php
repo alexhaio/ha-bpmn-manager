@@ -1074,7 +1074,7 @@ namespace HA_BPMN\Tests {
 			echo "\n\033[33m[12/12] Security Hardening, SVG Sanitization, CPT Scoping & Uninstall\033[0m\n";
 
 			// 1. SVG sanitization strips XSS vectors while keeping safe vector markup
-			$dirtySvg = '<svg xmlns="http://www.w3.org/2000/svg" onload="alert(1)" viewBox="0 0 100 100"><script>alert(1)</script><foreignObject><div>xss</div></foreignObject><a href="javascript:alert(2)"><rect x="0" y="0" width="50" height="50" onclick="evil()"/></a><use href="#icon"/><use xlink:href="https://evil.test/x.svg#y"/></svg>';
+			$dirtySvg = '<svg xmlns="http://www.w3.org/2000/svg" onload="alert(1)" viewBox="0 0 100 100"><script>alert(1)</script><foreignObject><div>xss</div></foreignObject><a href="javascript:alert(2)"><path d="M0 0"/></a><rect x="0" y="0" width="50" height="50" onclick="evil()"/><use href="#icon"/><use xlink:href="https://evil.test/x.svg#y"/></svg>';
 			$cleanSvg = \HA_BPMN\CPT::sanitize_svg( $dirtySvg );
 			$this->assert( strpos( $cleanSvg, '<svg' ) !== false, "Sanitizer keeps valid root <svg> element" );
 			$this->assert( strpos( $cleanSvg, '<rect' ) !== false, "Sanitizer preserves safe vector <rect> shape" );
@@ -1094,7 +1094,7 @@ namespace HA_BPMN\Tests {
 				'post_type'   => 'post',
 				'post_status' => 'publish',
 			];
-			$this->assertSame( '', $renderer->render_diagram( [ 'id' => 901 ] ), "Renderer refuses non-bpmnm post types" );
+			$this->assert( strpos( $renderer->render_diagram( 901 ), 'Diagram not found' ) !== false, "Renderer refuses non-bpmnm post types" );
 
 			$GLOBALS['wp_test_posts'][902] = (object) [
 				'ID'          => 902,
@@ -1104,7 +1104,7 @@ namespace HA_BPMN\Tests {
 			];
 			$oldCaps = $GLOBALS['wp_test_user_caps'];
 			$GLOBALS['wp_test_user_caps'] = [];
-			$this->assertSame( '', $renderer->render_diagram( [ 'id' => 902 ] ), "Renderer hides draft diagram from unauthorized visitors" );
+			$this->assert( strpos( $renderer->render_diagram( 902 ), 'Diagram not accessible' ) !== false, "Renderer hides draft diagram from unauthorized visitors" );
 			$GLOBALS['wp_test_user_caps'] = $oldCaps;
 
 			// 3. Static mode falls back to interactive container when static SVG cache is empty
@@ -1115,12 +1115,12 @@ namespace HA_BPMN\Tests {
 				'post_status' => 'publish',
 			];
 			$GLOBALS['wp_test_post_meta'][903]['_ha_bpmn_svg_cache'] = '';
-			$fallbackHtml = $renderer->render_diagram( [ 'id' => 903, 'mode' => 'static' ] );
+			$fallbackHtml = $renderer->render_diagram( 903, '600px', true, 'static' );
 			$this->assert( strpos( $fallbackHtml, 'ha-bpmn-viewer-wrap' ) !== false, "Static mode falls back cleanly to interactive wrapper when SVG cache is empty" );
 
 			// 4. Static mode sanitizes cached SVG on render
 			$GLOBALS['wp_test_post_meta'][903]['_ha_bpmn_svg_cache'] = '<svg xmlns="http://www.w3.org/2000/svg"><script>xss()</script><circle cx="5" cy="5" r="4"/></svg>';
-			$staticHtml = $renderer->render_diagram( [ 'id' => 903, 'mode' => 'static' ] );
+			$staticHtml = $renderer->render_diagram( 903, '600px', true, 'static' );
 			$this->assert( strpos( $staticHtml, 'ha-bpmn-static-wrap' ) !== false, "Static mode renders static wrapper when SVG cache is valid" );
 			$this->assert( strpos( $staticHtml, '<circle' ) !== false && stripos( $staticHtml, '<script' ) === false, "Static output strips injected <script> from cached SVG" );
 
