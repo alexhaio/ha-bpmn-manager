@@ -551,6 +551,7 @@ class CPT {
 
 		$sanitized_xml = '';
 		if ( isset( $_POST['bpmn_xml'] ) ) {
+			// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Validated & sanitized via validate_bpmn_xml().
 			$raw_xml       = wp_unslash( $_POST['bpmn_xml'] );
 			$sanitized_xml = $this->validate_bpmn_xml( $raw_xml );
 		}
@@ -746,6 +747,7 @@ class CPT {
 		}
 
 		$settings = self::get_plugin_settings();
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only settings tab navigation.
 		$active_tab = isset( $_GET['tab'] ) ? sanitize_key( $_GET['tab'] ) : 'taxonomies';
 		?>
 		<div class="wrap ha-settings-dashboard">
@@ -1859,6 +1861,7 @@ class CPT {
 		header( 'Pragma: public' );
 		header( 'Content-Length: ' . strlen( $xml ) );
 
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Raw BPMN 2.0 XML attachment validated on save.
 		echo $xml;
 		exit;
 	}
@@ -1928,7 +1931,7 @@ class CPT {
 					);
 					$links[] = '<a href="' . esc_url( $url ) . '">' . esc_html( $term->name ) . '</a>';
 				}
-				echo implode( ', ', $links );
+				echo wp_kses( implode( ', ', $links ), [ 'a' => [ 'href' => true ] ] );
 			} else {
 				echo '<span style="color: #a7aaad;">—</span>';
 			}
@@ -1946,7 +1949,7 @@ class CPT {
 					);
 					$links[] = '<a href="' . esc_url( $url ) . '">' . esc_html( $term->name ) . '</a>';
 				}
-				echo implode( ', ', $links );
+				echo wp_kses( implode( ', ', $links ), [ 'a' => [ 'href' => true ] ] );
 			} else {
 				echo '<span style="color: #a7aaad;">—</span>';
 			}
@@ -2137,6 +2140,7 @@ class CPT {
 		}
 
 		if ( isset( $_POST['bpmn_svg_cache'] ) ) {
+			// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Sanitized immediately via CPT::sanitize_svg().
 			$raw_svg       = wp_unslash( $_POST['bpmn_svg_cache'] );
 			$sanitized_svg = self::sanitize_svg( $raw_svg );
 			if ( '' !== $sanitized_svg ) {

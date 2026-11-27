@@ -3,7 +3,7 @@
  * Plugin Name: HA-BPMN-Manager
  * Plugin URI: https://seo-hacker.de
  * Description: A professional, easy-to-use WordPress plugin to design, model, and embed BPMN 2.0 workflows based on bpmn-js.
- * Version: 4.9.0
+ * Version: 4.9.1
  * Author: Alexander Hacker
  * Author URI: https://seo-hacker.de
  * Text Domain: ha-bpmn-manager
@@ -24,7 +24,7 @@ namespace HA_BPMN;
 defined( 'ABSPATH' ) || exit;
 
 // Define plugin constants
-define( 'HA_BPMN_VERSION', '4.9.0' );
+define( 'HA_BPMN_VERSION', '4.9.1' );
 defined( 'HA_BPMN_FILE' ) || define( 'HA_BPMN_FILE', __FILE__ );
 define( 'HA_BPMN_PATH', plugin_dir_path( __FILE__ ) );
 define( 'HA_BPMN_URL', plugin_dir_url( __FILE__ ) );

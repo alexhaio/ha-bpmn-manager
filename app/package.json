@@ -1,6 +1,6 @@
 {
   "name": "ha-bpmn-modeler",
-  "version": "4.9.0",
+  "version": "4.9.1",
   "type": "module",
   "description": "BPMN 2.0 Modeler & Viewer assets for HA-BPMN-Manager",
   "private": true,

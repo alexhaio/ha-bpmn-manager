@@ -103,7 +103,7 @@ Führen Sie im Projekt-Hauptverzeichnis aus:
 1. Der Inhalt von `plugin/` wird geprüft.
 2. Es wird eine temporäre Staging-Struktur mit dem kanonischen Slug `ha-bpmn-manager/` erstellt.
 3. Sämtliche Entwickler-Dateien (`.map`, `.git`, Dev-Configs) werden gefiltert.
-4. Es wird ein sauberes, kompaktes ZIP-Archiv unter `release/ha-bpmn-manager.zip` (und versionsspezifisch `release/ha-bpmn-manager-v4.9.0.zip`) erstellt.
+4. Es wird ein sauberes, kompaktes ZIP-Archiv unter `release/ha-bpmn-manager.zip` (und versionsspezifisch `release/ha-bpmn-manager-v4.9.1.zip`) erstellt.
 
 ### Build & Packaging in einem einzigen Befehl
 Kompiliert die JS/CSS-Assets neu und packt anschließend direkt das fertige ZIP:

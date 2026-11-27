@@ -61,6 +61,7 @@ class Manager {
 			$rel_path = dirname( plugin_basename( HA_BPMN_PATH . 'ha-bpmn-manager.php' ) ) . '/languages';
 		}
 
+		// phpcs:ignore PluginCheck.CodeAnalysis.DiscouragedFunctions.load_plugin_textdomainFound -- Required for self-hosted GitHub distributions outside WordPress.org.
 		load_plugin_textdomain(
 			'ha-bpmn-manager',
 			false,

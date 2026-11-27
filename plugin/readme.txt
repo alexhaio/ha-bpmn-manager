@@ -1,11 +1,11 @@
 === HA-BPMN-Manager ===
 Contributors: mystryx
-Tags: bpmn, bpmn 2.0, workflow, diagram, process modeler, business process, gutenberg, camunda
+Tags: bpmn, bpmn 2.0, workflow, diagram, gutenberg
 Donate link: https://www.paypal.com/paypalme/edvhacker/6
 Requires at least: 5.8
-Tested up to: 6.7
+Tested up to: 7.1
 Requires PHP: 8.2
-Stable tag: 4.9.0
+Stable tag: 4.9.1
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -36,7 +36,7 @@ Whether you are managing ISO 9001 quality management (QM) procedures, operationa
 
 == Installation ==
 
-1. Download `ha-bpmn-manager-v4.9.0.zip` from the release page.
+1. Download `ha-bpmn-manager-v4.9.1.zip` from the release page.
 2. In your WordPress Admin dashboard, go to **Plugins -> Add New -> Upload Plugin**.
 3. Select the downloaded ZIP file and click **Install Now**.
 4. Click **Activate Plugin**.
@@ -84,6 +84,9 @@ Yes. All XML imports (both via file upload and canvas drag-and-drop) are validat
 6. **Token Simulation:** Step-by-step execution simulation with speed selection and logging.
 
 == Changelog ==
+
+= 4.9.1 =
+* **WordPress Plugin Check (PCP) Compliance & Code Quality:** Updated `Tested up to: 7.1`, limited `readme.txt` tags to 5 tags, fixed text domain mismatch in updater link (`plugin-update-checker` -> `ha-bpmn-manager`), added explicit `wp_kses()` escaping in `CPT::populate_custom_columns()`, prefixed global variables in `uninstall.php`, and documented intentional `phpcs:ignore` exceptions for raw BPMN XML download, pre-sanitized XML/SVG POST payloads, read-only settings tab navigation, shared ecosystem update token hook, and self-hosted translation loading.
 
 = 4.9.0 =
 * **Security Hardening (SVG & DOM XSS):** Added strict `DOMDocument` SVG sanitizer (`CPT::sanitize_svg()`) blocking `<script>`, `<foreignObject>`, inline event handlers (`on*`), and external URIs on both SVG cache write and render output, plus consistent HTML/URL escaping across all Quest HUD modals, Revision diffs, Step Tracker, Diagram Search, QM Handbook, and Certificate SVG templates.

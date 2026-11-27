@@ -9,7 +9,7 @@
 
 param(
     [switch]$Build = $false,
-    [string]$Version = "4.9.0"
+    [string]$Version = "4.9.1"
 )
 
 $ErrorActionPreference = "Stop"

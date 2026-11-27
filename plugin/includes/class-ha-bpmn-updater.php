@@ -134,6 +134,7 @@ class Updater {
 			if ( empty( $token ) && defined( 'GITHUB_ACCESS_TOKEN' ) ) {
 				$token = GITHUB_ACCESS_TOKEN;
 			}
+			// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Shared HA plugin ecosystem filter.
 			$token = apply_filters( 'ha_github_update_token', $token, 'ha-bpmn-manager' );
 
 			if ( ! empty( $token ) ) {
@@ -216,10 +217,7 @@ class Updater {
 					'puc_check_for_updates'
 				);
 
-				$link_text = __( 'Check for updates', 'plugin-update-checker' );
-				if ( 'Check for updates' === $link_text ) {
-					$link_text = __( 'Nach Updates suchen', 'ha-bpmn-manager' );
-				}
+				$link_text = __( 'Check for updates', 'ha-bpmn-manager' );
 
 				$plugin_meta[] = sprintf(
 					'<a href="%s">%s</a>',
